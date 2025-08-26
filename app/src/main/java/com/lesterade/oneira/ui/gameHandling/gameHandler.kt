@@ -16,7 +16,7 @@ import com.lesterade.oneira.ui.dashboard.DashboardFragment
 import org.json.JSONArray
 import kotlin.random.Random
 
-open class creature(val maxhp : Float, val elem: element, val name: String) {
+open class creature(val maxhp : Float, val elem: element, val name: String, val header: String) {
     var hp = maxhp
 
     var innerFire = 3
@@ -45,7 +45,7 @@ open class creature(val maxhp : Float, val elem: element, val name: String) {
 
 }
 
-open class actor(maxhp : Float, elem: element, name: String): creature(maxhp, elem, name) {
+open class actor(maxhp : Float, elem: element, name: String, header: String = name): creature(maxhp, elem, name, header) {
     var deck: MutableList<instrument> = mutableListOf(unknownWeapon(), unknownWeapon(), unknownWeapon())
 
     fun draw(): instrument {
@@ -66,15 +66,18 @@ class player(maxhp : Float, elem: element, name: String) : actor(maxhp, elem, na
     }
 }
 
-abstract class biome(val elem: element, val name: String, val header: String, val desc: String) {
+abstract class biome(val elem: element, val name: String, open val header: String, val desc: String) {
     abstract fun affect(a : creature)
     abstract fun getEnemy(): actor
     abstract fun advance(): biome?
 }
 
-class simpleBiome(elem: element, name: String, var depth: Int, header: String, desc: String): biome(elem, name, header, desc) {
+class simpleBiome(elem: element, name: String, var depth: Int, val inner_header: String, desc: String): biome(elem, name, inner_header, desc) {
     var deck: MutableList<String> = mutableListOf("costable")
     var next: MutableList<String> = mutableListOf()
+
+    override val header
+        get() = inner_header + " (" + (depth + 1).toString() + " steps left)"
 
     override fun affect(a: creature) {
 
@@ -100,7 +103,6 @@ class shop(elem: element, name: String, header: String, desc: String): biome(ele
     var next: MutableList<String> = mutableListOf()
     var sold: MutableList<instrument> = mutableListOf()
     var currentlySold: MutableList<instrument> = mutableListOf()
-
 
     fun pickWares() {
         val index = Random.nextInt(0, sold.size)
@@ -182,6 +184,7 @@ class forkLoc(elem: element, name: String, header: String, desc: String): biome(
 
 interface instrument {
     fun attack(from : creature, to : creature, located : biome): instrument
+    fun getSignature(from: creature, to: creature, located: biome): Pair<Float, Float>
 
     val name: String
     val header: String
@@ -214,6 +217,7 @@ open class simpleWeapon(val dmg: Float, val elem: element, val modelName : Strin
         hitDmg += hitDmg * 0.2f * located.elem.effect(elem)
         hitDmg += hitDmg * 0.2f * elem.effect(to.elem)
         to.hit(hitDmg)
+
         from.heal(getHeal(from, to, located))
 
         otherEffects(from, to, located)
@@ -221,6 +225,14 @@ open class simpleWeapon(val dmg: Float, val elem: element, val modelName : Strin
         if(turnsInto == null)
             return this
         return ToolFactory.getByName(turnsInto)
+    }
+
+    override fun getSignature(from: creature, to: creature, located: biome): Pair<Float, Float> {
+        var hitDmg = getDamage(from, to, located)
+        hitDmg += hitDmg * 0.2f * located.elem.effect(elem)
+        hitDmg += hitDmg * 0.2f * elem.effect(to.elem)
+
+        return Pair(hitDmg, getHeal(from, to, located))
     }
 
     override val name
@@ -311,6 +323,10 @@ class unknownWeapon(): instrument {
         return this
     }
 
+    override fun getSignature(from: creature, to: creature, located: biome): Pair<Float, Float> {
+        return Pair(0f, 0f)
+    }
+
     override val header
         get() = "???"
 
@@ -328,6 +344,8 @@ object GameMaster {
 
     var us = ActorFactory.getByName("player") as player
     var enemy = scene.getEnemy()
+
+    var msg = ""
 
     val ended
         get() = (scene is endingLoc)
@@ -404,6 +422,7 @@ object GameMaster {
         }
 
     fun activateTool(id: Int) {
+        msg = ""
         if(scene is shop) {
             val tmp = scene as shop
 
@@ -435,6 +454,7 @@ object GameMaster {
             var toAdd = us.hand[id]
             us.hand.removeAt(id)
 
+            val (hit, heal) = toAdd.getSignature(us, enemy, scene)
             toAdd = toAdd.attack(us, enemy, scene)
 
             if (enemy.dead) {
@@ -447,13 +467,30 @@ object GameMaster {
             us.deck.add(toAdd)
             us.hand.add(us.draw())
 
-            val tmp = enemy.draw()
-            tmp.attack(enemy, us, scene)
+            var tmp = enemy.draw()
+            tmp = tmp.attack(enemy, us, scene)
+            val (hit_en, heal_en) = tmp.getSignature(enemy, us, scene)
+
             enemy.deck.add(tmp)
 
             if(us.dead) {
                 scene = LocationFactory.getByName("ending_over")
             }
+
+
+            msg = ""
+            if(hit != 0f)
+                msg += "You hit for %.2f.".format(hit)
+            if(heal != 0f)
+                msg += "You heal for %.2f.".format(heal)
+
+            msg += "\n"
+            if(hit_en != 0f) {
+                msg += enemy.header + " hits for %.2f".format(hit_en)
+                if (heal_en != 0f)
+                    msg += " and heals for %.2f".format(heal_en)
+            } else if (heal_en != 0f)
+                msg += enemy.header + " heals for %.2f".format(heal_en)
 
             return
         }
@@ -520,6 +557,7 @@ class GameHandler {
         tripV?.right_bar = GameMaster.enemy.percent_hp
 
         tripV?.invalidate()
+        frag?.setMessage(GameMaster.msg)
         frag?.updateScene()
 
         tools.forEachIndexed{ index, toolDisplay -> toolDisplay.loadTool(GameMaster.display[index]) }

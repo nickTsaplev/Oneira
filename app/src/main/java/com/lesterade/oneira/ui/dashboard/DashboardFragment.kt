@@ -169,6 +169,10 @@ class DashboardFragment : Fragment() {
         return root
     }
 
+    fun setMessage(msg: String) {
+        binding.textLog.text = msg
+    }
+
     fun updateScene() {
         binding.textHeader.text = gameH!!.sceneHead
         binding.textDesc.text = gameH!!.sceneDesc

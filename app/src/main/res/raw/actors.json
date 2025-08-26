@@ -29,14 +29,14 @@
 	},
 	
 	"hunter": {
-		"name": "A hunter mistakes your for an elk",
+		"name": "A raving hunter",
 		"hp": 15.0,
 		"element": "fire",
 		"deck": ["gunpowder", "spark", "spark", "spark"]
 	},
 	
 	"devil": {
-		"name": "Something is wrong about this man..",
+		"name": "A devilish man",
 		"hp": 15.0,
 		"element": "fire",
 		"deck": ["spark", "spark", "spark", "spark"]
@@ -50,14 +50,14 @@
 	},
 	
 	"control": {
-		"name": "The mind control",
+		"name": "Mind control officer",
 		"hp": 15.0,
 		"element": "water",
-		"deck": ["rrptr", "rrptr", "cloud", "cloud"]
+		"deck": ["rrtpr", "rrtpr", "cloud", "cloud"]
 	},
 	
 	"tv": {
-		"name": "Your trusty television",
+		"name": "A trusty television",
 		"hp": 7.0,
 		"element": "water",
 		"deck": ["droplet", "droplet", "droplet", "droplet"]

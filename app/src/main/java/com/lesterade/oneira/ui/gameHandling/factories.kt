@@ -81,10 +81,8 @@ object ActorFactory: JsonFactory(R.raw.actors) {
 
         val isP = curObj.optString("player")
 
-
-
         val ans = if(isP == "" || isP == "false")
-            actor(hp, element.fromString(curObj.getString("element")), name)
+            actor(hp, element.fromString(curObj.getString("element")), name, curObj.getString("name"))
         else
             player(hp, element.fromString(curObj.getString("element")), name)
 
