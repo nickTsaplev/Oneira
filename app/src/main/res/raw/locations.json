@@ -1,0 +1,137 @@
+{
+  "mon_garden" : {
+    "header": "Monastery garden",
+    "desc": "A humid garden, covered by roses",
+    "enemies": ["costable"],
+    "depth": 1,
+    "element": "water",
+    "next": ["glassmakers"],
+    "type": "simple"
+  },
+  "glassmakers": {
+    "header": "Glassworker precint",
+    "desc": "Lamps minted under sweltering heat",
+    "enemies": ["costable"],
+    "depth": 1,
+    "element": "fire",
+    "next": ["electric_box"],
+    "type" : "simple"
+  },
+  
+  "start": {
+	"header": "A letter in your mailbox",
+    "desc": "You are suspected of something sinister and are summoned to face the court tomorrow.\nThis does not bode well. You probably won't return",
+    "type": "fork",
+    "element": "earth",
+    "next": [
+      ["run", "home"]
+    ]
+  },
+  
+  "home": {
+		"header": "An apartment",
+		"desc": "Your home. Or was it?",
+		"enemies": ["tv", "snake", "memories"],
+		"depth": 3,
+		"element": "earth",
+		"type": "simple",
+		"next": ["ministries"]
+  },
+  
+  "ministries": {
+		"header": "The ministries",
+		"desc": "The whir of machines fills the air",
+		"enemies": ["tv", "control", "devil"],
+		"depth": 3,
+		"element": "metal",
+		"type": "simple",
+		"next": ["corner_shop"]	
+  },
+  
+  "city_river": {
+		"header": "The embankment",
+		"desc": "Shady individuals meet near the muddled waters",
+		"enemies": ["devil", "control", "herald"],
+		"depth": 3,
+		"element": "water",
+		"next": ["statue"],
+		"type": "simple"
+  },
+  
+  "rails": {
+		"header": "The railway on the edge of the city",
+		"desc": "You smell gunpowder",
+		"enemies": ["rogue", "herald", "hunter"],
+		"depth": 3,
+		"element": "fire",
+		"type": "simple",
+		"next": ["electric_box"]
+  },
+  
+  "forest": {
+	  "header": "The forests",
+	  "desc": "Maybe you can escape up north?",
+	  "depth": 3,
+	  "enemies": ["hunter", "elk", "thicket"],
+	  "element": "wood",
+	  "type": "simple",
+	  "next": ["ending_north"]
+  },
+  
+  "corner_shop": {
+    "header": "An empty corner shop",
+    "element": "fire",
+    "desc": "Choose a move to gain",
+    "wares": ["sap", "rainfall"],
+    "next": ["city_river"],
+    "type": "shop"
+  },
+  
+  "statue": {
+    "header": "A pile of offerings near the statue",
+    "element": "fire",
+    "desc": "Choose a move to gain",
+    "wares": ["rrtpr", "dusty_office"],
+    "next": ["rails"],
+    "type": "shop"
+  },
+  
+  "electric_box": {
+    "header": "An unassuming sight near the rails",
+    "element": "fire",
+    "desc": "Choose a move to gain",
+    "wares": ["rrtpr", "raging_fire"],
+    "next": ["forest"],
+    "type": "shop"
+  },
+
+  "forked": {
+    "header": "",
+    "desc": "Choose a direction",
+    "next": [
+      ["upwards", "glassmakers"],
+      ["downwards", "ending_1"]
+    ]
+  },
+
+  "ending_1": {
+    "header": "The end. \n Congratulations!",
+    "desc": "",
+    "element": "fire",
+    "type": "ending"
+  },
+  
+  "ending_over": {
+	"header": "You failed to escape",
+	"desc": "",
+	"element": "fire",
+	"type": "ending"
+  },
+  
+  "ending_north": {
+	  "header": "You travel farther and farther north for months. Perhaps one day you'll find someone. Perhaps not. \n But you've definetely managed to escape this nightmare.",
+	  "desc": "",
+	  "element": "water",
+	  "type": "ending"
+  }
+}

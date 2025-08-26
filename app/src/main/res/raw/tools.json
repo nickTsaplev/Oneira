@@ -1,0 +1,149 @@
+{
+	"candle": {
+		"header": "A candle",
+		"description": "Attack equal to your inner fire,\nlower it by 4 if it's higher than 4",
+		"type": "fiery",
+		"damage": 0.0,
+		"fire_effect": -4,
+		"element": "fire"
+	},
+	"raging_fire": {
+		"header": "Raging fire",
+		"description": "Burn all moves in your hand,\nincrease your inner fire by 10",
+		"type": "handBurn",
+		"damage": 0.01,
+		"fire_effect": 10,
+		"element": "fire"
+	},
+
+	"rrtpr": {
+		"header": "R-R typewriter",
+		"description": "Deal 10 damage, you'll have to reload",
+		"type": "reloading",
+		"turns_into": "rr_tape",
+		"damage": 10.0,
+		"element": "metal"
+	},
+	"rr_tape": {
+		"header": "Change the tape",
+		"description": "Reload your typewriter",
+		"type": "reloading",
+		"turns_into": "rrtpr",
+		"damage": 0.0,
+		"element": "metal"
+	},
+
+	"cloud": {
+		"header": "A cloud",
+		"description": "Heal 5 hp",
+		"type": "simple",
+		"damage": 0.0,
+		"element": "water",
+		"heals": 5.0
+	},
+
+	"droplet": {
+		"header": "Rain droplet",
+		"description": "Deal 2 damage",
+		"type": "simple",
+		"damage": 2.0,
+		"element": "water"
+	},
+
+
+	"rainfall" : {
+		"header": "Rainfall",
+		"description": "Deal damage equal to four times \nthe number of droplets & clouds in your deck",
+		"type": "boosted",
+		"damage": 4.0,
+		"element": "water"
+	},
+
+	"sap": {
+		"header": "Sap transfer",
+		"description": "Take 5 hp from the enemy",
+		"type": "lifesteal",
+		"damage": 5.0,
+		"element": "wood"
+	},
+
+	"wishing_tree": {
+		"header": "Wishing tree",
+		"description": "Deal 10 minus the inner fire amount of damage.",
+		"type": "wooden",
+		"damage": 10.0,
+		"element": "wood"
+	},
+
+	
+	
+	"gunpowder": {
+		"header": "Gunpowder",
+		"description": "Deal 10 damage. This is probably unsafe",
+		"type": "simple",
+		"damage": 10.0,
+		"element": "fire"
+	},
+	"spark": {
+		"header": "A spark",
+		"description": "Deal 3 damage.",
+		"type": "simple",
+		"damage": 3.0,
+		"element": "fire"
+	},
+
+	"predict_move": {
+		"header": "Predictable move",
+		"description": "Deal 1 damage.\nIncrease earth affiliation by 1",
+		"type": "simple",
+		"damage": 5.0,
+		"element": "earth"
+	},
+	"nothing": {
+		"header": "Nothing",
+		"description": "take nothing",
+		"type": "simple",
+		"damage": 5.0,
+		"element": "earth"
+	},
+	"none": {
+		"header": "",
+		"description": "",
+		"type": "simple",
+		"damage": 5.0,
+		"element": "earth"
+	},
+	
+	"run": {
+		"header": "Pack your belongings",
+		"description": "You have to run",
+		"type": "simple",
+		"damage": 5.0,
+		"element": "earth"
+	},
+	
+	"bridge": {
+		"header": "Steady bridge",
+		"description": "Deal 5 damage",
+		"type": "simple",
+		"damage": 5.0,
+		"element": "earth"
+	},
+	"dusty_office": {
+		"header": "A dusty office",
+		"description": "Redraw your hand. Heal 5 hp",
+		"type": "redraw",
+		"damage": 0.0,
+		"heals": 5.0,
+		"element": "earth"
+	},
+
+	"ling_spark": {
+		"header": "Lingering spark",
+		"description": "Deal damage equal to your fire affiliation, decrease it by 1",
+		"type": "simple",
+		"damage": 5.0,
+		"element": "earth"
+	}
+
+}

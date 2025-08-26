@@ -1,0 +1,86 @@
+{
+	"costable": {
+		"name": "Co-n-stable",
+		"hp": 10.0,
+		"element": "water",
+		"deck": ["droplet", "droplet"]
+	},
+	"player": {
+		"name": "Player",
+		"hp": 30.0,
+		"player": "true",
+		"element": "fire",
+		"deck": ["bridge", "cloud", "cloud", "candle"]
+	},
+	
+	
+	"elk": {
+		"name": "A wandering elk",
+		"hp": 20.0,
+		"element": "wood",
+		"deck": ["rrtpr", "bridge", "bridge", "sap"]
+	},
+	
+	"thicket": {
+		"name": "Needles and thorns",
+		"hp": 25.0,
+		"element": "wood",
+		"deck": ["sap", "sap", "bridge", "sap"]
+	},
+	
+	"hunter": {
+		"name": "A hunter mistakes your for an elk",
+		"hp": 15.0,
+		"element": "fire",
+		"deck": ["gunpowder", "spark", "spark", "spark"]
+	},
+	
+	"devil": {
+		"name": "Something is wrong about this man..",
+		"hp": 15.0,
+		"element": "fire",
+		"deck": ["spark", "spark", "spark", "spark"]
+	},
+	
+	"herald": {
+		"name": "A herald of the new democracy",
+		"hp": 20.0,
+		"element": "fire",
+		"deck": ["spark", "spark", "cloud", "cloud"]	
+	},
+	
+	"control": {
+		"name": "The mind control",
+		"hp": 15.0,
+		"element": "water",
+		"deck": ["rrptr", "rrptr", "cloud", "cloud"]
+	},
+	
+	"tv": {
+		"name": "Your trusty television",
+		"hp": 7.0,
+		"element": "water",
+		"deck": ["droplet", "droplet", "droplet", "droplet"]
+	},
+	
+	"memories": {
+		"name": "Someone's memories",
+		"hp": 10.0,
+		"element": "earth",
+		"deck": ["droplet", "droplet", "droplet", "bridge"]
+	},
+	
+	"rogue": {
+		"name": "A rogue engine",
+		"hp": 10.0,
+		"element": "fire",
+		"deck": ["gunpowder", "droplet", "cloud", "cloud"]	
+	},
+	
+	"snake": {
+		"name": "A snake??",
+		"hp": 7.0,
+		"element": "earth",
+		"deck": ["droplet", "droplet", "droplet", "droplet"]	
+	}
+}
