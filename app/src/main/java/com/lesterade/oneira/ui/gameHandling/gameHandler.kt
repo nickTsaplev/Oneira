@@ -28,7 +28,7 @@ open class creature(val maxhp : Float, val elem: element, val name: String) {
 
     fun hit(dmg: Float) {
         hp -= dmg
-        if (hp < 0) {
+        if (hp <= 0) {
             hp = 0f
             dead = true
         }
