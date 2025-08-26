@@ -2,15 +2,11 @@ package com.lesterade.oneira.ui.gameHandling
 
 import android.content.Context
 import android.content.Intent
-import kotlinx.serialization.*
-import kotlinx.serialization.modules.*
 import org.json.JSONObject
-import android.content.res.*
 
 import com.lesterade.oneira.ui.dashboard.TripView
 import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 
-import com.lesterade.oneira.R
 import com.lesterade.oneira.ui.EndingActivity
 import com.lesterade.oneira.ui.dashboard.DashboardFragment
 import org.json.JSONArray
@@ -22,7 +18,7 @@ open class creature(val maxhp : Float, val elem: element, val name: String, val 
     var innerFire = 3
 
     val percent_hp
-        get() = hp.toFloat()/maxhp.toFloat()
+        get() = hp/maxhp
 
     var dead = false
 
