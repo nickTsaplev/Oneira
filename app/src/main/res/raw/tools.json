@@ -9,7 +9,7 @@
 	},
 	"raging_fire": {
 		"header": "Raging fire",
-		"description": "Burn all moves in your hand,\nincrease your inner fire by 10",
+		"description": "Burn a random move in your hand,\nincrease your inner fire by 10",
 		"type": "handBurn",
 		"damage": 0.01,
 		"fire_effect": 10,
@@ -18,10 +18,10 @@
 
 	"rrtpr": {
 		"header": "R-R typewriter",
-		"description": "Deal 10 damage, you'll have to reload",
+		"description": "Deal 15 damage, you'll have to reload",
 		"type": "reloading",
 		"turns_into": "rr_tape",
-		"damage": 10.0,
+		"damage": 15.0,
 		"element": "metal"
 	},
 	"rr_tape": {
@@ -53,9 +53,9 @@
 
 	"rainfall" : {
 		"header": "Rainfall",
-		"description": "Deal damage equal to four times \nthe number of droplets & clouds in your deck",
+		"description": "Deal damage equal to eight times \nthe number of clouds in your deck",
 		"type": "boosted",
-		"damage": 4.0,
+		"damage": 8.0,
 		"element": "water"
 	},
 
@@ -103,14 +103,14 @@
 		"header": "Nothing",
 		"description": "take nothing",
 		"type": "simple",
-		"damage": 5.0,
+		"damage": 0.0,
 		"element": "earth"
 	},
 	"none": {
 		"header": "",
 		"description": "",
 		"type": "simple",
-		"damage": 5.0,
+		"damage": 0.0,
 		"element": "earth"
 	},
 	

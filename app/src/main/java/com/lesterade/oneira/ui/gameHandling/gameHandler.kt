@@ -39,6 +39,7 @@ open class creature(val maxhp : Float, val elem: element, val name: String, val 
             hp = maxhp
     }
 
+    open val damageBoost = 0
 }
 
 open class actor(maxhp : Float, elem: element, name: String, header: String = name): creature(maxhp, elem, name, header) {
@@ -60,6 +61,16 @@ class player(maxhp : Float, elem: element, name: String) : actor(maxhp, elem, na
             hand.add(draw())
         }
     }
+
+    override val damageBoost: Int
+        get() {
+            var ans = 0
+            hand.forEach {
+                if(it is boostingWeapon)
+                    ans += it.damageBoost
+            }
+            return ans
+        }
 }
 
 abstract class biome(val elem: element, val name: String, open val header: String, val desc: String) {
@@ -106,7 +117,9 @@ class shop(elem: element, name: String, header: String, desc: String): biome(ele
         currentlySold.add(sold[index])
 
 
-        val index2 = Random.nextInt(0, sold.size)
+        var index2 = Random.nextInt(0, sold.size)
+        while(index2 == index)
+            index2 = Random.nextInt(0, sold.size)
 
         currentlySold.add(sold[index2])
 
@@ -197,7 +210,7 @@ open class simpleWeapon(val dmg: Float, val elem: element, val modelName : Strin
     var isLifesteal = false
 
     open fun getDamage(from: creature, to: creature, located: biome): Float {
-        return dmg
+        return dmg + from.damageBoost
     }
     open fun getHeal(from: creature, to: creature, located: biome): Float {
         if(isLifesteal)
@@ -245,6 +258,10 @@ open class simpleWeapon(val dmg: Float, val elem: element, val modelName : Strin
     }
 }
 
+class boostingWeapon(base: simpleWeapon, val damageBoost: Int): simpleWeapon(base) {
+
+}
+
 class boostedWeapon(base: simpleWeapon, val counted: List<String>): simpleWeapon(base) {
     override fun getDamage(from: creature, to: creature, located: biome): Float {
         if(from is player) {
@@ -285,12 +302,12 @@ class handBurner(base: simpleWeapon, val fireEff: Int): simpleWeapon(base) {
             from.innerFire += fireEff
 
         if(from is player) {
-            if(from.hand.size + from.deck.size < 7) {
+            if(from.hand.size + from.deck.size < 4) {
                 from.hp = 0f
                 return
             }
 
-            from.hand = mutableListOf()
+            from.hand.removeAt(Random.nextInt(0, from.hand.size))
             from.redraw()
         }
     }
@@ -420,6 +437,8 @@ object GameMaster {
     fun activateTool(id: Int) {
         msg = ""
         if(scene is shop) {
+            us.hp = us.maxhp // Shops restore hp
+
             val tmp = scene as shop
 
             val toAdd = tmp.currentlySold[id]
@@ -464,8 +483,9 @@ object GameMaster {
             us.hand.add(us.draw())
 
             var tmp = enemy.draw()
-            tmp = tmp.attack(enemy, us, scene)
+
             val (hit_en, heal_en) = tmp.getSignature(enemy, us, scene)
+            tmp = tmp.attack(enemy, us, scene)
 
             enemy.deck.add(tmp)
 
@@ -476,7 +496,7 @@ object GameMaster {
 
             msg = ""
             if(hit != 0f)
-                msg += "You hit for %.2f.".format(hit)
+                msg += "You hit for %.2f. ".format(hit)
             if(heal != 0f)
                 msg += "You heal for %.2f.".format(heal)
 

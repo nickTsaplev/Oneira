@@ -61,7 +61,7 @@
   "rails": {
 		"header": "The railway on the edge of the city",
 		"desc": "You smell gunpowder",
-		"enemies": ["rogue", "herald", "hunter"],
+		"enemies": ["rogue", "herald", "hunter", "rogue", "rogue", "herald", "rogue"],
 		"depth": 3,
 		"element": "fire",
 		"type": "simple",
@@ -72,7 +72,7 @@
 	  "header": "The forests",
 	  "desc": "Maybe you can escape up north?",
 	  "depth": 3,
-	  "enemies": ["hunter", "elk", "thicket"],
+	  "enemies": ["hunter", "elk", "thicket", "thicket", "elk", "thicket"],
 	  "element": "wood",
 	  "type": "simple",
 	  "next": ["ending_north"]

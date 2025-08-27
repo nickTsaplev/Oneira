@@ -10,7 +10,7 @@
 		"hp": 30.0,
 		"player": "true",
 		"element": "fire",
-		"deck": ["bridge", "cloud", "cloud", "candle"]
+		"deck": ["bridge", "cloud", "candle"]
 	},
 	
 	
@@ -18,14 +18,14 @@
 		"name": "A wandering elk",
 		"hp": 20.0,
 		"element": "wood",
-		"deck": ["rrtpr", "bridge", "bridge", "sap"]
+		"deck": ["cloud", "bridge", "bridge", "droplet"]
 	},
 	
 	"thicket": {
 		"name": "Needles and thorns",
-		"hp": 25.0,
+		"hp": 20.0,
 		"element": "wood",
-		"deck": ["sap", "sap", "bridge", "sap"]
+		"deck": ["sap", "sap", "nothing", "nothing"]
 	},
 	
 	"hunter": {
@@ -53,7 +53,7 @@
 		"name": "Mind control officer",
 		"hp": 15.0,
 		"element": "water",
-		"deck": ["rrtpr", "rrtpr", "cloud", "cloud"]
+		"deck": ["rrtpr", "droplet", "droplet", "cloud"]
 	},
 	
 	"tv": {
