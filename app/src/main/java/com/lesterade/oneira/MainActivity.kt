@@ -21,11 +21,12 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         ToolFactory.launch(applicationContext)
         ActorFactory.launch(applicationContext)
         LocationFactory.launch(applicationContext)
+
+        super.onCreate(savedInstanceState)
+
         GameMaster.startNewGame(intent.getStringExtra("com.lesterade.oneira.charname") ?: "player")
 
         binding = ActivityMainBinding.inflate(layoutInflater)

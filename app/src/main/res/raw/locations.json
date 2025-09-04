@@ -24,10 +24,22 @@
     "type": "fork",
     "element": "earth",
     "next": [
-      ["run", "home"]
+      ["run", "home"],
+      ["get_tutorial", "tutorial"]
     ]
   },
-  
+
+  "tutorial": {
+    "header": "Introduction",
+    "desc": "You and your opponent take turns playing moves from your hands. \nAfter a move is played you will redraw another from your deck(you can see it in the cards tab)",
+    "type": "fork",
+    "element": "earth",
+    "next": [
+      ["onwards", "home"]
+    ]
+  },
+
+
   "home": {
 		"header": "An apartment",
 		"desc": "Your home. Or was it?",
@@ -91,7 +103,7 @@
     "header": "A pile of offerings near the statue",
     "element": "fire",
     "desc": "Choose a move to gain",
-    "wares": ["rrtpr", "dusty_office"],
+    "wares": ["rrtpr", "dusty_office", "optics"],
     "next": ["rails"],
     "type": "shop"
   },
@@ -100,7 +112,7 @@
     "header": "An unassuming sight near the rails",
     "element": "fire",
     "desc": "Choose a move to gain",
-    "wares": ["rrtpr", "raging_fire"],
+    "wares": ["engine", "raging_fire"],
     "next": ["forest"],
     "type": "shop"
   },
@@ -129,7 +141,7 @@
   },
   
   "ending_north": {
-	  "header": "You travel farther and farther north for months. Perhaps one day you'll find someone. Perhaps not. \n But you've definetely managed to escape this nightmare.",
+	  "header": "You travel farther and farther north for months. Perhaps one day you'll find someone. Perhaps not. \n But you've definetely managed to escape this nightmare.\nThe end.",
 	  "desc": "",
 	  "element": "water",
 	  "type": "ending"

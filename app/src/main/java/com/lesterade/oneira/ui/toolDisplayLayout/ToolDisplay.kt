@@ -9,6 +9,18 @@ import com.lesterade.oneira.ui.gameHandling.GameHandler
 import com.lesterade.oneira.R
 import com.lesterade.oneira.ui.gameHandling.instrument
 
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.*
+import androidx.compose.ui.graphics.*
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.*
+import androidx.compose.ui.tooling.preview.*
+import androidx.compose.ui.unit.*
+import androidx.constraintlayout.compose.*
+
 class ToolDisplay(context: Context, attrs: AttributeSet?): ConstraintLayout(context, attrs) {
     var clickId = 0
     var handler: GameHandler? = null
@@ -29,6 +41,27 @@ class ToolDisplay(context: Context, attrs: AttributeSet?): ConstraintLayout(cont
     }
 
     fun loadTool(tl: instrument) {
-        loadTool(tl.imageId, tl.header, tl.desc)
+        loadTool(tl.imageId, tl.header, tl.description)
+    }
+}
+
+data class dispTool(var name: String = "none", var header: String = "", var desc: String = "")
+
+@Composable
+fun toolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit) {
+    val current = LocalContext.current
+    val id = current.resources.getIdentifier(disp.name, "drawable", current.packageName)
+
+    Box(Modifier.clickable{onClk(clickId)}.fillMaxWidth()) {
+        Row {
+            Image(
+                painter = painterResource(id = id),
+                disp.header
+            )
+            Column {
+                Text(disp.header, color = Color(0xFFB66D00))
+                Text(disp.desc, color = Color(0xFFB66D00))
+            }
+        }
     }
 }

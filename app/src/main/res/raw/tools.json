@@ -20,7 +20,7 @@
 		"header": "R-R typewriter",
 		"description": "Deal 15 damage, you'll have to reload",
 		"type": "reloading",
-		"turns_into": "rr_tape",
+		"turnsInto": "rr_tape",
 		"damage": 15.0,
 		"element": "metal"
 	},
@@ -28,7 +28,7 @@
 		"header": "Change the tape",
 		"description": "Reload your typewriter",
 		"type": "reloading",
-		"turns_into": "rrtpr",
+		"turnsInto": "rrtpr",
 		"damage": 0.0,
 		"element": "metal"
 	},
@@ -39,7 +39,7 @@
 		"type": "simple",
 		"damage": 0.0,
 		"element": "water",
-		"heals": 5.0
+		"heal": 5.0
 	},
 
 	"droplet": {
@@ -55,6 +55,7 @@
 		"header": "Rainfall",
 		"description": "Deal damage equal to eight times \nthe number of clouds in your deck",
 		"type": "boosted",
+		"by": ["cloud"],
 		"damage": 8.0,
 		"element": "water"
 	},
@@ -121,6 +122,39 @@
 		"damage": 5.0,
 		"element": "earth"
 	},
+
+	"onwards": {
+		"header": "Onwards",
+		"description": "You have places to be",
+		"type": "simple",
+		"damage": 5.0,
+		"element": "earth"
+	},
+	"get_tutorial": {
+		"header": "But how?",
+		"description": "Show the tutorial",
+		"type": "simple",
+		"damage": 5.0,
+		"element": "earth"
+	},
+
+	"engine" : {
+		"header": "A small engine",
+		"description": "Boosts your damage by 5 while in hand",
+		"type": "boosting",
+		"dmg_boost": 5.0,
+		"damage" : 5.0,
+		"element": "metal"
+	},
+
+	"optics" : {
+		"header": "Midnight optics",
+		"description": "Deal 7 damage. \nChance to skip battle with \nthe bringers of the new democracy.",
+		"type": "peacemaking",
+		"peace_with": ["herald"],
+		"damage": 7.0,
+		"element": "fire"
+	},
 	
 	"bridge": {
 		"header": "Steady bridge",
@@ -134,7 +168,7 @@
 		"description": "Redraw your hand. Heal 5 hp",
 		"type": "redraw",
 		"damage": 0.0,
-		"heals": 5.0,
+		"heal": 5.0,
 		"element": "earth"
 	},
 

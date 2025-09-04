@@ -1,11 +1,14 @@
 package com.lesterade.oneira.ui.gameHandling
 
-enum class element {
+import kotlinx.serialization.Serializable
+
+@Serializable
+enum class Element {
     water {
-        override fun effect(other: element): Int {
-            if (other == element.wood)
+        override fun effect(other: Element): Int {
+            if (other == Element.wood)
                 return 1
-            if (other == element.fire)
+            if (other == Element.fire)
                 return -1
             return 0
         }
@@ -13,10 +16,10 @@ enum class element {
             get() = "Wt"
     },
     wood {
-        override fun effect(other: element): Int {
-            if (other == element.fire)
+        override fun effect(other: Element): Int {
+            if (other == Element.fire)
                 return 1
-            if (other == element.earth)
+            if (other == Element.earth)
                 return -1
             return 0
         }
@@ -24,10 +27,10 @@ enum class element {
             get() = "Wd"
     },
     fire {
-        override fun effect(other: element): Int {
-            if (other == element.earth)
+        override fun effect(other: Element): Int {
+            if (other == Element.earth)
                 return 1
-            if (other == element.metal)
+            if (other == Element.metal)
                 return -1
             return 0
         }
@@ -35,10 +38,10 @@ enum class element {
             get() = "F"
     },
     earth {
-        override fun effect(other: element): Int {
-            if (other == element.metal)
+        override fun effect(other: Element): Int {
+            if (other == Element.metal)
                 return 1
-            if (other == element.water)
+            if (other == Element.water)
                 return -1
             return 0
         }
@@ -46,10 +49,10 @@ enum class element {
             get() = "E"
     },
     metal {
-        override fun effect(other: element): Int {
-            if (other == element.water)
+        override fun effect(other: Element): Int {
+            if (other == Element.water)
                 return 1
-            if (other == element.wood)
+            if (other == Element.wood)
                 return -1
             return 0
         }
@@ -58,11 +61,11 @@ enum class element {
             get() = "M"
     };
 
-    abstract fun effect(other: element): Int
+    abstract fun effect(other: Element): Int
     abstract val tochar: String
 
     companion object {
-        fun fromString(s: String): element = when (s) {
+        fun fromString(s: String): Element = when (s) {
             "water" -> water
             "fire" -> fire
             "earth" -> earth

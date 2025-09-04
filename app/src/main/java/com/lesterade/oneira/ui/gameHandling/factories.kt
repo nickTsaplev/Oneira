@@ -4,8 +4,30 @@ import android.content.Context
 import com.lesterade.oneira.R
 import org.json.JSONObject
 
-abstract class JsonFactory(val id: Int) {
-    var data = JSONObject()
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.Json.Default.parseToJsonElement
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.decodeFromJsonElement
+import kotlinx.serialization.json.float
+import kotlinx.serialization.json.int
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
+import kotlinx.serialization.json.jsonPrimitive
+
+fun JsonArray.toStringList(): MutableList<String> {
+    val ans = mutableListOf<String>()
+
+    for(i in 0..<size)
+        ans.add(get(i).jsonPrimitive.content)
+
+    return ans
+}
+
+abstract class BetterJsonFactory(val id: Int) {
+    protected val json = Json { ignoreUnknownKeys = true }
+
+    var data = JsonObject(mapOf())
 
     fun launch(context: Context) {
         val stream = context.resources.openRawResource(id)
@@ -13,35 +35,29 @@ abstract class JsonFactory(val id: Int) {
         var text = String()
         while(stream.available() != 0)
             text += String(byteArrayOf(stream.read().toByte()))
-        data = JSONObject(text)
+        data = parseToJsonElement(text).jsonObject
     }
 }
 
-object ToolFactory: JsonFactory(R.raw.tools) {
+object ToolFactory: BetterJsonFactory(R.raw.tools) {
+
     fun getByName(name: String): instrument {
-        val curObj = data.optJSONObject(name) ?: return unknownWeapon()
-        val type = curObj.optString("type")
+        val curObj = data[name]?.jsonObject ?: return unknownWeapon()
+        val type = curObj["type"]?.jsonPrimitive?.content ?: return unknownWeapon()
 
-        val damage = curObj.getDouble("damage").toFloat()
-        val elem = element.fromString(curObj.getString("element"))
+        //val damage = curObj.getDouble("damage").toFloat()
+        //val elem = element.fromString(curObj.getString("element"))
 
-        var heal = 0f
-        if(!curObj.optDouble("heals").isNaN())
-            heal = curObj.optDouble("heals").toFloat()
+        //var heal = 0f
+        //if(!curObj.optDouble("heals").isNaN())
+        //    heal = curObj.optDouble("heals").toFloat()
 
-        var t_into: String? = curObj.optString("turns_into")
-        if(t_into == "")
-            t_into = null
+        //var t_into: String? = curObj.optString("turns_into")
+        //if(t_into == "")
+        //    t_into = null
 
-        val base = simpleWeapon(
-            damage,
-            elem,
-            name,
-            curObj.getString("header"),
-            curObj.getString("description"),
-            heal,
-            t_into
-        )
+        val base = json.decodeFromJsonElement<simpleWeapon>(curObj)
+        base.name = name
 
         when(type) {
             "simple" -> return base
@@ -49,10 +65,26 @@ object ToolFactory: JsonFactory(R.raw.tools) {
             "redraw" -> return redrawingWeapon(
                 base
             )
-            "boosted" -> return boostedWeapon(
+            "boosting" -> return boostingWeapon(
                 base,
-                listOf("cloud", "droplet")
+                curObj["dmg_boost"]!!.jsonPrimitive.float
             )
+            "boosted" -> {
+                val ans = mutableListOf<String>()
+                val names = curObj["by"]?.jsonArray ?: return unknownWeapon()
+
+                return boostedWeapon(
+                    base, names.toStringList()
+                )
+            }
+            "peacemaking" -> {
+                val ans = peacemakingWeapon(base)
+                val p = curObj["peace_with"]?.jsonArray ?: return unknownWeapon()
+
+                ans.peaceWith = p.toStringList()
+
+                return ans
+            }
             "wooden" -> return woodenWeapon(
                 base
             )
@@ -62,119 +94,108 @@ object ToolFactory: JsonFactory(R.raw.tools) {
             }
             "fiery" -> return fieryWeapon(
                 base,
-                curObj.getInt("fire_effect")
+                curObj["fire_effect"]!!.jsonPrimitive.int
             )
             "handBurn" -> return handBurner(
                 base,
-                curObj.getInt("fire_effect")
+                curObj["fire_effect"]!!.jsonPrimitive.int
             )
         }
         return unknownWeapon()
     }
 }
 
-object ActorFactory: JsonFactory(R.raw.actors) {
+object ActorFactory: BetterJsonFactory(R.raw.actors) {
     fun getByName(name: String): actor {
-        val curObj = data.optJSONObject(name) ?: return actor(0f, element.fire, "?")
+        val curObj = data[name]?.jsonObject ?: return actor(0f, Element.fire, "?", "?")
 
-        val hp = curObj.getDouble("hp").toFloat()
+        val isP = curObj["player"]?.jsonPrimitive?.content
 
-        val isP = curObj.optString("player")
+        val base = json.decodeFromJsonElement<creature>(curObj)
+        base.name = name
 
         val ans = if(isP == "" || isP == "false")
-            actor(hp, element.fromString(curObj.getString("element")), name, curObj.getString("name"))
+            actor(base)
         else
-            player(hp, element.fromString(curObj.getString("element")), name)
+            player(base)
 
 
-        val tools = curObj.getJSONArray("deck")
+        val tools = curObj["deck"]!!.jsonArray
         ans.deck = mutableListOf()
-        for(i in 0..<tools.length())
-            ans.deck.add(ToolFactory.getByName(tools.getString(i)))
+        for(i in 0..<tools.size)
+            ans.deck.add(ToolFactory.getByName(tools[i].jsonPrimitive.content))
 
         return ans
     }
 }
 
-object LocationFactory: JsonFactory(R.raw.locations) {
+object LocationFactory: BetterJsonFactory(R.raw.locations) {
     fun getByName(name: String): biome {
-        val curObj = data.optJSONObject(name) ?: return simpleBiome(element.water, "mon_garden", 1, "", "")
-        val type = curObj.optString("type")
+        val curObj = data[name]?.jsonObject ?: return simpleBiome(Element.water, "mon_garden", 1, "Unknown location: $name", "")
+        val type = curObj["type"]?.jsonPrimitive?.content ?: return simpleBiome(Element.water, "mon_garden", 1, "Misformatted location: $name", "")
 
-        val header = curObj.getString("header")
-        val desc = curObj.getString("desc")
         when(type) {
             "simple" -> {
-                val depth = curObj.getInt("depth")
+                val ans = json.decodeFromJsonElement<simpleBiome>(curObj)
+                ans.name = name
 
-                val ans =
-                    simpleBiome(element.fromString(curObj.getString("element")), name, depth, header, desc)
-
-                val deck = curObj.getJSONArray("enemies")
-
-                ans.deck = mutableListOf()
-
-                for (i in 0..<deck.length())
-                    ans.deck.add(deck.getString(i))
-
-                val next = curObj.getJSONArray("next")
-
-                for (i in 0..<next.length())
-                    ans.next.add(next.getString(i))
+                ans.deck = curObj["enemies"]!!.jsonArray.toStringList()
+                ans.next = curObj["next"]!!.jsonArray.toStringList()
 
                 return ans
             }
             "shop" -> {
-                val ans = shop(element.fromString(curObj.getString("element")), name, header, desc)
+                val ans = json.decodeFromJsonElement<shop>(curObj)
+                ans.name = name
 
-                val deck = curObj.getJSONArray("wares")
-                for (i in 0..<deck.length()) {
+                val deck = curObj["wares"]!!.jsonArray
+                for (i in 0..<deck.size) {
                     ans.sold.add(ToolFactory.getByName(
-                        deck.getString(i)))
+                        deck[i].jsonPrimitive.content))
                 }
-                val next = curObj.getJSONArray("next")
-
-                for (i in 0..<next.length())
-                    ans.next.add(next.getString(i))
+                ans.next = curObj["next"]!!.jsonArray.toStringList()
 
                 ans.pickWares()
                 return ans
             }
             "lose" -> {
-                val ans = loseLoc(element.fromString(curObj.getString("element")), name, header, desc)
+                val ans = json.decodeFromJsonElement<loseLoc>(curObj)
+                ans.name = name
 
-                val next = curObj.getJSONArray("next")
-
-                for (i in 0..<next.length())
-                    ans.next.add(next.getString(i))
+                ans.next = curObj["next"]!!.jsonArray.toStringList()
 
                 return ans
             }
             "fork" -> {
-                val ans = forkLoc(element.fromString(curObj.getString("element")), name, header, desc)
+                val ans = json.decodeFromJsonElement<forkLoc>(curObj)
+                ans.name = name
 
-                val nextArr = curObj.getJSONArray("next")
+                val nextArr = curObj["next"]!!.jsonArray
+
+                ans.next = mutableListOf()
 
                 for (i in 0..<3) {
                     ans.next.add(mutableListOf())
 
-                    if(i >= nextArr.length()) {
+                    if(i >= nextArr.size) {
                         ans.choices.add(ToolFactory.getByName("none"))
                         continue
                     }
 
-                    val next = nextArr.getJSONArray(i)
-                    ans.choices.add(ToolFactory.getByName(next.getString(0)))
-                    for (j in 1..<next.length())
-                        ans.next[i].add(next.getString(j))
+                    val next = nextArr[i].jsonArray
+                    ans.choices.add(ToolFactory.getByName(next[0].jsonPrimitive.content))
+                    for (j in 1..<next.size)
+                        ans.next[i].add(next[j].jsonPrimitive.content)
                 }
 
                 return ans
             }
             "ending" -> {
-                return endingLoc(element.fromString(curObj.getString("element")), name, header, desc)
+                val ans = json.decodeFromJsonElement<endingLoc>(curObj)
+                ans.name = name
+                return ans
             }
         }
-        return simpleBiome(element.fromString(curObj.getString("element")), name, 1, "", "")
+        return simpleBiome(Element.fire, name, 1, "", "")
     }
 }

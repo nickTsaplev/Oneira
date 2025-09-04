@@ -1,13 +1,13 @@
 {
 	"costable": {
-		"name": "Co-n-stable",
-		"hp": 10.0,
+		"header": "Co-n-stable",
+		"maxhp": 10.0,
 		"element": "water",
 		"deck": ["droplet", "droplet"]
 	},
 	"player": {
-		"name": "Player",
-		"hp": 30.0,
+		"header": "Player",
+		"maxhp": 30.0,
 		"player": "true",
 		"element": "fire",
 		"deck": ["bridge", "cloud", "candle"]
@@ -15,71 +15,71 @@
 	
 	
 	"elk": {
-		"name": "A wandering elk",
-		"hp": 20.0,
+		"header": "A wandering elk",
+		"maxhp": 20.0,
 		"element": "wood",
 		"deck": ["cloud", "bridge", "bridge", "droplet"]
 	},
 	
 	"thicket": {
-		"name": "Needles and thorns",
-		"hp": 20.0,
+		"header": "Needles and thorns",
+		"maxhp": 20.0,
 		"element": "wood",
 		"deck": ["sap", "sap", "nothing", "nothing"]
 	},
 	
 	"hunter": {
-		"name": "A raving hunter",
-		"hp": 15.0,
+		"header": "A raving hunter",
+		"maxhp": 15.0,
 		"element": "fire",
 		"deck": ["gunpowder", "spark", "spark", "spark"]
 	},
 	
 	"devil": {
-		"name": "A devilish man",
-		"hp": 15.0,
+		"header": "A devilish man",
+		"maxhp": 15.0,
 		"element": "fire",
 		"deck": ["spark", "spark", "spark", "spark"]
 	},
 	
 	"herald": {
-		"name": "A herald of the new democracy",
-		"hp": 20.0,
+		"header": "A herald of the new democracy",
+		"maxhp": 20.0,
 		"element": "fire",
 		"deck": ["spark", "spark", "cloud", "cloud"]	
 	},
 	
 	"control": {
-		"name": "Mind control officer",
-		"hp": 15.0,
+		"header": "Mind control officer",
+		"maxhp": 15.0,
 		"element": "water",
 		"deck": ["rrtpr", "droplet", "droplet", "cloud"]
 	},
 	
 	"tv": {
-		"name": "A trusty television",
-		"hp": 7.0,
+		"header": "A trusty television",
+		"maxhp": 7.0,
 		"element": "water",
 		"deck": ["droplet", "droplet", "droplet", "droplet"]
 	},
 	
 	"memories": {
-		"name": "Someone's memories",
-		"hp": 10.0,
+		"header": "Someone's memories",
+		"maxhp": 10.0,
 		"element": "earth",
 		"deck": ["droplet", "droplet", "droplet", "bridge"]
 	},
 	
 	"rogue": {
-		"name": "A rogue engine",
-		"hp": 10.0,
+		"header": "A rogue engine",
+		"maxhp": 10.0,
 		"element": "fire",
 		"deck": ["gunpowder", "droplet", "cloud", "cloud"]	
 	},
 	
 	"snake": {
-		"name": "A snake??",
-		"hp": 7.0,
+		"header": "A snake??",
+		"maxhp": 7.0,
 		"element": "earth",
 		"deck": ["droplet", "droplet", "droplet", "droplet"]	
 	}

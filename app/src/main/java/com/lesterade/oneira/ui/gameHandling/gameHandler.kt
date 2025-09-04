@@ -1,18 +1,21 @@
 package com.lesterade.oneira.ui.gameHandling
 
 import android.content.Context
-import android.content.Intent
 import org.json.JSONObject
 
 import com.lesterade.oneira.ui.dashboard.TripView
-import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 
-import com.lesterade.oneira.ui.EndingActivity
 import com.lesterade.oneira.ui.dashboard.DashboardFragment
+import com.lesterade.oneira.ui.toolDisplayLayout.dispTool
+import kotlinx.serialization.Serializable
 import org.json.JSONArray
 import kotlin.random.Random
 
-open class creature(val maxhp : Float, val elem: element, val name: String, val header: String) {
+@Serializable
+open class creature(val maxhp : Float,
+                    val element: Element,
+                    var name: String = "",
+                    val header: String) {
     var hp = maxhp
 
     var innerFire = 3
@@ -21,6 +24,8 @@ open class creature(val maxhp : Float, val elem: element, val name: String, val 
         get() = hp/maxhp
 
     var dead = false
+
+    constructor(other: creature): this(other.maxhp, other.element, other.name, other.header)
 
     fun hit(dmg: Float) {
         hp -= dmg
@@ -39,11 +44,16 @@ open class creature(val maxhp : Float, val elem: element, val name: String, val 
             hp = maxhp
     }
 
-    open val damageBoost = 0
+    open val damageBoost = 0f
 }
 
-open class actor(maxhp : Float, elem: element, name: String, header: String = name): creature(maxhp, elem, name, header) {
+open class actor(cr: creature): creature(cr) {
     var deck: MutableList<instrument> = mutableListOf(unknownWeapon(), unknownWeapon(), unknownWeapon())
+
+    constructor(maxhp : Float,
+                element: Element,
+                name: String = "",
+                header: String): this(creature(maxhp, element, name, header)) {}
 
     fun draw(): instrument {
         val index = Random.nextInt(0, deck.size)
@@ -53,7 +63,7 @@ open class actor(maxhp : Float, elem: element, name: String, header: String = na
     }
 }
 
-class player(maxhp : Float, elem: element, name: String) : actor(maxhp, elem, name) {
+class player(cr: creature) : actor(cr) {
     var hand: MutableList<instrument> = mutableListOf()
 
     fun redraw() {
@@ -62,9 +72,9 @@ class player(maxhp : Float, elem: element, name: String) : actor(maxhp, elem, na
         }
     }
 
-    override val damageBoost: Int
+    override val damageBoost: Float
         get() {
-            var ans = 0
+            var ans = 0f
             hand.forEach {
                 if(it is boostingWeapon)
                     ans += it.damageBoost
@@ -73,18 +83,27 @@ class player(maxhp : Float, elem: element, name: String) : actor(maxhp, elem, na
         }
 }
 
-abstract class biome(val elem: element, val name: String, open val header: String, val desc: String) {
-    abstract fun affect(a : creature)
-    abstract fun getEnemy(): actor
-    abstract fun advance(): biome?
+interface biome {
+    val element: Element
+    val name: String
+    val header: String
+    val desc: String
+
+    val dispHeader
+        get() = header
+
+    fun affect(a : creature)
+    fun getEnemy(): actor
+    fun advance(): biome?
 }
 
-class simpleBiome(elem: element, name: String, var depth: Int, val inner_header: String, desc: String): biome(elem, name, inner_header, desc) {
+@Serializable
+class simpleBiome(override val element: Element, override var name: String = "", var depth: Int, override val header: String, override val desc: String): biome {
     var deck: MutableList<String> = mutableListOf("costable")
     var next: MutableList<String> = mutableListOf()
 
-    override val header
-        get() = inner_header + " (" + (depth + 1).toString() + " steps left)"
+    override val dispHeader
+        get() = header + " (" + (depth + 1).toString() + " steps left)"
 
     override fun affect(a: creature) {
 
@@ -106,7 +125,11 @@ class simpleBiome(elem: element, name: String, var depth: Int, val inner_header:
     }
 }
 
-class shop(elem: element, name: String, header: String, desc: String): biome(elem, name, header, desc) {
+@Serializable
+class shop(override val element: Element,
+           override var name: String = "",
+           override val header: String,
+           override val desc: String): biome {
     var next: MutableList<String> = mutableListOf()
     var sold: MutableList<instrument> = mutableListOf()
     var currentlySold: MutableList<instrument> = mutableListOf()
@@ -131,7 +154,7 @@ class shop(elem: element, name: String, header: String, desc: String): biome(ele
     }
 
     override fun getEnemy(): actor {
-        return actor(1f, element.fire, "?")
+        return actor(1f, Element.fire, "?", "?")
     }
 
     override fun advance(): biome? {
@@ -140,7 +163,11 @@ class shop(elem: element, name: String, header: String, desc: String): biome(ele
     }
 }
 
-class loseLoc(elem: element, name: String, header: String, desc: String): biome(elem, name, header, desc) {
+@Serializable
+class loseLoc(override val element: Element,
+              override var name: String = "",
+              override val header: String,
+              override val desc: String): biome {
     var next: MutableList<String> = mutableListOf()
 
     override fun affect(a: creature) {
@@ -148,7 +175,7 @@ class loseLoc(elem: element, name: String, header: String, desc: String): biome(
     }
 
     override fun getEnemy(): actor {
-        return actor(1f, element.fire, "?")
+        return actor(1f, Element.fire, "?", "?")
     }
 
     override fun advance(): biome? {
@@ -157,13 +184,17 @@ class loseLoc(elem: element, name: String, header: String, desc: String): biome(
     }
 }
 
-class endingLoc(elem: element, name: String, header: String, desc: String): biome(elem, name, header, desc) {
+@Serializable
+class endingLoc(override val element: Element,
+                override var name: String = "",
+                override val header: String,
+                override val desc: String): biome {
     override fun affect(a: creature) {
 
     }
 
     override fun getEnemy(): actor {
-        return actor(1f, element.fire, "?")
+        return actor(1f, Element.fire, "?", "?")
     }
 
     override fun advance(): biome? {
@@ -171,7 +202,11 @@ class endingLoc(elem: element, name: String, header: String, desc: String): biom
     }
 }
 
-class forkLoc(elem: element, name: String, header: String, desc: String): biome(elem, name, header, desc) {
+@Serializable
+class forkLoc(override val element: Element,
+              override var name: String = "",
+              override val header: String,
+              override val desc: String): biome {
     var next: MutableList<MutableList<String>> = mutableListOf()
     var choices: MutableList<instrument> = mutableListOf()
 
@@ -182,174 +217,13 @@ class forkLoc(elem: element, name: String, header: String, desc: String): biome(
     }
 
     override fun getEnemy(): actor {
-        return actor(1f, element.fire, "?")
+        return actor(1f, Element.fire, "?", "?")
     }
 
     override fun advance(): biome? {
         val index = Random.nextInt(0, next[select].size)
         return LocationFactory.getByName(next[select][index])
     }
-}
-
-interface instrument {
-    fun attack(from : creature, to : creature, located : biome): instrument
-    fun getSignature(from: creature, to: creature, located: biome): Pair<Float, Float>
-
-    val name: String
-    val header: String
-    val desc : String
-
-    val imageId: String
-}
-
-// @Serializable
-// @SerialName("simple")
-open class simpleWeapon(val dmg: Float, val elem: element, val modelName : String, override val header: String, val description : String,
-                        val hl: Float = 0f,
-                        val turnsInto: String? = null): instrument {
-    var isLifesteal = false
-
-    open fun getDamage(from: creature, to: creature, located: biome): Float {
-        return dmg + from.damageBoost
-    }
-    open fun getHeal(from: creature, to: creature, located: biome): Float {
-        if(isLifesteal)
-            return getDamage(from, to, located)
-        return hl
-    }
-
-    constructor(other: simpleWeapon) : this(other.dmg,
-        other.elem, other.modelName, other.header, other.description, other.hl, other.turnsInto)
-
-    override fun attack(from: creature, to: creature, located: biome): instrument {
-        var hitDmg = getDamage(from, to, located)
-        hitDmg += hitDmg * 0.2f * located.elem.effect(elem)
-        hitDmg += hitDmg * 0.2f * elem.effect(to.elem)
-        to.hit(hitDmg)
-
-        from.heal(getHeal(from, to, located))
-
-        otherEffects(from, to, located)
-
-        if(turnsInto == null)
-            return this
-        return ToolFactory.getByName(turnsInto)
-    }
-
-    override fun getSignature(from: creature, to: creature, located: biome): Pair<Float, Float> {
-        var hitDmg = getDamage(from, to, located)
-        hitDmg += hitDmg * 0.2f * located.elem.effect(elem)
-        hitDmg += hitDmg * 0.2f * elem.effect(to.elem)
-
-        return Pair(hitDmg, getHeal(from, to, located))
-    }
-
-    override val name
-        get() = modelName // + " (" + elem.tochar + ")"
-
-    override val desc
-        get() = description
-
-    override val imageId
-        get() = modelName
-
-    open fun otherEffects(from: creature, to: creature, located: biome) {
-
-    }
-}
-
-class boostingWeapon(base: simpleWeapon, val damageBoost: Int): simpleWeapon(base) {
-
-}
-
-class boostedWeapon(base: simpleWeapon, val counted: List<String>): simpleWeapon(base) {
-    override fun getDamage(from: creature, to: creature, located: biome): Float {
-        if(from is player) {
-            var hitDmg = 0f
-            from.deck.forEach { if(it.name in counted) hitDmg += 1f}
-            from.hand.forEach { if(it.name in counted) hitDmg += 1f}
-            hitDmg *= dmg
-
-            return hitDmg
-        }
-        return dmg
-    }
-}
-
-class fieryWeapon(base: simpleWeapon, val fireEff: Int): simpleWeapon(base) {
-    override fun getDamage(from: creature, to: creature, located: biome): Float {
-        if(dmg == 0f || (from.innerFire + fireEff < 0))
-            return from.innerFire.toFloat()
-        return dmg
-    }
-
-    override fun otherEffects(from: creature, to: creature, located: biome) {
-        if(fireEff == 0)
-            from.innerFire = 0
-        else {
-            if(from.innerFire + fireEff < 0)
-                return
-            from.innerFire += fireEff
-        }
-    }
-}
-
-class handBurner(base: simpleWeapon, val fireEff: Int): simpleWeapon(base) {
-    override fun otherEffects(from: creature, to: creature, located: biome) {
-        if(fireEff == 0)
-            from.innerFire = 0
-        else
-            from.innerFire += fireEff
-
-        if(from is player) {
-            if(from.hand.size + from.deck.size < 4) {
-                from.hp = 0f
-                return
-            }
-
-            from.hand.removeAt(Random.nextInt(0, from.hand.size))
-            from.redraw()
-        }
-    }
-}
-
-class redrawingWeapon(base: simpleWeapon): simpleWeapon(base) {
-    override fun otherEffects(from: creature, to: creature, located: biome) {
-        if(from is player) {
-            from.deck.addAll(from.hand)
-            from.hand = mutableListOf()
-            from.redraw()
-        }
-    }
-}
-
-class woodenWeapon(base: simpleWeapon): simpleWeapon(base) {
-    override fun getDamage(from: creature, to: creature, located: biome): Float {
-        if(dmg - from.innerFire.toFloat() > 0f)
-            return dmg - from.innerFire.toFloat()
-        return 0f
-    }
-}
-
-class unknownWeapon(): instrument {
-    override fun attack(from: creature, to: creature, located: biome): instrument {
-        return this
-    }
-
-    override fun getSignature(from: creature, to: creature, located: biome): Pair<Float, Float> {
-        return Pair(0f, 0f)
-    }
-
-    override val header
-        get() = "???"
-
-    override val name
-        get() = ""
-
-    override val desc
-        get() = "???"
-
-    override val imageId = "unknown"
 }
 
 object GameMaster {
@@ -537,30 +411,63 @@ fun saveGame(context: Context) {
     stream.close()
 }
 
+
+data class sceneInfo(val name: String = "none",
+                     val creatureName: String? = null,
+                     val sceneHead: String = "",
+                     val sceneDesc: String = "",
+                     val left_bar: Float = 0f,
+                     val right_bar: Float = 0f,
+                     val msg: String = "")
+
 class GameHandler {
-    var tools: MutableList<ToolDisplay> = mutableListOf()
-    var tripV: TripView? = null
-    var frag: DashboardFragment? = null
+    var tools = buildList { GameMaster.display.forEach{add(dispTool(it.imageId, it.header, it.description))} }
+    var msg = ""
 
     val sceneHead
-        get() = GameMaster.scene.header
+        get() = GameMaster.scene.dispHeader
 
     val sceneDesc
         get() = GameMaster.scene.desc
+
+    var tripV: TripView? = null
+    var frag: DashboardFragment? = null
 
     fun startGame(playName: String = "player") {
         GameMaster.startNewGame(playName)
     }
 
+    val creatureName
+        get() = if(GameMaster.scene is simpleBiome)
+            GameMaster.enemy.name
+        else
+            null
+
+    val sceneName
+        get() = GameMaster.scene.name
+
+    val ended
+        get() = GameMaster.ended
+
+    val left_bar
+        get() = GameMaster.us.percent_hp
+
+    val right_bar
+        get() = GameMaster.enemy.percent_hp
+
+    val getScene
+        get() = sceneInfo(sceneName,
+            creatureName,
+            sceneHead,
+            sceneDesc,
+            left_bar,
+            right_bar,
+            msg)
+
     fun update() {
-        if(GameMaster.ended) {
-            val int = Intent("android.intent.action.VIEW")
-            int.setClass(frag!!.requireContext(), EndingActivity::class.java)
-            int.putExtra("com.lesterade.oneira.ending", GameMaster.scene.header)
-            int.putExtra("com.lesterade.oneira.ending_img", GameMaster.scene.name)
-            frag?.activity?.finish()
-            frag?.startActivity(int)
-        }
+        tools = buildList { GameMaster.display.forEach{add(dispTool(it.imageId, it.header, it.description))} }
+        msg = GameMaster.msg
+        /*
 
         tripV?.scene = GameMaster.scene.name
 
@@ -574,9 +481,9 @@ class GameHandler {
 
         tripV?.invalidate()
         frag?.setMessage(GameMaster.msg)
-        frag?.updateScene()
+        frag?.updateScene()*/
 
-        tools.forEachIndexed{ index, toolDisplay -> toolDisplay.loadTool(GameMaster.display[index]) }
+        // tools.forEachIndexed{ index, toolDisplay -> toolDisplay.loadTool(GameMaster.display[index]) }
     }
 
     fun activateTool(id: Int) {
