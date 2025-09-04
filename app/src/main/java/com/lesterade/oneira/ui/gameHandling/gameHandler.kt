@@ -48,7 +48,11 @@ open class creature(val maxhp : Float,
 }
 
 open class actor(cr: creature): creature(cr) {
-    var deck: MutableList<instrument> = mutableListOf(unknownWeapon(), unknownWeapon(), unknownWeapon())
+    protected var deck: MutableList<instrument> = mutableListOf(unknownWeapon(), unknownWeapon(), unknownWeapon())
+    protected var discarded: MutableList<instrument> = mutableListOf()
+
+    val cards
+        get() = deck
 
     constructor(maxhp : Float,
                 element: Element,
@@ -56,10 +60,22 @@ open class actor(cr: creature): creature(cr) {
                 header: String): this(creature(maxhp, element, name, header)) {}
 
     fun draw(): instrument {
+        if(deck.size == 0)
+            deck = discarded
+
         val index = Random.nextInt(0, deck.size)
         val tmp = deck[index]
         deck.removeAt(index)
         return tmp
+    }
+
+    // Redraw policy - use a discard pile or not
+    fun discard(card: instrument) {
+        discarded.add(card)
+    }
+
+    fun loadCards(cards: MutableList<instrument>) {
+        deck = cards
     }
 }
 
@@ -253,7 +269,7 @@ object GameMaster {
 
     val cards: List<instrument>
         get() {
-            return us.deck + us.hand
+            return us.cards + us.hand
         }
 
     fun save(): JSONObject {
@@ -265,7 +281,7 @@ object GameMaster {
         ans.put("hand", handSave)
 
         val deckSave = JSONArray()
-        us.deck.forEach {
+        us.cards.forEach {
             deckSave.put(it.name)
         }
 
@@ -287,10 +303,11 @@ object GameMaster {
 
         us = ActorFactory.getByName(from.getString("name")) as player
 
-        us.deck = mutableListOf()
+        val tmp = mutableListOf<instrument>()
         for (i in 0..<from.getJSONArray("deck").length()) {
-            us.deck.add(ToolFactory.getByName(from.getJSONArray("deck").getString(i)))
+           tmp.add(ToolFactory.getByName(from.getJSONArray("deck").getString(i)))
         }
+        us.loadCards(tmp)
 
         us.hp = from.getDouble("hp").toFloat()
 
@@ -317,7 +334,7 @@ object GameMaster {
 
             val toAdd = tmp.currentlySold[id]
             if(toAdd.name != "nothing")
-                us.deck.add(toAdd)
+                us.discard(toAdd)
 
             scene = scene.advance()!!
             enemy = scene.getEnemy()
@@ -353,7 +370,7 @@ object GameMaster {
                 enemy = scene.getEnemy()
             }
 
-            us.deck.add(toAdd)
+            us.discard(toAdd)
             us.hand.add(us.draw())
 
             var tmp = enemy.draw()
@@ -361,7 +378,7 @@ object GameMaster {
             val (hit_en, heal_en) = tmp.getSignature(enemy, us, scene)
             tmp = tmp.attack(enemy, us, scene)
 
-            enemy.deck.add(tmp)
+            enemy.discard(tmp)
 
             if(us.dead) {
                 scene = LocationFactory.getByName("ending_over")
