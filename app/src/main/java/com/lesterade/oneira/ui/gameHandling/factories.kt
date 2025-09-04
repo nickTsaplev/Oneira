@@ -121,9 +121,12 @@ object ActorFactory: BetterJsonFactory(R.raw.actors) {
 
 
         val tools = curObj["deck"]!!.jsonArray
-        ans.deck = mutableListOf()
+
+        val tmp = mutableListOf<instrument>()
         for(i in 0..<tools.size)
-            ans.deck.add(ToolFactory.getByName(tools[i].jsonPrimitive.content))
+            tmp.add(ToolFactory.getByName(tools[i].jsonPrimitive.content))
+
+        ans.loadCards(tmp)
 
         return ans
     }

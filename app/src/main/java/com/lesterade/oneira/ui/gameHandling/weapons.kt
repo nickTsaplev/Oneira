@@ -81,7 +81,7 @@ class boostedWeapon(base: simpleWeapon, val counted: List<String>): simpleWeapon
     override fun getDamage(from: creature, to: creature, located: biome): Float {
         if(from is player) {
             var hitDmg = 0f
-            from.deck.forEach { if(it.name in counted) hitDmg += 1f}
+            from.cards.forEach { if(it.name in counted) hitDmg += 1f}
             from.hand.forEach { if(it.name in counted) hitDmg += 1f}
             hitDmg *= damage
 
@@ -117,7 +117,7 @@ class handBurner(base: simpleWeapon, val fireEff: Int): simpleWeapon(base) {
             from.innerFire += fireEff
 
         if(from is player) {
-            if(from.hand.size + from.deck.size < 4) {
+            if(from.hand.size + from.cards.size < 4) {
                 from.hp = 0f
                 return
             }
@@ -131,7 +131,9 @@ class handBurner(base: simpleWeapon, val fireEff: Int): simpleWeapon(base) {
 class redrawingWeapon(base: simpleWeapon): simpleWeapon(base) {
     override fun otherEffects(from: creature, to: creature, located: biome) {
         if(from is player) {
-            from.deck.addAll(from.hand)
+            from.hand.forEach{
+                from.discard(it)
+            }
             from.hand = mutableListOf()
             from.redraw()
         }
