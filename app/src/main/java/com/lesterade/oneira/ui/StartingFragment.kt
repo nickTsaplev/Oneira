@@ -28,7 +28,7 @@ class StartingFragment : Fragment() {
         _binding = FragmentStartingBinding.inflate(inflater, container, false)
 
         chars.forEach {
-            val ch = inflater.inflate(R.layout.characterchoice, this)
+            val ch = inflater.inflate(R.layout.characterchoice, container)
             binding.list.addView(ch)
             ch.findViewById<CharacterChoice>(R.id.main).loadChar(it.first, it.second)
         }

@@ -21,7 +21,7 @@ import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
-class GameMaster(val patterns: msgPatterns) {
+class GameMaster(private val patterns: msgPatterns) {
     var scene: Biome = SimpleBiome(Element.fire, "", 0, "", "")
 
     var us = Player(Creature(0f, Element.fire, "", ""))
@@ -89,7 +89,7 @@ class GameMaster(val patterns: msgPatterns) {
         get() = scene.choices(us)
 
 
-    fun enemyTurn(): String {
+    private fun enemyTurn(): String {
         if(scene !is SimpleBiome)
             return ""
 

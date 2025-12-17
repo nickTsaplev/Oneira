@@ -14,6 +14,9 @@ import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.graphics.drawscope.scale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.*
@@ -26,6 +29,7 @@ import com.lesterade.oneira.ui.EndingActivity
 import com.lesterade.oneira.gameHandling.GameHandler
 import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 import com.lesterade.oneira.ui.toolDisplayLayout.TransmutableToolDisplay
+import kotlin.math.ceil
 
 class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
@@ -68,7 +72,7 @@ class GameFragment : Fragment() {
 }
 
 @Composable
-fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: Float) {
+fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: Float, scale : Float? = null) {
     val current = LocalContext.current
 
     val id = current.resources.getIdentifier(name, "drawable", current.packageName)
@@ -81,9 +85,7 @@ fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: F
     } else
         null
 
-    Canvas(Modifier.aspectRatio(1.34f)
-                    .clipToBounds(), onDraw = {
-
+    fun DrawScope.drawInterface() {
         val left = (size.width - background.width) / 2
         val top = size.height - background.height
 
@@ -99,6 +101,15 @@ fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: F
         drawRect(Color(0xFF246D49), Offset(0f, size.height * (1f - leftBar)), Size( 10f, size.height * (leftBar)))
 
         drawRect(Color(0xFF246D49), Offset(size.width - 10f, size.height * (1f - rightBar)), Size(10f, size.height * (rightBar),))
+    }
+
+    Canvas(Modifier.aspectRatio(1.34f)
+                    .clipToBounds(), onDraw = {
+
+        if (scale != null)
+            scale(scaleX = scale, scaleY = scale, block = DrawScope::drawInterface)
+        else
+            drawInterface()
     })
 }
 
@@ -117,6 +128,11 @@ fun GameScreen(handler: GameHandler, onGameEnd: (String, String) -> Unit) {
     var name by remember{ mutableStateOf(handler.sceneName) }
     var desc by remember{ mutableStateOf(handler.sceneDesc) }
     var creat by remember { mutableStateOf(handler.creatureName) }
+
+    val configuration = LocalConfiguration.current
+    val scaleVal = configuration.densityDpi / 240f
+
+    val scale = if (scaleVal > 2f) ceil(scaleVal) else null
 
     val update = {
         tools = handler.tools
@@ -137,7 +153,7 @@ fun GameScreen(handler: GameHandler, onGameEnd: (String, String) -> Unit) {
 
     Column {
         Text(head, color = textColor)
-        SceneCanvas(name, creat, lb, rb)
+        SceneCanvas(name, creat, lb, rb, scale)
         Text(desc, color = textColor)
 
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -149,12 +165,12 @@ fun GameScreen(handler: GameHandler, onGameEnd: (String, String) -> Unit) {
                     }, {a: Int, b: Int ->
                         handler.transmuteTool(a, b)
                         update()
-                    })
+                    }, scale)
                 else
                     ToolDisplay(tools[i], i, {
                         handler.activateTool(it)
                         update()
-                    })
+                    }, scale)
             }
         }
         Text(msg, color = textColor)

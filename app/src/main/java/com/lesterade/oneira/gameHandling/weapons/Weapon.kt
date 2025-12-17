@@ -8,21 +8,6 @@ import com.lesterade.oneira.gameHandling.weapons.damageEffects.DamageEffect
 import com.lesterade.oneira.gameHandling.weapons.healEffects.HealEffect
 import kotlinx.serialization.Serializable
 
-interface Instrument {
-    fun attack(from : Creature, to : Creature, located : Biome): Instrument
-    fun getSignature(from: Creature, to: Creature, located: Biome): Pair<Float, Float>
-
-    val name: String
-    val header: String
-    val description : String
-
-    val imageId: String
-    val damageBoost: Float?
-    
-    val transmutable: Boolean
-        get() = false
-}
-
 @Serializable
 open class Weapon(private val damage: Float? = null,
                   val element: Element = Element.fire,
@@ -105,25 +90,3 @@ open class Weapon(private val damage: Float? = null,
     }
 }
 
-class UnknownWeapon : Instrument {
-    override fun attack(from: Creature, to: Creature, located: Biome): Instrument {
-        return this
-    }
-
-    override fun getSignature(from: Creature, to: Creature, located: Biome): Pair<Float, Float> {
-        return Pair(0f, 0f)
-    }
-
-    override val damageBoost: Float? = null
-
-    override val header
-        get() = "???"
-
-    override val name
-        get() = ""
-
-    override val description
-        get() = "???"
-
-    override val imageId = "unknown"
-}
