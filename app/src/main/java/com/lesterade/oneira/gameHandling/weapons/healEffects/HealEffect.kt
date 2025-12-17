@@ -1,8 +1,8 @@
 package com.lesterade.oneira.gameHandling.weapons.healEffects
 
-import com.lesterade.oneira.gameHandling.biomes.biome
-import com.lesterade.oneira.gameHandling.creature
+import com.lesterade.oneira.gameHandling.biomes.Biome
+import com.lesterade.oneira.gameHandling.Creature
 
 interface HealEffect {
-    fun calculate(from: creature, to: creature, located: biome, heal: Float): Float
+    fun calculate(from: Creature, to: Creature, located: Biome, heal: Float): Float
 }

@@ -2,17 +2,20 @@ package com.lesterade.oneira.gameHandling.biomes
 
 import com.lesterade.oneira.gameHandling.ActorFactory
 import com.lesterade.oneira.gameHandling.Element
-import com.lesterade.oneira.gameHandling.actor
-import com.lesterade.oneira.gameHandling.creature
+import com.lesterade.oneira.gameHandling.Actor
+import com.lesterade.oneira.gameHandling.Creature
 import com.lesterade.oneira.gameHandling.format
-import com.lesterade.oneira.gameHandling.weapons.instrument
-import com.lesterade.oneira.gameHandling.player
+import com.lesterade.oneira.gameHandling.weapons.Instrument
+import com.lesterade.oneira.gameHandling.Player
 import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
 @Serializable
-class simpleBiome(override val element: Element, override var name: String = "", var depth: Int, override var header: String, override var desc: String):
-    biome {
+class SimpleBiome(override val element: Element,
+                  override var name: String = "",
+                  var depth: Int,
+                  override var header: String,
+                  override var desc: String): Biome {
     var deck: MutableList<String> = mutableListOf("costable")
     var next: MutableList<String> = mutableListOf()
 
@@ -20,20 +23,17 @@ class simpleBiome(override val element: Element, override var name: String = "",
 
     override val dispHeader
         get() = header + pattern.format(depth + 1)
-    //= header + " (" + (depth + 1).toString() + " steps left)"
 
-    override fun affect(a: creature) {
+    override fun affect(a: Creature) { }
 
-    }
-
-    override fun getEnemy(): actor {
+    override fun getEnemy(): Actor {
         val index = Random.nextInt(0, deck.size)
         val tmp = deck[index]
         depth -= 1
         return ActorFactory.getByName(tmp)
     }
 
-    override fun advance(): biome? {
+    override fun advance(): Biome? {
         if(depth <= 0) {
             val index = Random.nextInt(0, next.size)
             return LocationFactory.getByName(next[index])
@@ -41,9 +41,9 @@ class simpleBiome(override val element: Element, override var name: String = "",
         return null
     }
 
-    override fun activateTool(id: Int, us: player, enemy: actor): Boolean {
+    override fun activateTool(id: Int, us: Player, enemy: Actor): Boolean {
         return (enemy.dead)
     }
 
-    override fun choices(us: player): List<instrument> = us.hand
+    override fun choices(us: Player): List<Instrument> = us.hand
 }

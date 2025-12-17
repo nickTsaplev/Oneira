@@ -7,7 +7,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.lesterade.oneira.gameHandling.GameHandler
 import com.lesterade.oneira.R
-import com.lesterade.oneira.gameHandling.weapons.instrument
+import com.lesterade.oneira.gameHandling.weapons.Instrument
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -15,7 +15,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.*
-import androidx.compose.ui.layout.FixedScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.sp
@@ -43,13 +42,13 @@ class ToolDisplay(context: Context, attrs: AttributeSet?): ConstraintLayout(cont
 
     }
 
-    fun loadTool(tl: instrument) {
+    fun loadTool(tl: Instrument) {
         loadTool(tl.imageId, tl.header, tl.description)
     }
 }
 
 @Composable
-fun toolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit) {
+fun ToolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit) {
     val current = LocalContext.current
     var id = current.resources.getIdentifier(disp.name, "drawable", current.packageName)
 
@@ -74,7 +73,7 @@ fun toolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit) {
 }
 
 @Composable
-fun transmutableToolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit, onTrms: (Int, Int) -> Unit) {
+fun TransmutableToolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit, onTrms: (Int, Int) -> Unit) {
     val swipeToDismissBoxState = rememberSwipeToDismissBoxState(
         confirmValueChange = {
             if (it == SwipeToDismissBoxValue.StartToEnd)
@@ -107,6 +106,6 @@ fun transmutableToolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit, 
             }
         }
     ) {
-        toolDisplay(disp, clickId, onClk)
+        ToolDisplay(disp, clickId, onClk)
     }
 }

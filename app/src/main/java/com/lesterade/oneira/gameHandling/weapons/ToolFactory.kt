@@ -64,8 +64,8 @@ object ToolFactory: BetterJsonFactory(R.raw.tools) {
         }
     }
 
-    fun getByName(name: String): instrument {
-        val curObj = data[name]?.jsonObject ?: return unknownWeapon()
+    fun getByName(name: String): Instrument {
+        val curObj = data[name]?.jsonObject ?: return UnknownWeapon()
 
         val type = curObj["type"]?.jsonPrimitive?.content ?: "simple"
 
@@ -79,7 +79,7 @@ object ToolFactory: BetterJsonFactory(R.raw.tools) {
             applyEffects(base, it)
         }
 
-        type.split("+").forEach() {
+        type.split("+").forEach {
             applyEffect(base, it, curObj)
         }
 

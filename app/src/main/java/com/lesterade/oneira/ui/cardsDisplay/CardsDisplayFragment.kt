@@ -8,7 +8,7 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.lesterade.oneira.GameMasterViewModel
-import com.lesterade.oneira.gameHandling.weapons.instrument
+import com.lesterade.oneira.gameHandling.weapons.Instrument
 import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 import com.lesterade.oneira.R
 import com.lesterade.oneira.databinding.FragmentCardsDisplayBinding
@@ -37,7 +37,7 @@ class CardsDisplayFragment : Fragment() {
             val curText = inflater.inflate(R.layout.tooldisplay, layout)
         }
 
-        viewModel.master.value?.cards?.forEachIndexed() { i: Int, it: instrument ->
+        viewModel.master.value?.cards?.forEachIndexed { i: Int, it: Instrument ->
             layout[i].findViewById<ToolDisplay>(R.id.main).loadTool(it)
         }
 

@@ -13,13 +13,13 @@ import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
 object LocationFactory: BetterJsonFactory(R.raw.locations) {
-    fun getByName(name: String): biome {
-        val curObj = data[name]?.jsonObject ?: return simpleBiome(Element.water, "mon_garden", 1, "Unknown location: $name", "")
-        val type = curObj["type"]?.jsonPrimitive?.content ?: return simpleBiome(Element.water, "mon_garden", 1, "Misformatted location: $name", "")
+    fun getByName(name: String): Biome {
+        val curObj = data[name]?.jsonObject ?: return SimpleBiome(Element.water, "mon_garden", 1, "Unknown location: $name", "")
+        val type = curObj["type"]?.jsonPrimitive?.content ?: return SimpleBiome(Element.water, "mon_garden", 1, "Misformatted location: $name", "")
 
         when(type) {
             "simple" -> {
-                val ans = json.decodeFromJsonElement<simpleBiome>(curObj)
+                val ans = json.decodeFromJsonElement<SimpleBiome>(curObj)
                 ans.name = name
                 curObj["header_$language"]?.jsonPrimitive?.content?.let {ans.header = it}
                 curObj["desc_$language"]?.jsonPrimitive?.content?.let {ans.desc = it}
@@ -57,7 +57,7 @@ object LocationFactory: BetterJsonFactory(R.raw.locations) {
                 return ans
             }
             "lose" -> {
-                val ans = json.decodeFromJsonElement<loseLoc>(curObj)
+                val ans = json.decodeFromJsonElement<LoseLoc>(curObj)
                 ans.name = name
                 curObj["header_$language"]?.jsonPrimitive?.content?.let {ans.header = it}
                 curObj["desc_$language"]?.jsonPrimitive?.content?.let {ans.desc = it}
@@ -67,7 +67,7 @@ object LocationFactory: BetterJsonFactory(R.raw.locations) {
                 return ans
             }
             "fork" -> {
-                val ans = json.decodeFromJsonElement<forkLoc>(curObj)
+                val ans = json.decodeFromJsonElement<ForkLoc>(curObj)
                 ans.name = name
                 curObj["header_$language"]?.jsonPrimitive?.content?.let {ans.header = it}
                 curObj["desc_$language"]?.jsonPrimitive?.content?.let {ans.desc = it}
@@ -93,7 +93,7 @@ object LocationFactory: BetterJsonFactory(R.raw.locations) {
                 return ans
             }
             "ending" -> {
-                val ans = json.decodeFromJsonElement<endingLoc>(curObj)
+                val ans = json.decodeFromJsonElement<EndingLoc>(curObj)
                 curObj["header_$language"]?.jsonPrimitive?.content?.let {ans.header = it}
 
                 ans.name = name
@@ -101,6 +101,6 @@ object LocationFactory: BetterJsonFactory(R.raw.locations) {
             }
         }
 
-        return simpleBiome(Element.fire, name, 1, "", "")
+        return SimpleBiome(Element.fire, name, 1, "", "")
     }
 }

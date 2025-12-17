@@ -196,7 +196,7 @@
 		"header_ru": "Порох",
 		
 		"description": "Deal 10 damage. This is probably unsafe",
-		"description": "Deal 10 damage. This is probably unsafe",
+		"description_ru": "Deal 10 damage. This is probably unsafe",
 		
 		"type": "simple",
 		"damage": 10.0,
@@ -207,7 +207,7 @@
 		"header_ru": "Искра",
 		
 		"description": "Deal 3 damage.",
-		"description": "Deal 3 damage.",
+		"description_ru": "Deal 3 damage.",
 		
 		"type": "simple",
 		"damage": 3.0,

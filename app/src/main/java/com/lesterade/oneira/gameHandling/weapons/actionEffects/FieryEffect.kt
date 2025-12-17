@@ -1,10 +1,10 @@
 package com.lesterade.oneira.gameHandling.weapons.actionEffects
 
-import com.lesterade.oneira.gameHandling.biomes.biome
-import com.lesterade.oneira.gameHandling.creature
+import com.lesterade.oneira.gameHandling.biomes.Biome
+import com.lesterade.oneira.gameHandling.Creature
 
 class FieryEffect(val fireEff: Int, val minFire: Int?): ActionEffect {
-    override fun effect(from: creature, to: creature, located: biome) {
+    override fun effect(from: Creature, to: Creature, located: Biome) {
         if(fireEff == 0)
             from.innerFire = 0
         else {

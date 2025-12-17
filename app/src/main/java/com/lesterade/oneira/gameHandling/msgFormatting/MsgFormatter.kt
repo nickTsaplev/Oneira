@@ -2,23 +2,21 @@ package com.lesterade.oneira.gameHandling.msgFormatting
 
 import com.lesterade.oneira.gameHandling.format
 
-class msgFormatter(val name: String, val and: String, val nothing: String)
-{
-    private class effect(val template: String, val value: Float)
-    {
+class MsgFormatter(private val name: String,
+                   private val and: String,
+                   private val nothing: String) {
+    private class Effect(val template: String, val value: Float) {
         fun format(): String = template.format(value)
-            // template.format(value)
     }
-    private var effects: MutableList<effect> = mutableListOf()
 
-    fun addEffect(template: String, value: Float)
-    {
+    private var effects: MutableList<Effect> = mutableListOf()
+
+    fun addEffect(template: String, value: Float) {
         if(value != 0f)
-            effects.add(effect(template, value))
+            effects.add(Effect(template, value))
     }
 
-    fun format(): String
-    {
+    fun format(): String {
         var msg = name
 
         if(effects.size == 0)

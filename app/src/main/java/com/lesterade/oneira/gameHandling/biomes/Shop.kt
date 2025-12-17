@@ -1,10 +1,10 @@
 package com.lesterade.oneira.gameHandling.biomes
 
 import com.lesterade.oneira.gameHandling.Element
-import com.lesterade.oneira.gameHandling.actor
-import com.lesterade.oneira.gameHandling.creature
-import com.lesterade.oneira.gameHandling.weapons.instrument
-import com.lesterade.oneira.gameHandling.player
+import com.lesterade.oneira.gameHandling.Actor
+import com.lesterade.oneira.gameHandling.Creature
+import com.lesterade.oneira.gameHandling.weapons.Instrument
+import com.lesterade.oneira.gameHandling.Player
 import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
@@ -16,10 +16,10 @@ class Shop(override val element: Element,
            override var name: String = "",
            override var header: String,
            override var desc: String,
-           val addType: AddType = AddType.Hand): biome {
+           val addType: AddType = AddType.Hand): Biome {
     var next: MutableList<String> = mutableListOf()
-    var sold: MutableList<instrument> = mutableListOf()
-    var currentlySold: MutableList<instrument> = mutableListOf()
+    var sold: MutableList<Instrument> = mutableListOf()
+    var currentlySold: MutableList<Instrument> = mutableListOf()
 
     fun pickWares() {
         val index = Random.nextInt(0, sold.size)
@@ -38,24 +38,22 @@ class Shop(override val element: Element,
             index3 = Random.nextInt(0, sold.size)
 
         currentlySold.add(sold[index3])
-
-        //currentlySold.add(ToolFactory.getByName("nothing"))
     }
 
-    override fun affect(a: creature) {
+    override fun affect(a: Creature) {
 
     }
 
-    override fun getEnemy(): actor {
-        return actor(1f, Element.fire, "?", "?")
+    override fun getEnemy(): Actor {
+        return Actor(1f, Element.fire, "?", "?")
     }
 
-    override fun advance(): biome? {
+    override fun advance(): Biome {
         val index = Random.nextInt(0, next.size)
         return LocationFactory.getByName(next[index])
     }
 
-    override fun activateTool(id: Int, us: player, enemy: actor): Boolean {
+    override fun activateTool(id: Int, us: Player, enemy: Actor): Boolean {
         us.hp = us.maxhp // Shops restore hp
         us.poison = 0f
         us.bleed = 0f
@@ -70,5 +68,5 @@ class Shop(override val element: Element,
         return true
     }
 
-    override fun choices(us: player): List<instrument> = currentlySold
+    override fun choices(us: Player): List<Instrument> = currentlySold
 }

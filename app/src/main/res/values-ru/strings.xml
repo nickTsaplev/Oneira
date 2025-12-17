@@ -1,10 +1,12 @@
 <resources>
 
+    <string name="app_name">Онейра</string>
     <string name="title_home">Карты</string>
     <string name="title_dashboard">Игра</string>
     <string name="title_notifications">Меню</string>
     <string name="title_activity_testact">testact</string>
 
+    <string name="previous">Предыдущий</string>
     <string name="start_run">Начать</string>
     <string name="save_game">Сохранить</string>
     <string name="load_game">Загрузить сохранеие</string>
@@ -28,4 +30,7 @@
     <string name="does_pattern">ждет</string>
 
     <string name="self_name">Вы</string>
+    <string name="second_fragment_label">Второй</string>
+    <string name="next">Следующий</string>
+    <string name="first_fragment_label">Первый</string>
 </resources>

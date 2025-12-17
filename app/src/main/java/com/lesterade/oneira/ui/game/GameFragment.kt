@@ -24,8 +24,8 @@ import com.lesterade.oneira.GameMasterViewModel
 import com.lesterade.oneira.databinding.FragmentGameBinding
 import com.lesterade.oneira.ui.EndingActivity
 import com.lesterade.oneira.gameHandling.GameHandler
-import com.lesterade.oneira.ui.toolDisplayLayout.toolDisplay
-import com.lesterade.oneira.ui.toolDisplayLayout.transmutableToolDisplay
+import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
+import com.lesterade.oneira.ui.toolDisplayLayout.TransmutableToolDisplay
 
 class GameFragment : Fragment() {
     private var _binding: FragmentGameBinding? = null
@@ -68,7 +68,7 @@ class GameFragment : Fragment() {
 }
 
 @Composable
-fun SceneCanvas(name: String, creatureName: String?, left_bar: Float, right_bar: Float) {
+fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: Float) {
     val current = LocalContext.current
 
     val id = current.resources.getIdentifier(name, "drawable", current.packageName)
@@ -96,9 +96,9 @@ fun SceneCanvas(name: String, creatureName: String?, left_bar: Float, right_bar:
             drawImage(creatura, Offset(left, top))
         }
 
-        drawRect(Color(0xFF246D49), Offset(0f, size.height * (1f - left_bar)), Size( 10f, size.height * (left_bar)))
+        drawRect(Color(0xFF246D49), Offset(0f, size.height * (1f - leftBar)), Size( 10f, size.height * (leftBar)))
 
-        drawRect(Color(0xFF246D49), Offset(size.width - 10f, size.height * (1f - right_bar)), Size(10f, size.height * (right_bar),))
+        drawRect(Color(0xFF246D49), Offset(size.width - 10f, size.height * (1f - rightBar)), Size(10f, size.height * (rightBar),))
     })
 }
 
@@ -143,7 +143,7 @@ fun GameScreen(handler: GameHandler, onGameEnd: (String, String) -> Unit) {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             for (i in 0..2) {
                 if(tools[i].transmutable)
-                    transmutableToolDisplay(tools[i], i, {
+                    TransmutableToolDisplay(tools[i], i, {
                         handler.activateTool(it)
                         update()
                     }, {a: Int, b: Int ->
@@ -151,7 +151,7 @@ fun GameScreen(handler: GameHandler, onGameEnd: (String, String) -> Unit) {
                         update()
                     })
                 else
-                    toolDisplay(tools[i], i, {
+                    ToolDisplay(tools[i], i, {
                         handler.activateTool(it)
                         update()
                     })

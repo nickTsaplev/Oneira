@@ -1,18 +1,18 @@
 package com.lesterade.oneira.gameHandling.weapons.actionEffects
 
-import com.lesterade.oneira.gameHandling.biomes.biome
-import com.lesterade.oneira.gameHandling.creature
-import com.lesterade.oneira.gameHandling.player
+import com.lesterade.oneira.gameHandling.biomes.Biome
+import com.lesterade.oneira.gameHandling.Creature
+import com.lesterade.oneira.gameHandling.Player
 import kotlin.random.Random
 
 class HandBurn(val fireEff: Int) : ActionEffect {
-    override fun effect(from: creature, to: creature, located: biome) {
+    override fun effect(from: Creature, to: Creature, located: Biome) {
         if(fireEff == 0)
             from.innerFire = 0
         else
             from.innerFire += fireEff
 
-        if(from is player) {
+        if(from is Player) {
             if(from.hand.size + from.cards.size < 4) {
                 from.hp = 0f
                 return

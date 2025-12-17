@@ -1,16 +1,16 @@
 package com.lesterade.oneira.gameHandling.weapons.actionEffects
 
-import com.lesterade.oneira.gameHandling.biomes.biome
-import com.lesterade.oneira.gameHandling.creature
-import com.lesterade.oneira.gameHandling.player
+import com.lesterade.oneira.gameHandling.biomes.Biome
+import com.lesterade.oneira.gameHandling.Creature
+import com.lesterade.oneira.gameHandling.Player
 
 class PlayHand: ActionEffect {
     override fun effect(
-        from: creature,
-        to: creature,
-        located: biome
+        from: Creature,
+        to: Creature,
+        located: Biome
     ) {
-        if (from !is player)
+        if (from !is Player)
             return
 
         from.hand.forEach {

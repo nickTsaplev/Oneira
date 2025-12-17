@@ -3,7 +3,7 @@ package com.lesterade.oneira.gameHandling
 
 import android.content.Context
 import com.lesterade.oneira.gameHandling.weapons.ToolFactory
-import com.lesterade.oneira.gameHandling.weapons.instrument
+import com.lesterade.oneira.gameHandling.weapons.Instrument
 
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.Json.Default.parseToJsonElement
@@ -52,24 +52,24 @@ abstract class BetterJsonFactory(val id: Int) {
     }
 }
 object ActorFactory: BetterJsonFactory(R.raw.actors) {
-    fun getByName(name: String): actor {
-        val curObj = data[name]?.jsonObject ?: return actor(0f, Element.fire, "?", "?")
+    fun getByName(name: String): Actor {
+        val curObj = data[name]?.jsonObject ?: return Actor(0f, Element.fire, "?", "?")
 
         val isP = curObj["player"]?.jsonPrimitive?.content
 
-        val base = json.decodeFromJsonElement<creature>(curObj)
+        val base = json.decodeFromJsonElement<Creature>(curObj)
         curObj["header_$language"]?.jsonPrimitive?.contentOrNull?.let { base.header = it }
         base.name = name
 
         val ans = if(isP == "" || isP == "false")
-            actor(base)
+            Actor(base)
         else
-            player(base)
+            Player(base)
 
 
         val tools = curObj["deck"]!!.jsonArray
 
-        val tmp = mutableListOf<instrument>()
+        val tmp = mutableListOf<Instrument>()
         for(i in 0..<tools.size)
             tmp.add(ToolFactory.getByName(tools[i].jsonPrimitive.content))
 
