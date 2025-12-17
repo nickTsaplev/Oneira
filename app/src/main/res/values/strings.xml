@@ -2,7 +2,7 @@
     <string name="app_name">Oneira</string>
     <string name="title_home">Cards</string>
     <string name="title_dashboard">Game</string>
-    <string name="title_notifications">Settings</string>
+    <string name="title_notifications">Menu</string>
     <string name="title_activity_testact">testact</string>
 
     <string name="skip_turn">Next turn</string>
@@ -51,10 +51,26 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="start_run">Start</string>
-    <string name="save_game">Save game (only location)</string>
+    <string name="save_game">Save game</string>
     <string name="load_game">Load saved game</string>
     <string name="exit_game">Exit game</string>
     <string name="new_game">New game</string>
     <string name="start_again">Start again?</string>
 
+    <string name="and_name">and</string>
+
+    <string name="hit_pattern">hit for %f</string>
+    <string name="bleed_pattern">bleed for %f</string>
+    <string name="suffer_pattern">suffer for %f</string>
+    <string name="heal_pattern">heal for %f</string>
+
+    <string name="hits_pattern">hits for %f</string>
+    <string name="bleeds_pattern">bleeds for %f</string>
+    <string name="suffers_pattern">suffers for %f</string>
+    <string name="heals_pattern">heals for %f</string>
+
+    <string name="do_pattern">wait</string>
+    <string name="does_pattern">waits</string>
+
+    <string name="self_name">You</string>
 </resources>

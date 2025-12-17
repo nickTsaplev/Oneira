@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import com.lesterade.oneira.R
 import com.lesterade.oneira.databinding.FragmentStartingBinding
 import com.lesterade.oneira.ui.characterLayout.CharacterChoice
-import com.lesterade.oneira.ui.gameHandling.player
+import com.lesterade.oneira.gameHandling.player
 
 
 class StartingFragment : Fragment() {

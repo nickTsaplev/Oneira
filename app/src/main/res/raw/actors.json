@@ -13,9 +13,10 @@
 		"deck": ["bridge", "cloud", "candle"]
 	},
 	
-	
 	"elk": {
 		"header": "A wandering elk",
+		"header_ru": "Блуждающий лось",
+
 		"maxhp": 20.0,
 		"element": "wood",
 		"deck": ["cloud", "bridge", "bridge", "droplet"]
@@ -23,6 +24,7 @@
 	
 	"thicket": {
 		"header": "Needles and thorns",
+		"header_ru": "Иглы и шипы",
 		"maxhp": 20.0,
 		"element": "wood",
 		"deck": ["sap", "sap", "nothing", "nothing"]
@@ -30,6 +32,8 @@
 	
 	"hunter": {
 		"header": "A raving hunter",
+		"header_ru": "Обезумевший охотник",
+		
 		"maxhp": 15.0,
 		"element": "fire",
 		"deck": ["gunpowder", "spark", "spark", "spark"]
@@ -37,6 +41,8 @@
 	
 	"devil": {
 		"header": "A devilish man",
+		"header_ru": "Дьеявологлазый человек",
+		
 		"maxhp": 15.0,
 		"element": "fire",
 		"deck": ["spark", "spark", "spark", "spark"]
@@ -44,6 +50,8 @@
 	
 	"herald": {
 		"header": "A herald of the new democracy",
+		"header_ru": "Вестник новой демократии",
+		
 		"maxhp": 20.0,
 		"element": "fire",
 		"deck": ["spark", "spark", "cloud", "cloud"]	
@@ -51,6 +59,8 @@
 	
 	"control": {
 		"header": "Mind control officer",
+		"header_ru": "Офицер мыслеконтроля",
+		
 		"maxhp": 15.0,
 		"element": "water",
 		"deck": ["rrtpr", "droplet", "droplet", "cloud"]
@@ -58,6 +68,8 @@
 	
 	"tv": {
 		"header": "A trusty television",
+		"header_ru": "Доверенный телевизор",
+		
 		"maxhp": 7.0,
 		"element": "water",
 		"deck": ["droplet", "droplet", "droplet", "droplet"]
@@ -65,6 +77,8 @@
 	
 	"memories": {
 		"header": "Someone's memories",
+		"header_ru": "Чье-то воспоминание",
+		
 		"maxhp": 10.0,
 		"element": "earth",
 		"deck": ["droplet", "droplet", "droplet", "bridge"]
@@ -72,6 +86,8 @@
 	
 	"rogue": {
 		"header": "A rogue engine",
+		"header_ru": "Беглая машина",
+		
 		"maxhp": 10.0,
 		"element": "fire",
 		"deck": ["gunpowder", "droplet", "cloud", "cloud"]	
@@ -79,8 +95,206 @@
 	
 	"snake": {
 		"header": "A snake??",
+		"header_ru": "Змея?",
+		
 		"maxhp": 7.0,
 		"element": "earth",
 		"deck": ["droplet", "droplet", "droplet", "droplet"]	
+	},
+
+	"con_citizen": {
+		"header": "Concerned citizen",
+		"header_ru": "Обеспокоенный гражданин",
+		
+		"maxhp": 10.0,
+		"element": "water",
+		"deck": ["droplet", "cypher", "spark", "cloud"]
+	},
+
+	"courier": {
+		"header": "Courier of the new democracy",
+		"header_ru": "Курьер новой демократии",
+		
+		"maxhp": 15.0,
+		"element": "fire",
+		"deck": ["cypher", "cloud", "nothing", "spark"]
+	},
+
+	"shaded_car": {
+		"header": "A shaded car",
+		"header_ru": "Затемненная машина",
+		
+		"maxhp": 20.0,
+		"element": "metal",
+		"deck": ["spark", "spark", "spark", "spark"]
+	},
+
+	"dockworker": {
+		"header": "A lumbering dockworker",
+		"header_ru": "Переваливающийся грузчик",
+		
+		"maxhp": 15.0,
+		"element": "water",
+		"deck": ["heavy_droplet", "heavy_droplet", "droplet", "cloud"]
+	},
+
+	"tar_machine": {
+		"header": "Tar-covered machine",
+		"header_ru": "Засмоленная машина",
+		
+		"maxhp": 10.0,
+		"element": "fire",
+		"deck": ["heavy_droplet", "droplet", "gunpowder", "nothing"]
+	},
+
+	"customs": {
+		"header": "Extrafundal control officer",
+		"header_ru": "Экстрафундальный таможенник",
+		
+		"maxhp": 15.0,
+		"element": "water",
+		"deck": ["rrtpr", "heavy_droplet", "nothing", "cloud"]
+	},
+
+	"captain": {
+		"header": "A glimpse of the captain",
+		"header_ru": "Миг капитана",
+		
+		"maxhp": 20.0,
+		"element": "fire",
+		"deck": ["cypher", "cypher", "nothing", "cloud"]
+	},
+
+	"darkness": {
+		"header": "Condensing darkness",
+		"header_ru": "Конденсирующая тьма",
+		
+		"maxhp": 15.0,
+		"element": "water",
+		"deck": ["flip_hp", "cloud", "cloud", "nothing"]
+	},
+
+	"rats": {
+		"header": "A horde of rats",
+		"header_ru": "Орда крыс",
+		
+		"maxhp": 20.0,
+		"element": "earth",
+		"deck": ["bridge", "bridge", "bridge", "nothing"]
+	},
+
+	"soldier": {
+		"header": "A confused soldier",
+		"header_ru": "Запутавшийся солдат",
+		
+		"maxhp": 10.0,
+		"element": "earth",
+		"deck": ["bridge", "cloud", "droplet", "nothing"]
+	},
+
+	"war_machine": {
+		"header": "A rattling war-machine",
+		"header_ru": "Гремящая машина войны",
+		
+		"maxhp": 15.0,
+		"element": "fire",
+		"deck": ["gunpowder", "nothing", "nothing", "spark"]
+	},
+
+	"past": {
+		"header": "Antediluvian nightmare",
+		"header_ru": "Допотопный кошмар",
+		
+		"maxhp": 9.0,
+		"element": "wood",
+		"deck": ["spark", "spark", "cloud", "cloud"]
+	},
+
+	"paragraph": {
+		"header": "An excised paragraph",
+		"header_ru": "Вырезанный параграф",
+		"maxhp": 15.0,
+		"element": "wood",
+		"deck": ["paper", "paper", "candle", "nothing"]
+	},
+
+	"diplomat": {
+		"header": "A disgraced diplomat",
+		"header_ru": "Дипломат в опале",
+		
+		"maxhp": 15.0,
+		"element": "water",
+		"deck": ["rrtpr", "cloud", "spark", "nothing"]
+	},
+
+	"mill": {
+		"header": "An errant paper mill",
+		"header_ru": "Заблудшая мельница",
+		"maxhp": 15.0,
+		"element": "fire",
+		"deck": ["paper", "paper", "candle", "paper"]
+	},
+
+	"unsteady": {
+		"header": "A shaking unsteadiness",
+		"header_ru": "Дрожащее неравновесие",
+		
+		"maxhp": 10.0,
+		"element": "metal",
+		"deck": ["droplet", "droplet", "cypher", "droplet"]
+	},
+
+	"pile": {
+		"header": "A pile of crates",
+		"header_ru": "Куча ящиков",
+		
+		"maxhp": 31.0,
+		"element": "wood",
+		"deck": ["spark", "nothing", "nothing", "nothing"]
+	},
+
+	"wind": {
+		"header": "A gust of wind",
+		"header_ru": "Порыв ветра",
+		
+		"maxhp": 10.0,
+		"element": "metal",
+		"deck": ["droplet", "nothing", "nothing", "cypher"]
+	},
+
+	"dirigible": {
+		"header": "An observing dirigible",
+		"header_ru": "Наблюдающий дирижабль",
+		
+		"maxhp": 20.0,
+		"element": "metal",
+		"deck": ["gunpowder", "cypher", "droplet", "nothing"]
+	},
+
+	"errant_cloud": {
+		"header": "A wandering cloud",
+		"header_ru": "Блуждающее облако",
+		
+		"maxhp": 20.0,
+		"element": "water",
+		"deck": ["cloud", "cloud", "cloud", "bridge"]
+	},
+
+	"epidemic": {
+		"header": "Harbinger of the plague",
+		"header_ru": "Предвестник чумы",
+
+		"maxhp": 12.0,
+		"element": "earth",
+		"deck": ["cloud", "nothing", "spikes_and_leaves", "spikes_and_leaves"]
+	},
+
+	"rose": {
+		"header": "A red eye",
+		"header_ru": "Красный глаз",
+
+		"maxhp": 10.0,
+		"element": "fire",
+		"deck": ["bridge", "smoke", "nothing", "droplet"]
 	}
 }

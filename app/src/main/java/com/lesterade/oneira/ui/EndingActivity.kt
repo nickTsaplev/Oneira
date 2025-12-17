@@ -9,15 +9,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import com.lesterade.oneira.databinding.ActivityEndingBinding
 import com.lesterade.oneira.databinding.FragmentEndingBinding
 import com.lesterade.oneira.R
-import com.lesterade.oneira.databinding.FragmentHomeBinding
-import com.lesterade.oneira.ui.gameHandling.GameMaster
-import com.lesterade.oneira.ui.gameHandling.instrument
-import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 
 class EndingFragment: Fragment() {
     private var _binding: FragmentEndingBinding? = null

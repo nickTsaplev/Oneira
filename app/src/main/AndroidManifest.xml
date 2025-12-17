@@ -20,7 +20,7 @@
             android:name=".ui.EndingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.home.testact"
+            android:name=".ui.cardsDisplay.testact"
             android:exported="false"
             android:label="@string/title_activity_testact"
             android:theme="@style/Theme.Oneira" />

@@ -1,33 +1,37 @@
 package com.lesterade.oneira
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.lesterade.oneira.databinding.ActivityMainBinding
-import com.lesterade.oneira.ui.dashboard.DashboardFragment
-import com.lesterade.oneira.ui.gameHandling.ToolFactory
-import com.lesterade.oneira.ui.gameHandling.ActorFactory
-import com.lesterade.oneira.ui.gameHandling.GameHandler
-import com.lesterade.oneira.ui.gameHandling.GameMaster
-import com.lesterade.oneira.ui.gameHandling.LocationFactory
+import com.lesterade.oneira.gameHandling.weapons.ToolFactory
+import com.lesterade.oneira.gameHandling.ActorFactory
+import com.lesterade.oneira.gameHandling.msgFormatting.msgPatterns
+import com.lesterade.oneira.gameHandling.GameMaster
+import com.lesterade.oneira.gameHandling.biomes.LocationFactory
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    val language = "ru"
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        ToolFactory.launch(applicationContext)
-        ActorFactory.launch(applicationContext)
-        LocationFactory.launch(applicationContext)
+        val viewModel: GameMasterViewModel by viewModels()
+
+        viewModel.master.value = GameMaster(msgPatterns(this))
+
+        ToolFactory.launch(applicationContext, language)
+        ActorFactory.launch(applicationContext, language)
+        LocationFactory.launch(applicationContext, language)
+
+        viewModel.master.value?.startNewGame(intent.getStringExtra("com.lesterade.oneira.charname") ?: "player")
 
         super.onCreate(savedInstanceState)
-
-        GameMaster.startNewGame(intent.getStringExtra("com.lesterade.oneira.charname") ?: "player")
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -39,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_dashboard, R.id.navigation_home, R.id.navigation_notifications
+                R.id.navigation_game, R.id.navigation_cards_display, R.id.navigation_menu
             )
         )
 

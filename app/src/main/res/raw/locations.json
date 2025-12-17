@@ -1,4 +1,9 @@
 {
+  "pattern_en" : "(%d steps left)",
+  "pattern_ru" : "(шагов осталось: %d)",
+
+  "wares_1": ["rrtpr", "dusty_office", "smoke", "sunrise_smoke"],
+
   "mon_garden" : {
     "header": "Monastery garden",
     "desc": "A humid garden, covered by roses",
@@ -20,7 +25,11 @@
   
   "start": {
 	"header": "A letter in your mailbox",
+	"header_ru": "Письмо в вашем почтовом ящике",
+	
     "desc": "You are suspected of something sinister and are summoned to face the court tomorrow.\nThis does not bode well. You probably won't return",
+    "desc_ru": "Вас подозревают в чем-то ужасном и вызывают в суд. Завтра. Хорошо это не звучит, скорее всего вы не вернетесь",
+    
     "type": "fork",
     "element": "earth",
     "next": [
@@ -31,7 +40,12 @@
 
   "tutorial": {
     "header": "Introduction",
-    "desc": "You and your opponent take turns playing moves from your hands. \nAfter a move is played you will redraw another from your deck(you can see it in the cards tab)",
+    "header_ru": "Введение",
+    
+    "desc": "You and your opponent take turns playing moves from your hands. \nAfter a move is played you will redraw another from your deck(you can see it in the cards tab) \n You can transmute some moves by swiping them left or right, however it takes a turn",
+    "desc_ru": "Вы и ваш противник по очереди играете ходы из ваших рук. \n После вашего хода, вы берете новый из вашей колоды (вы можете увидеть её на вкладке карт). \n Вы можете преобразовать некоторые ходы, смахнув их влево или вправо, однако это занимает ход",
+
+    
     "type": "fork",
     "element": "earth",
     "next": [
@@ -42,7 +56,11 @@
 
   "home": {
 		"header": "An apartment",
+		"header_ru" : "Квартира",
+		
 		"desc": "Your home. Or was it?",
+		"desc_ru": "Ваш дом. Или нет?",
+		
 		"enemies": ["tv", "snake", "memories"],
 		"depth": 3,
 		"element": "earth",
@@ -52,27 +70,252 @@
   
   "ministries": {
 		"header": "The ministries",
+		"header_ru": "Министерства",
+		
 		"desc": "The whir of machines fills the air",
+		"desc_ru": "Воздух заполнен гулом машин",
+		
 		"enemies": ["tv", "control", "devil"],
 		"depth": 3,
 		"element": "metal",
 		"type": "simple",
-		"next": ["corner_shop"]	
+		"next": ["table_take"]
+  },
+
+  "table_take": {
+    "header": "An empty office",
+    "header_ru": "Пустой кабинет",
+    
+    "desc": "Choose a move to gain",
+    "desc_ru": "Выберите новую карту",
+    
+    "element": "fire",
+    "wares": "wares_1",
+    "next": ["ministry_fork"],
+    "type": "shop"
+  },
+
+  "ministry_fork": {
+      "header": "Windy corridors and offices",
+      "header_ru": "Сквозняки, коридоры и кабинеты",
+      
+      "desc": "Turns out you're not accused per se. But an ardent officer kindly explains your duty as a witness in a case against one of your (obviously now former, right, citizen?) friends. You are expected to testify tomorrow. What will you do?",
+      "desc_ru": "Оказывается подозреваемый не вы. Но ретивый офицер любезно объясняет вам ваши обязанности свидетеля по делу против одного из ваших друзей (очевидно, теперь уже бывшего, верно, гражданин?). Завтра вас ждут на допрос. Что же вам делать?",
+      
+      "element": "metal",
+      "type": "fork",
+      "next": [
+        ["ask_docs", "city_streets"],
+        ["slither", "city_river"]
+      ]
   },
   
   "city_river": {
 		"header": "The embankment",
+		"header_ru": "Набережная",
+		
 		"desc": "Shady individuals meet near the muddled waters",
+		"desc_ru": "Подозрительные люди собираются у мутной воды",
+		
 		"enemies": ["devil", "control", "herald"],
 		"depth": 3,
 		"element": "water",
 		"next": ["statue"],
 		"type": "simple"
   },
-  
+
+  "city_streets": {
+    "header": "The tangle of streets",
+    "header_ru": "Переплетение улиц",
+    
+    "desc": "Citizens shuffle. Occasionally a car rattles past.",
+    "desc_ru": "Шуршат прохожие. Слышен дребезг мотокарет",
+    
+    "enemies": ["con_citizen", "con_citizen", "courier", "courier", "shaded_car"],
+    "depth": 3,
+    "element": "earth",
+    "next": ["streets_give"],
+    "type": "simple"
+  },
+
+  "streets_give": {
+    "header": "A careless street-vendor",
+    "header_ru": "Беззаботный старьевщик",
+    
+    "desc": "Choose a move to gain",
+    "desc_ru": "Выберите новую карту",
+    
+    "element": "fire",
+    "wares": ["rrtpr", "cypher", "engine", "rainfall"],
+    "next": ["embassy", "spires", "docks", "fluorescent_garden"],
+    "type": "shop"
+  },
+
+  "city_streets_fork": {
+    "header": "You have to escape",
+    "header_ru": "Вам нужно бежать",
+    
+    "desc": "You have to run. But where? And most importantly how? In one day, now almost alone, without any resources. It seems impossible",
+    "desc_ru": "You have to run. But where? And most importantly how? In one day, now almost alone, without any resources. It seems impossible",
+    
+    "element": "earth",
+    "type": "fork",
+    "next": [
+      ["docks_small", "docks"],
+      ["embassy_small", "embassy"],
+      ["spires_small", "spires"]
+    ]
+  },
+
+  "docks": {
+      "header": "The wharfs and the canals",
+      "header_ru": "Причалы и каналы",
+      
+      "desc": "Workers and crates. Sirens blare overhead.",
+      "desc_ru": "Грузчики, ящики и вой сирен над головой",
+      
+      "element": "water",
+      "type": "simple",
+      "depth": 3,
+      "enemies": ["dockworker", "tar_machine", "customs"],
+      "next": ["crates"]
+  },
+
+  "docks_give": {
+    "header": "A pile of lost goods scattered on the ground",
+    "header_ru": "Куча потерянных ящиков",
+    
+    "desc": "Choose a move to gain",
+    "desc_ru": "Выберите новую карту",
+    
+    "element": "fire",
+    "wares": ["cypher", "lost_stars", "rainfall"],
+    "next": ["crates"],
+    "type": "shop"
+  },
+
+    "crates": {
+        "header": "Among the crates abroad",
+        "header_ru": "Меж грузов на корабле",
+        
+        "desc": "It's dark and cold in here. Occasionally you see things",
+        "desc_ru": "Темно и холодно. Иногда вы что-то видите",
+        
+        "element": "water",
+        "type": "simple",
+        "depth": 3,
+        "enemies": ["captain", "darkness", "rats"],
+        "next": ["ending_west"]
+    },
+
+  "fluorescent_garden": {
+    "header": "The central garden",
+    "header_ru": "Главсад",
+
+    "desc": "Attempt to collect yourself under the canopies",
+    "desc_ru": "Попробовать успокоиться под пологом фальшивого леса",
+
+    "element": "earth",
+    "type": "simple",
+
+    "depth": 4,
+    "enemies": ["past", "epidemic", "rose", "thicket"],
+    "next": ["embassy"]
+
+  },
+
+    "embassy": {
+        "header": "The outer walls of the grand embassy",
+        "header_ru": "Внешние стены большого Посольства",
+        
+        "desc": "The army gathers. The war is expected any day now",
+        "desc_ru": "Здание окружает армия. Говорят начнется..",
+        
+        "element": "fire",
+        "type": "simple",
+        "depth": 3,
+        "enemies": ["soldier", "past", "war_machine"],
+      "next": ["embassy_give"]
+    },
+
+  "embassy_give": {
+    "header": "As you enter you notice something on the ground",
+    "header_ru": "Вы видите что-то на земле около входа..",
+
+    "desc": "Choose a move to gain",
+    "desc_ru": "Выберите новую карту",
+    
+    "element": "fire",
+    "wares": ["cypher", "lost_stars", "rainfall"],
+    "next": ["embassy_inner"],
+    "type": "shop"
+  },
+
+    "embassy_inner": {
+        "header": "The innards of the grand embassy",
+        "header_ru": "Внутренности Посольства",
+        
+        "desc": "Clerks endlessly wander from one room to another",
+        "desc_ru": "Служащие бесконечно блуждают по кабинетам",
+        
+        "element": "fire",
+        "type": "simple",
+        "depth": 3,
+        "enemies": ["paragraph", "diplomat", "mill"],
+      "next": ["ending_east"]
+    },
+
+    "spires": {
+        "header": "The spires of the sky-piers",
+        "header_ru": "Шпили небесных пристаней",
+        
+        "desc": "The country sends wares even to the uncaring sky",
+        "desc_ru": "Страна отправляет свои товары даже безразличному небу",
+        
+        "element": "metal",
+        "type": "simple",
+        "depth": 3,
+        "enemies": ["unsteady", "pile", "wind"],
+        "next": ["sky_give"]
+    },
+
+  "sky_give": {
+    "header": "The wind offers you something",
+    "header_ru": "Что же предложит вам ветер?",
+    
+    "desc": "Choose a move to gain",
+    "desc_ru": "Выберите новую карту",
+    
+    "element": "fire",
+    "wares": ["cypher", "lost_stars", "rainfall"],
+    "next": ["sky"],
+    "type": "shop"
+  },
+
+    "sky": {
+        "header": "The clouds above",
+        "header_ru": "Высокие облака",
+        
+        "desc": "You walk on the tattering piers, then on nothing",
+        "desc_ru": "Вы поднимаетесь на дрожжащих мостках. Затем не на чем",
+        
+        "element": "metal",
+        "type": "simple",
+        "depth": 3,
+        "enemies": ["dirigible", "wind", "errant_cloud"],
+      "next": ["ending_up"]
+    },
+    
+    
+    
+    
   "rails": {
 		"header": "The railway on the edge of the city",
+		"header_ru": "Рельсы на окраине",
+		
 		"desc": "You smell gunpowder",
+		"desc_ru": "Пахнет порохом",
+		
 		"enemies": ["rogue", "herald", "hunter", "rogue", "rogue", "herald", "rogue"],
 		"depth": 3,
 		"element": "fire",
@@ -82,7 +325,11 @@
   
   "forest": {
 	  "header": "The forests",
+	  "header_ru": "Лес",
+	  
 	  "desc": "Maybe you can escape up north?",
+	  "desc_ru": "Может получится бежать на север?",
+	  
 	  "depth": 3,
 	  "enemies": ["hunter", "elk", "thicket", "thicket", "elk", "thicket"],
 	  "element": "wood",
@@ -92,8 +339,12 @@
   
   "corner_shop": {
     "header": "An empty corner shop",
-    "element": "fire",
+    "header_ru": "Путая лавка на углу",
+    
     "desc": "Choose a move to gain",
+    "desc_ru": "Выберите новую карту",
+    
+    "element": "fire",
     "wares": ["sap", "rainfall"],
     "next": ["city_river"],
     "type": "shop"
@@ -101,8 +352,12 @@
   
   "statue": {
     "header": "A pile of offerings near the statue",
-    "element": "fire",
+    "header_ru": "Жертвы около памятнка",
+    
     "desc": "Choose a move to gain",
+    "desc_ru": "Выберите новую карту",
+    
+    "element": "fire",
     "wares": ["rrtpr", "dusty_office", "optics"],
     "next": ["rails"],
     "type": "shop"
@@ -110,8 +365,12 @@
   
   "electric_box": {
     "header": "An unassuming sight near the rails",
-    "element": "fire",
+    "header_ru": "Незаментая деталь около рельс",
+    
     "desc": "Choose a move to gain",
+    "desc_ru": "Выберите новую карту",
+    
+    "element": "fire",
     "wares": ["engine", "raging_fire"],
     "next": ["forest"],
     "type": "shop"
@@ -135,15 +394,46 @@
   
   "ending_over": {
 	"header": "You failed to escape",
+	"header_ru": "Провал.",
+	
 	"desc": "",
 	"element": "fire",
 	"type": "ending"
   },
   
   "ending_north": {
-	  "header": "You travel farther and farther north for months. Perhaps one day you'll find someone. Perhaps not. \n But you've definetely managed to escape this nightmare.\nThe end.",
+	  "header": "You travel farther and farther north for months. Perhaps one day you'll find someone. Perhaps not. \n But you've definitely managed to escape this nightmare.",
+	  "header_ru": "Вы продвигаетесь дальше и дальше на север. Может быть когда-нибудь вы кого-то найдете. Может нет. \n Но вы точно смогли избавиться от этого кошмара.",
+	  
 	  "desc": "",
 	  "element": "water",
 	  "type": "ending"
+  },
+
+  "ending_east": {
+    "header": "The overworked emissary finally relents. Your case is accepted. You will wait for the dawn here \n and leave the country on the morning freight train hidden in a box full of apricots.\n You hope you will find there a welcoming refuge.",
+    "header_ru": "Заработавшийся эмиссар наконец поддается. Ваше дело принято. Дождетесь рассвета вы здесь, а после покинете страну на утреннем поезде, надежно спрятаны в ящике полном абрикосов. Вы надеетесь, что встретят вас гостепреимно",
+    
+    "desc" : "",
+    "element": "fire",
+    "type": "ending"
+  },
+
+  "ending_west": {
+    "header": "A rusting, creaking mass speeds up. The hull groans. Soon it will enter the interinsolar waters. You intend to exit at the first foreign port you land at. \n A telegraph in a highrise well-furnished apartment chatters out your name.",
+    "header_ru": "Ржавая, скрипящая масса укоряется. Сужно стонет. Скоро оно войдет в интеринсолярные воды. Вы планируете выйти в первом иностранном порту в котором вы остановитесь. \n Выскоко над облаками, в хорошо обставленной квартире телеграфный аппарат выстукивает ваше имя.",
+    
+    "desc" : "",
+    "element": "metal",
+    "type": "ending"
+  },
+
+  "ending_up": {
+    "header": "You forgot the land you walked on before and keep on ascending. \n Maybe you will reach the stars one day. \n Maybe you will find heaven. Who knows!",
+    "header_ru": "Вы забыли землю по которой шли и продолжаете подниматься. \n Может быть вы когда-нибудь доберетесь до звезд. \n Возможно вы нйдете там рай. Кто знает!",
+    
+    "desc" : "",
+    "element": "water",
+    "type": "ending"
   }
 }

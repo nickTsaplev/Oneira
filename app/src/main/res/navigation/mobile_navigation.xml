@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/navigation_dashboard">
+    app:startDestination="@id/navigation_game">
 
     <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.lesterade.oneira.ui.home.HomeFragment"
+        android:id="@+id/navigation_cards_display"
+        android:name="com.lesterade.oneira.ui.cardsDisplay.CardsDisplayFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_cards_display" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.lesterade.oneira.ui.dashboard.DashboardFragment"
+        android:id="@+id/navigation_game"
+        android:name="com.lesterade.oneira.ui.game.GameFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_game" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.lesterade.oneira.ui.notifications.NotificationsFragment"
+        android:id="@+id/navigation_menu"
+        android:name="com.lesterade.oneira.ui.notifications.MenuFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_menu" />
 </navigation>

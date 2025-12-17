@@ -1,32 +1,109 @@
 {
 	"candle": {
 		"header": "A candle",
-		"description": "Attack equal to your inner fire,\nlower it by 4 if it's higher than 4",
+		"header_ru": "Свеча",
+		
+		"description": "Attack equal to your inner fire,\nlower it by 1 if it's higher than 4",
+		"description_ru": "Удар равный внутреннему огню. Уменьшит его на 1, если тот выше 4",
+		
 		"type": "fiery",
 		"damage": 0.0,
-		"fire_effect": -4,
-		"element": "fire"
+		"fire_effect": -1,
+		"min_fire": 4,
+		"element": "fire",
+
+		"transmutesInto": ["cloud", "bridge"]
 	},
+
+	"paper": {
+		"header": "A paper trail",
+		"header_ru": "Бумажный след",
+		
+		"description": "Deal 2 damage. Increase your inner fire by 2",
+		"description_ru": "Ударить на 2. Поднять внутренний огонь на 2",
+		
+		"type": "fiery",
+		"damage": 2.0,
+		"fire_effect": 2,
+		"element": "wood",
+
+		"transmutesInto": ["draw_blood", "candle"]
+	},
+
 	"raging_fire": {
 		"header": "Raging fire",
+		"header_ru": "Яростный огнь",
 		"description": "Burn a random move in your hand,\nincrease your inner fire by 10",
+		"desciption_ru": "Сжечь случайную карту в руке. Поднять внутренний огонь на 10",
+		
 		"type": "handBurn",
 		"damage": 0.01,
 		"fire_effect": 10,
-		"element": "fire"
+
+		"transmutesInto": ["sunrise_smoke", "ancien_regime"]
+	},
+
+	"slither": {
+		"header": "Slither away",
+		"header_ru": "Уползти за дверь",
+		
+		"description": "Yeah, I have to go.. What? Of course I will be here tomorrow!",
+		"description_ru": "Мне пора уже идти... Что? Конечно, я явлюсь сюда завтра!"
+	},
+
+	"ask_docs": {
+		"header": "Ask for everything you have to sign",
+		"header_ru": "Потребовать все, что вы подпишете",
+		
+		"description": "You ask. No! You >demand< that they give you every copy required by law!",
+		"description_ru": "Вы запросите. Нет, вы >требуете< копии всех документов, что просят вас подписать!"
+	},
+
+	"docks_small": {
+		"header": "Walk along the docks",
+		"header_ru": "Просетить порт",
+		
+		"description": "Maybe you can hide among the seemingly infinite shipments west?",
+		"description_ru": "Может быть вы сможете скрыться среди бесконечных поставок на запад?"
+	},
+
+	"embassy_small": {
+		"header": "Petition the grand embassy",
+		"header_ru": "Запросить Посольство",
+		
+		"description": "Beg the powers far east for shelter",
+		"description_ru": "Просить власти далекого востока о помощи"
+	},
+
+	"spires_small": {
+		"header": "Wander the sky-piers",
+		"header_ru": "Осмотреть небесные пристани",
+		
+		"description": "What do expect there so high above?",
+		"description_ru": "Что вы найдете, так высоко наверху?"
 	},
 
 	"rrtpr": {
 		"header": "R-R typewriter",
-		"description": "Deal 15 damage, you'll have to reload",
+		"header_ru": "Пишущая машинка R-R",
+
+		"description": "Deal 10 damage, you'll have to reload",
+		"description_ru": "Ударить на 10, орудие придется перезарядить",
+		
 		"type": "reloading",
 		"turnsInto": "rr_tape",
-		"damage": 15.0,
-		"element": "metal"
+		"damage": 10.0,
+		"element": "metal",
+
+		"transmutesInto": ["raging_fire", "sunrise_smoke"]
 	},
 	"rr_tape": {
 		"header": "Change the tape",
+		"header_ru": "Замена ленты",
+
 		"description": "Reload your typewriter",
+		"description_ru": "Перезарядить пишмашинку",
+		
 		"type": "reloading",
 		"turnsInto": "rrtpr",
 		"damage": 0.0,
@@ -35,34 +112,66 @@
 
 	"cloud": {
 		"header": "A cloud",
+		"header_ru": "Облако",
+		
 		"description": "Heal 5 hp",
+		"description_ru": "Излечиться на 5",
+		
 		"type": "simple",
 		"damage": 0.0,
 		"element": "water",
-		"heal": 5.0
+		"heal": 5.0,
+
+		"transmutesInto": ["bridge", "paper"]
 	},
 
 	"droplet": {
 		"header": "Rain droplet",
+		"header_ru": "Капля дождя",
+		
 		"description": "Deal 2 damage",
+		"description_ru": "Удар на 2",
+		
 		"type": "simple",
 		"damage": 2.0,
+		"element": "water"
+	},
+
+	"heavy_droplet": {
+		"header": "Heavy droplet",
+		"header_ru": "Тяжелая капля",
+		
+		"description": "Deal 5 damage",
+		"description_ru": "Удар на 5",
+		
+		"type": "simple",
+		"damage": 5.0,
 		"element": "water"
 	},
 
 
 	"rainfall" : {
 		"header": "Rainfall",
+		"header_ru": "Проливной дождь",
+		
 		"description": "Deal damage equal to eight times \nthe number of clouds in your deck",
+		"description_ru": "Ударить на значение равное восьмикратному количеству ваших облаков",
+		
 		"type": "boosted",
 		"by": ["cloud"],
 		"damage": 8.0,
-		"element": "water"
+		"element": "water",
+
+		"transmutesInto": ["dusty_office", "spikes_and_leaves"]
 	},
 
 	"sap": {
 		"header": "Sap transfer",
+		"header_ru": "Передача смол",
+		
 		"description": "Take 5 hp from the enemy",
+		"description_ru": "Забрать 5 здоровья у врага",
+		
 		"type": "lifesteal",
 		"damage": 5.0,
 		"element": "wood"
@@ -70,7 +179,11 @@
 
 	"wishing_tree": {
 		"header": "Wishing tree",
+		"header_ru": "Желающее дерево",
+		
 		"description": "Deal 10 minus the inner fire amount of damage.",
+		"description_ru": "Ударить на 10 минус внутренний огонь",
+		
 		"type": "wooden",
 		"damage": 10.0,
 		"element": "wood"
@@ -80,29 +193,34 @@
 	
 	"gunpowder": {
 		"header": "Gunpowder",
+		"header_ru": "Порох",
+		
 		"description": "Deal 10 damage. This is probably unsafe",
+		"description": "Deal 10 damage. This is probably unsafe",
+		
 		"type": "simple",
 		"damage": 10.0,
 		"element": "fire"
 	},
 	"spark": {
 		"header": "A spark",
+		"header_ru": "Искра",
+		
 		"description": "Deal 3 damage.",
+		"description": "Deal 3 damage.",
+		
 		"type": "simple",
 		"damage": 3.0,
 		"element": "fire"
 	},
 
-	"predict_move": {
-		"header": "Predictable move",
-		"description": "Deal 1 damage.\nIncrease earth affiliation by 1",
-		"type": "simple",
-		"damage": 5.0,
-		"element": "earth"
-	},
 	"nothing": {
 		"header": "Nothing",
+		"header_ru": "Ничего",
+		
 		"description": "take nothing",
+		"description_ru": "Ничего не брать",
+		
 		"type": "simple",
 		"damage": 0.0,
 		"element": "earth"
@@ -117,7 +235,11 @@
 	
 	"run": {
 		"header": "Pack your belongings",
+		"header_ru": "Собрать вещи",
+		
 		"description": "You have to run",
+		"description_ru": "Вам нужно бежать",
+		
 		"type": "simple",
 		"damage": 5.0,
 		"element": "earth"
@@ -125,59 +247,217 @@
 
 	"onwards": {
 		"header": "Onwards",
+		"header_ru": "Вперед",
+		
 		"description": "You have places to be",
-		"type": "simple",
-		"damage": 5.0,
-		"element": "earth"
+		"description_ru": "У вас есть дела",
+		
+		"type": "simple"
 	},
 	"get_tutorial": {
 		"header": "But how?",
+		"header_ru": "Но как?",
+		
 		"description": "Show the tutorial",
-		"type": "simple",
-		"damage": 5.0,
-		"element": "earth"
+		"description_ru": "Показать введение",
+		
+		"type": "simple"
 	},
 
 	"engine" : {
 		"header": "A small engine",
+		"header_ru": "Малый мотор",
+		
 		"description": "Boosts your damage by 5 while in hand",
+		"description_ru": "Усиливает ваши удары на 5, пока находится в руке",
+		
 		"type": "boosting",
-		"dmg_boost": 5.0,
+		"damageBoost": 5.0,
 		"damage" : 5.0,
-		"element": "metal"
+		"element": "metal",
+
+		"transmutesInto": ["optics", "dusty_office"]
 	},
 
 	"optics" : {
 		"header": "Midnight optics",
-		"description": "Deal 7 damage. \nChance to skip battle with \nthe bringers of the new democracy.",
+		"header_ru": "Полуночная линза",
+		
+		"description": "Deal 7 damage. \nChance to skip battle.",
+		"description_ru": "Удар на 7. Орудие новой демократии",
+		
 		"type": "peacemaking",
-		"peace_with": ["herald"],
+		"peace_with": ["herald", "courier"],
 		"damage": 7.0,
+		"element": "fire",
+
+		"transmutesInto": ["rainfall", "dusty_office"]
+	},
+
+	"cypher" : {
+		"header": "Cypher-creating machine",
+		"header_ru": "Шифровальная машинка",
+		
+		"description": "Enemy loses 45% of their current hp",
+		"description_ru": "Враг теряет 45% здоровья",
+		
+		"type": "percent",
+		"damage": 0.45,
+		"element": "metal"
+	},
+
+	"smoke": {
+		"header": "Midday smoke",
+		"header_ru": "Полуденный дым",
+		
+		"description": "Deal 10 damage. Turns into a cloud",
+		"description_ru": "Удар на 10. Станет облаком",
+		
+		"type": "simple",
+		"turnsInto": "cloud",
+		"damage": 10.0,
 		"element": "fire"
 	},
-	
+
+	"sunrise_smoke": {
+		"header": "Sunrise smoke",
+		"header_ru": "Восходный дым",
+		
+		"description": "Raise inner fire by 10, heal 5. Turns into a cloud",
+		"description_ru": "Усилит внутренний огонь на 10, излечит на 5, станет облаком",
+		
+		"type": "fiery",
+		"fire_effect": 10,
+		"turnsInto": "cloud",
+		"heal": 5.0,
+		"damage": 0.01,
+		"element": "water",
+
+		"transmutesInto": ["ancien_regime", "pretender_king"]
+	},
+
 	"bridge": {
 		"header": "Steady bridge",
+		"header_ru": "Устойчивый мост",
+		
 		"description": "Deal 5 damage",
+		"description_ru": "Удар на 5",
+		
 		"type": "simple",
 		"damage": 5.0,
-		"element": "earth"
+		"element": "earth",
+
+		"transmutesInto": ["paper", "draw_blood"]
 	},
 	"dusty_office": {
 		"header": "A dusty office",
+		"header_ru": "Пыльный кабинет",
+		
 		"description": "Redraw your hand. Heal 5 hp",
+		"description_ru": "Заменить карты в руке, излечить на 5",
+		
 		"type": "redraw",
 		"damage": 0.0,
 		"heal": 5.0,
-		"element": "earth"
+		"element": "earth",
+
+		"transmutesInto": ["spikes_and_leaves", "engine"]
 	},
 
 	"ling_spark": {
 		"header": "Lingering spark",
+		"header_ru": "Долгая искра",
+		
 		"description": "Deal damage equal to your fire affiliation, decrease it by 1",
+		"description_ru": "Ударить на значение равное внутреннему огню, понизить его на 1",
+		
 		"type": "simple",
 		"damage": 5.0,
 		"element": "earth"
-	}
+	},
 
+	"lost_stars": {
+		"header": "The lost stars",
+		"header_ru": "Потерянные звезды",
+		
+		"description": "Deal 5 damage. Swap your and your enemy's hp",
+		"description_ru": "Удар на 5. Поменять местами здоровья врага и вас",
+		
+		"type": "flip",
+		"damage": 0.0,
+		"heal": -5.0,
+		"element": "fire"
+	},
+
+	"flip_hp": {
+		"header": "Aspartame",
+		"header_ru": "Аспартан",
+		
+		"description": "Swap your and your enemy's hp",
+		"description_ru": "Поменять местами здоровья врага и вас",
+		
+		"type": "flip",
+		"damage": 0.0,
+		"heal": 0.0,
+		"element": "fire"
+	},
+
+	"spikes_and_leaves": {
+		"header": "Spikes and leaves",
+		"header_ru": "Шипы и листья",
+
+		"description": "Poison for 2, hit for 5",
+		"description_ru": "Удар на 5, отравить цель на 2",
+
+		"type": "poison",
+		"damage": 5.0,
+		"poison": 2.0,
+		"element": "wood",
+
+		"transmutesInto": ["cypher", "raging_fire"]
+	},
+
+	"pretender_king": {
+		"header": "Pretender king",
+		"header_ru": "Ложный царь",
+
+		"description": "Heal equal to enemy's poison, set it to zero",
+		"description_ru": "Излечиться на значение отравления оппонента, выставить его в 0",
+
+		"type": "poisonHeal",
+		"damage": 0.0,
+		"element": "wood",
+
+		"transmutesInto": ["rrtpr", "optics"]
+	},
+
+	"ancien_regime": {
+		"header": "Ancien regime",
+		"header_ru": "Ancien regime",
+
+		"description": "Play your entire hand. Poison yourself by 3",
+		"description_ru": "Сыграть все карты в руке, отравиться на 3",
+
+		"type": "selfPoison+playHand",
+		"poison": 3.0,
+		"damage": 0.0,
+		"element": "earth",
+
+		"transmutesInto": ["pretender_king", "rrtpr"]
+	},
+
+	"draw_blood": {
+		"header": "Draw blood",
+		"header_ru": "Сбор крови",
+
+		"description": "Damage for 3, inflict 2 bleed",
+		"description_ru": "Удар на 3, нанести 2 кровотечения",
+
+		"type": "bleed",
+		"bleed": 2.0,
+		"damage": 3.0,
+		"element": "metal",
+
+		"transmutesInto": ["candle", "cloud"]
+	}
 }

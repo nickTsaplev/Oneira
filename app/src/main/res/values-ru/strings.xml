@@ -1,0 +1,31 @@
+<resources>
+
+    <string name="title_home">Карты</string>
+    <string name="title_dashboard">Игра</string>
+    <string name="title_notifications">Меню</string>
+    <string name="title_activity_testact">testact</string>
+
+    <string name="start_run">Начать</string>
+    <string name="save_game">Сохранить</string>
+    <string name="load_game">Загрузить сохранеие</string>
+    <string name="exit_game">Выход</string>
+    <string name="new_game">Новая игра</string>
+    <string name="start_again">Заново?</string>
+
+    <string name="and_name">и</string>
+
+    <string name="hit_pattern">бьете на %f</string>
+    <string name="bleed_pattern">истекаете на %f</string>
+    <string name="suffer_pattern">страдаете на %f</string>
+    <string name="heal_pattern">лечитесь на %f</string>
+
+    <string name="hits_pattern">бьет на %f</string>
+    <string name="bleeds_pattern">истекает на %f</string>
+    <string name="suffers_pattern">страдает на %f</string>
+    <string name="heals_pattern">лечится на %f</string>
+
+    <string name="do_pattern">ждете</string>
+    <string name="does_pattern">ждет</string>
+
+    <string name="self_name">Вы</string>
+</resources>
