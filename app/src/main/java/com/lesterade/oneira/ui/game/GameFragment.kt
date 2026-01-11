@@ -23,12 +23,21 @@ import androidx.compose.ui.res.*
 import androidx.compose.ui.unit.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.lesterade.oneira.GameMasterViewModel
+import com.lesterade.oneira.R
 import com.lesterade.oneira.databinding.FragmentGameBinding
 import com.lesterade.oneira.ui.EndingActivity
 import com.lesterade.oneira.gameHandling.GameHandler
+import com.lesterade.oneira.ui.EndingScreen
+import com.lesterade.oneira.ui.cardsDisplay.CardsDisplayScreen
+import com.lesterade.oneira.ui.notifications.MenuScreen
 import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 import com.lesterade.oneira.ui.toolDisplayLayout.TransmutableToolDisplay
+import kotlinx.serialization.Serializable
 import kotlin.math.ceil
 
 class GameFragment : Fragment() {
@@ -52,15 +61,7 @@ class GameFragment : Fragment() {
 
         gameH?.update()
         binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        binding.composeView.setContent { GameScreen(gameH!!) {
-            name, header ->
-            val int = Intent("android.intent.action.VIEW")
-            int.setClass(requireContext(), EndingActivity::class.java)
-            int.putExtra("com.lesterade.oneira.ending", header)
-            int.putExtra("com.lesterade.oneira.ending_img", name)
-            activity?.finish()
-            startActivity(int)
-        } }
+        binding.composeView.setContent { MainScreen(gameH!!) }
 
         return root
     }
@@ -69,6 +70,10 @@ class GameFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+}
+
+fun scaleNearestBitmap() {
+
 }
 
 @Composable
@@ -86,6 +91,8 @@ fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: F
         null
 
     fun DrawScope.drawInterface() {
+        val scaleF = scale ?: 1f
+
         val left = (size.width - background.width) / 2
         val top = size.height - background.height
 
@@ -98,9 +105,9 @@ fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: F
             drawImage(creatura, Offset(left, top))
         }
 
-        drawRect(Color(0xFF246D49), Offset(0f, size.height * (1f - leftBar)), Size( 10f, size.height * (leftBar)))
+        drawRect(Color(0xFF246D49), Offset(0f, size.height * (1f - leftBar)), Size( 10f * scaleF, size.height * (leftBar)))
 
-        drawRect(Color(0xFF246D49), Offset(size.width - 10f, size.height * (1f - rightBar)), Size(10f, size.height * (rightBar),))
+        drawRect(Color(0xFF246D49), Offset(size.width - 10f, size.height * (1f - rightBar)), Size(10f * scaleF, size.height * (rightBar),))
     }
 
     Canvas(Modifier.aspectRatio(1.34f)
@@ -114,7 +121,8 @@ fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: F
 }
 
 @Composable
-fun GameScreen(handler: GameHandler, onGameEnd: (String, String) -> Unit) {
+fun GameScreen(handler: GameHandler,
+               onGameEnd: (String, String) -> Unit) {
     val textColor = Color(0xFFB66D00)
 
     var tools by remember {mutableStateOf(handler.tools)}
@@ -150,37 +158,83 @@ fun GameScreen(handler: GameHandler, onGameEnd: (String, String) -> Unit) {
             onGameEnd(handler.sceneName, handler.sceneHead)
         }
     }
-
     Column {
-        Text(head, color = textColor)
-        SceneCanvas(name, creat, lb, rb, scale)
-        Text(desc, color = textColor)
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+        ) {
+            Text(head, color = textColor)
+            SceneCanvas(name, creat, lb, rb, scale)
+            Text(desc, color = textColor)
 
-        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            for (i in 0..2) {
-                if(tools[i].transmutable)
-                    TransmutableToolDisplay(tools[i], i, {
-                        handler.activateTool(it)
-                        update()
-                    }, {a: Int, b: Int ->
-                        handler.transmuteTool(a, b)
-                        update()
-                    }, scale)
-                else
-                    ToolDisplay(tools[i], i, {
-                        handler.activateTool(it)
-                        update()
-                    }, scale)
+            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                for (i in 0..2) {
+                    if (tools[i].transmutable)
+                        TransmutableToolDisplay(
+                            tools[i], i,
+                            {
+                                handler.activateTool(it)
+                                update()
+                            }, { a: Int, b: Int ->
+                                handler.transmuteTool(a, b)
+                                update()
+                            }, scale
+                        )
+                    else
+                        ToolDisplay(tools[i], i, {
+                            handler.activateTool(it)
+                            update()
+                        }, scale)
+                }
             }
+            Text(msg, color = textColor)
         }
-        Text(msg, color = textColor)
+
     }
 }
 
+
+
 @Composable
 fun MainScreen(handler: GameHandler) {
-    var step = remember { mutableStateOf(2)}
+    @Serializable
+    class Game() {}
 
-    if(step.value == 2)
-        GameScreen(handler, {name, header -> step.value = 0})
+    @Serializable
+    class Cards() {}
+
+    @Serializable
+    class Menu() {}
+
+    @Serializable
+    data class Ending(val imageName: String, val desc: String) {}
+
+    val buttonColors = ButtonColors(Color(0xFF704300), Color(0xFFBDBDBD), Color(0xFF363636), Color(0xFFBDBDBD))
+
+    val navController = rememberNavController()
+    Column(modifier = Modifier
+        .fillMaxSize()) {
+        Row(modifier = Modifier
+            .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+            Button({ navController.navigate(route = Game()) },  shape = RectangleShape, colors = buttonColors) { Text(text = stringResource(R.string.title_game)) }
+            Button({ navController.navigate(route = Cards()) }, shape = RectangleShape, colors = buttonColors) { Text(text = stringResource(R.string.title_cards)) }
+            Button({ navController.navigate(route = Menu()) },  shape = RectangleShape, colors = buttonColors) { Text(text = stringResource(R.string.title_menu)) }
+        }
+
+        NavHost(
+            navController,
+            startDestination = Game(),
+            modifier = Modifier
+                .fillMaxSize()
+        ) {
+            composable<Game>() { GameScreen(handler, { s: String, s1: String -> }) }
+            composable<Cards>() { CardsDisplayScreen(handler) }
+            composable<Menu>() { MenuScreen(handler) { handler.startGame()
+                navController.navigate(route = Game())}}
+            composable<Ending> { backStackEntry ->
+                val ending: Ending = backStackEntry.toRoute()
+                EndingScreen(ending.imageName, ending.desc) { handler.startGame()
+                    navController.navigate(route = Game())}}
+        }
+    }
 }

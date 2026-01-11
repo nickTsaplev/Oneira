@@ -3,13 +3,13 @@
 
     <item
         android:id="@+id/navigation_game"
-        android:title="@string/title_dashboard" />
+        android:title="@string/title_game" />
     <item
         android:id="@+id/navigation_cards_display"
-        android:title="@string/title_home" />
+        android:title="@string/title_cards" />
 
     <item
         android:id="@+id/navigation_menu"
-        android:title="@string/title_notifications" />
+        android:title="@string/title_menu" />
 
 </menu>

@@ -15,6 +15,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.*
 import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.FixedScale
 import androidx.compose.ui.platform.LocalContext
@@ -49,7 +50,9 @@ fun ToolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit, scale: Float
 }
 
 @Composable
-fun TransmutableToolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit, onTrms: (Int, Int) -> Unit,  scale: Float? = null) {
+fun TransmutableToolDisplay(disp: dispTool,
+                            clickId: Int, onClk: (Int) -> Unit,
+                            onTrms: (Int, Int) -> Unit,  scale: Float? = null) {
     val swipeToDismissBoxState = rememberSwipeToDismissBoxState(
         confirmValueChange = {
             if (it == SwipeToDismissBoxValue.StartToEnd)

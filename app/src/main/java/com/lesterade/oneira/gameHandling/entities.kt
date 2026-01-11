@@ -85,10 +85,19 @@ open class Actor(cr: Creature): Creature(cr) {
     }
 }
 
+@Serializable
+class TransmutationDirection(val main: Boolean, val dir: Boolean) {
+    fun apply(element: Element): Element {
+        return element.transmute(main, dir)
+    }
+}
+
 class Player(cr: Creature) : Actor(cr) {
     var hand: MutableList<Instrument> = mutableListOf()
 
     var inventory: MutableList<Instrument> = mutableListOf()
+
+    var directions: List<TransmutationDirection> = listOf()
 
     fun redraw() {
         while(hand.size < 3 && ((deck.size + discarded.size) > 0)) {

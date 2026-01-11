@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.activity)
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
+    implementation(libs.androidx.navigation.compose.android)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

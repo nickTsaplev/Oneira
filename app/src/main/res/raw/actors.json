@@ -10,7 +10,12 @@
 		"maxhp": 30.0,
 		"player": "true",
 		"element": "fire",
-		"deck": ["bridge", "cloud", "candle"]
+		"deck": ["bridge", "cloud", "candle"],
+
+		"directions": [
+			{"main": true, "dir": true},
+			{"main": false, "dir": true}
+		]
 	},
 	
 	"elk": {

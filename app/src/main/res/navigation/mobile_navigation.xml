@@ -8,18 +8,18 @@
     <fragment
         android:id="@+id/navigation_cards_display"
         android:name="com.lesterade.oneira.ui.cardsDisplay.CardsDisplayFragment"
-        android:label="@string/title_home"
+        android:label="@string/title_cards"
         tools:layout="@layout/fragment_cards_display" />
 
     <fragment
         android:id="@+id/navigation_game"
         android:name="com.lesterade.oneira.ui.game.GameFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_game"
         tools:layout="@layout/fragment_game" />
 
     <fragment
         android:id="@+id/navigation_menu"
         android:name="com.lesterade.oneira.ui.notifications.MenuFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_menu"
         tools:layout="@layout/fragment_menu" />
 </navigation>

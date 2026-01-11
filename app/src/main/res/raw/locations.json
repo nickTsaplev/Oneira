@@ -345,7 +345,7 @@
     "desc_ru": "Выберите новую карту",
     
     "element": "fire",
-    "wares": ["sap", "rainfall"],
+    "wares": ["sap", "rainfall", "lost_stars"],
     "next": ["city_river"],
     "type": "shop"
   },
@@ -371,7 +371,7 @@
     "desc_ru": "Выберите новую карту",
     
     "element": "fire",
-    "wares": ["engine", "raging_fire"],
+    "wares": ["engine", "raging_fire", "optics"],
     "next": ["forest"],
     "type": "shop"
   },

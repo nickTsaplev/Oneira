@@ -3,6 +3,7 @@ package com.lesterade.oneira.gameHandling.weapons
 import com.lesterade.oneira.gameHandling.Element
 import com.lesterade.oneira.gameHandling.biomes.Biome
 import com.lesterade.oneira.gameHandling.Creature
+import com.lesterade.oneira.gameHandling.TransmutationDirection
 import com.lesterade.oneira.gameHandling.weapons.actionEffects.ActionEffect
 import com.lesterade.oneira.gameHandling.weapons.damageEffects.DamageEffect
 import com.lesterade.oneira.gameHandling.weapons.healEffects.HealEffect
@@ -10,7 +11,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 open class Weapon(private val damage: Float? = null,
-                  val element: Element = Element.fire,
+                  override val element: Element = Element.fire,
                   override var name : String = "",
                   override var header: String,
                   override var description : String,
@@ -83,8 +84,6 @@ open class Weapon(private val damage: Float? = null,
     fun transmute(dir: Int): Instrument? {
         if (transmutesInto == null)
             return null
-
-        println(transmutesInto)
 
         return ToolFactory.getByName(transmutesInto[(dir + 1) shr 1])
     }

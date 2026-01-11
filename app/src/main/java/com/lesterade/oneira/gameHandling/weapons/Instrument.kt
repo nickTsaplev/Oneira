@@ -1,6 +1,7 @@
 package com.lesterade.oneira.gameHandling.weapons
 
 import com.lesterade.oneira.gameHandling.Creature
+import com.lesterade.oneira.gameHandling.Element
 import com.lesterade.oneira.gameHandling.biomes.Biome
 
 interface Instrument {
@@ -10,6 +11,8 @@ interface Instrument {
     val name: String
     val header: String
     val description : String
+
+    val element: Element
 
     val imageId: String
     val damageBoost: Float?

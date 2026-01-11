@@ -12,6 +12,20 @@ enum class Element {
                 return -1
             return 0
         }
+
+        override fun transmute(mainSeq: Boolean, dir: Boolean): Element =
+            if (mainSeq)
+                if (dir)
+                    wood
+                else
+                    metal
+            else
+                if(dir)
+                    earth
+                else
+                    fire
+
+
         override val tochar
             get() = "Wt"
     },
@@ -23,6 +37,18 @@ enum class Element {
                 return -1
             return 0
         }
+        override fun transmute(mainSeq: Boolean, dir: Boolean): Element =
+            if (mainSeq)
+                if (dir)
+                    fire
+                else
+                    water
+            else
+                if(dir)
+                    metal
+                else
+                    earth
+
         override val tochar
             get() = "Wd"
     },
@@ -34,6 +60,19 @@ enum class Element {
                 return -1
             return 0
         }
+
+        override fun transmute(mainSeq: Boolean, dir: Boolean): Element =
+            if (mainSeq)
+                if (dir)
+                    earth
+                else
+                    wood
+            else
+                if(dir)
+                    water
+                else
+                    metal
+
         override val tochar
             get() = "F"
     },
@@ -45,6 +84,19 @@ enum class Element {
                 return -1
             return 0
         }
+
+        override fun transmute(mainSeq: Boolean, dir: Boolean): Element =
+            if (mainSeq)
+                if (dir)
+                    metal
+                else
+                    fire
+            else
+                if(dir)
+                    wood
+                else
+                    water
+
         override val tochar
             get() = "E"
     },
@@ -57,11 +109,24 @@ enum class Element {
             return 0
         }
 
+        override fun transmute(mainSeq: Boolean, dir: Boolean): Element =
+            if (mainSeq)
+                if (dir)
+                    water
+                else
+                    earth
+            else
+                if(dir)
+                    fire
+                else
+                    wood
+
         override val tochar
             get() = "M"
     };
 
     abstract fun effect(other: Element): Int
+    abstract fun transmute(mainSeq: Boolean, dir: Boolean): Element
     abstract val tochar: String
 
     companion object {

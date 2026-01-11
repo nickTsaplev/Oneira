@@ -7,12 +7,37 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.*
+import androidx.compose.foundation.*
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Text
+import androidx.compose.material3.Button
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.lesterade.oneira.databinding.ActivityEndingBinding
 import com.lesterade.oneira.databinding.FragmentEndingBinding
 import com.lesterade.oneira.R
+
+@Composable
+fun EndingScreen(imageName: String, desc: String, onGameStart: () -> Unit) {
+    val context = LocalContext.current
+
+    val id = context.resources.getIdentifier(imageName, "drawable", context.packageName)
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        Image(painter = painterResource(id = id),
+             imageName)
+        Text(text = desc)
+        Button(onGameStart) {Text(text = stringResource(R.string.start_again) )}
+    }
+}
 
 class EndingFragment: Fragment() {
     private var _binding: FragmentEndingBinding? = null

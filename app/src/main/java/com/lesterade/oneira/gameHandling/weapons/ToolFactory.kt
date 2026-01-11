@@ -3,6 +3,7 @@ package com.lesterade.oneira.gameHandling.weapons
 import com.lesterade.oneira.R
 import com.lesterade.oneira.gameHandling.BetterJsonFactory
 import com.lesterade.oneira.gameHandling.toStringList
+import com.lesterade.oneira.gameHandling.Element
 import com.lesterade.oneira.gameHandling.weapons.actionEffects.Bleed
 import com.lesterade.oneira.gameHandling.weapons.actionEffects.FieryEffect
 import com.lesterade.oneira.gameHandling.weapons.actionEffects.Flip
@@ -54,6 +55,18 @@ object ToolFactory: BetterJsonFactory(R.raw.tools) {
             "selfPoison" -> base.actionEffects.add(SelfPoison(currentObject["poison"]!!.jsonPrimitive.float))
             "bleed" -> base.actionEffects.add(Bleed(currentObject["bleed"]!!.jsonPrimitive.float))
         }
+    }
+
+    fun getToolElement(name: String): Element {
+        return json.decodeFromJsonElement<Element>(data[name]?.jsonObject!!["element"]!!);
+    }
+
+    fun getTransmutation(from: Instrument, by: Element): Instrument {
+        data[data[from.name]!!.jsonObject["cycle"]!!.jsonPrimitive.content]!!.jsonArray.forEach {
+            if (getToolElement(it.jsonPrimitive.content) == by)
+                return getByName(it.jsonPrimitive.content)
+        }
+        return from
     }
 
     fun applyEffects(base: Weapon, array: JsonArray) {

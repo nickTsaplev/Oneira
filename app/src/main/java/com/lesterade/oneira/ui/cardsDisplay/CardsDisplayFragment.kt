@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.unit.dp
@@ -18,11 +19,32 @@ import com.lesterade.oneira.gameHandling.weapons.Instrument
 import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 import com.lesterade.oneira.R
 import com.lesterade.oneira.databinding.FragmentCardsDisplayBinding
+import com.lesterade.oneira.gameHandling.GameHandler
 import com.lesterade.oneira.gameHandling.biomes.SimpleBiome
 import com.lesterade.oneira.gameHandling.dispTool
 import com.lesterade.oneira.ui.EndingActivity
 import com.lesterade.oneira.ui.game.GameScreen
 import kotlin.math.ceil
+
+@Composable
+fun CardsDisplayScreen(handler: GameHandler) {
+    val configuration = LocalConfiguration.current
+    val scaleVal = configuration.densityDpi / 240f
+
+    val scale = if (scaleVal > 2f) ceil(scaleVal) else null
+
+    Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+        handler.master.cards.forEachIndexed { i: Int, it: Instrument ->
+            ToolDisplay(
+                dispTool(
+                    it.imageId,
+                    it.header,
+                    it.description,
+                    it.transmutable && handler.master.scene is SimpleBiome
+                ), i, {}, scale)
+        }
+    }
+}
 
 class CardsDisplayFragment : Fragment() {
 
@@ -44,22 +66,7 @@ class CardsDisplayFragment : Fragment() {
 
         binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         binding.composeView.setContent {
-            val configuration = LocalConfiguration.current
-            val scaleVal = configuration.densityDpi / 240f
-
-            val scale = if (scaleVal > 2f) ceil(scaleVal) else null
-
-            Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                viewModel.master.value?.cards?.forEachIndexed { i: Int, it: Instrument ->
-                    ToolDisplay(
-                        dispTool(
-                            it.imageId,
-                            it.header,
-                            it.description,
-                            it.transmutable && viewModel.master.value?.scene is SimpleBiome
-                        ), i, {}, scale)
-                }
-            }
+            //CardsDisplayScreen(viewModel.master)
         }
 
 

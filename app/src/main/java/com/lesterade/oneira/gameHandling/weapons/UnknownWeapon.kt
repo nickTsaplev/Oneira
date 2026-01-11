@@ -1,6 +1,7 @@
 package com.lesterade.oneira.gameHandling.weapons
 
 import com.lesterade.oneira.gameHandling.Creature
+import com.lesterade.oneira.gameHandling.Element
 import com.lesterade.oneira.gameHandling.biomes.Biome
 
 class UnknownWeapon : Instrument {
@@ -22,6 +23,9 @@ class UnknownWeapon : Instrument {
 
     override val description
         get() = "???"
+
+    override val element: Element
+        get() = Element.fire
 
     override val imageId = "unknown"
 }

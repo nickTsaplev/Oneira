@@ -219,6 +219,13 @@ class GameHandler(val master : GameMaster) {
     val right_bar
         get() = master.enemy.percent_hp
 
+    val transmutation_left
+        get() = master.us.directions[0].main to master.us.directions[0].dir
+
+    val transmutation_right
+        get() = master.us.directions[1].main to master.us.directions[1].dir
+
+
     fun update() {
         tools = buildList { master.display.forEach{add(dispTool(it.imageId, it.header, it.description, it.transmutable && master.scene is SimpleBiome))} }
         inventory = buildList { master.us.inventory.forEach{add(dispTool(it.imageId, it.header, it.description, it.transmutable && master.scene is SimpleBiome))} }

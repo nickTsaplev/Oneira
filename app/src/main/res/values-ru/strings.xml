@@ -1,9 +1,9 @@
 <resources>
 
     <string name="app_name">Онейра</string>
-    <string name="title_home">Карты</string>
-    <string name="title_dashboard">Игра</string>
-    <string name="title_notifications">Меню</string>
+    <string name="title_cards">Карты</string>
+    <string name="title_game">Игра</string>
+    <string name="title_menu">Меню</string>
     <string name="title_activity_testact">testact</string>
 
     <string name="previous">Предыдущий</string>

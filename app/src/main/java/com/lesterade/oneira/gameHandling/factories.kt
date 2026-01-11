@@ -17,6 +17,7 @@ import kotlinx.serialization.json.jsonPrimitive
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import com.lesterade.oneira.R
+import kotlinx.serialization.json.Json.Default.decodeFromJsonElement
 
 fun JsonArray.toStringList(): MutableList<String> {
     val ans = mutableListOf<String>()
@@ -64,7 +65,12 @@ object ActorFactory: BetterJsonFactory(R.raw.actors) {
         val ans = if(isP == "" || isP == "false")
             Actor(base)
         else
-            Player(base)
+            Player(base)/*.also { player ->
+                curObj["directions"]?.jsonArray?.also { array ->
+                    player.directions = array.map { dirEl -> json.decodeFromJsonElement<TransmissionDirection>(dirEl) }
+                }
+            }*/
+
 
 
         val tools = curObj["deck"]!!.jsonArray
