@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         gameH?.update()
         binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        binding.composeView.setContent { MainScreen(AndroidFileHandler(this), gameH!!) }
+        binding.composeView.setContent { MainScreen(AndroidFileHandler(this), gameH!!, language) }
 
         supportActionBar?.hide()
     }

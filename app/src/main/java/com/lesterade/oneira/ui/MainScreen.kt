@@ -26,7 +26,7 @@ import com.lesterade.oneira.ui.menu.MenuScreen
 import kotlinx.serialization.Serializable
 
 @Composable
-fun MainScreen(files: IFileHandler?, handler: GameHandler) {
+fun MainScreen(files: IFileHandler?, handler: GameHandler, language: String = "en") {
     @Serializable
     class Game() {}
 
@@ -63,7 +63,7 @@ fun MainScreen(files: IFileHandler?, handler: GameHandler) {
             modifier = Modifier
                 .fillMaxSize()
         ) {
-            composable<Game>() { GameScreen(handler, { s: String, s1: String -> navController.navigate(route = Ending(s, s1))}) }
+            composable<Game>() { GameScreen(handler, { s: String, s1: String -> navController.navigate(route = Ending(s, s1))}, language) }
             composable<Cards>() { CardsDisplayScreen(handler) }
             composable<Menu>() { MenuScreen(files, handler) { handler.startGame()
                 handler.update()

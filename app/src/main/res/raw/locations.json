@@ -34,11 +34,11 @@
     "element": "earth",
     "next": [
       ["run", "home"],
-      ["get_tutorial", "tutorial"]
+      ["get_tutorial", "tutorial_"]
     ]
   },
 
-  "tutorial": {
+  "tutorial_": {
     "header": "Introduction",
     "header_ru": "Введение",
     

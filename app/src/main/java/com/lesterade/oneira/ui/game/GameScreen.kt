@@ -30,10 +30,17 @@ import com.lesterade.oneira.ui.toolDisplayLayout.TransmutableToolDisplay
 import kotlin.math.ceil
 
 @Composable
-fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: Float, scale : Float? = null) {
+fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: Float, scale : Float? = null, language: String = "en") {
     val current = LocalContext.current
 
-    val id = current.resources.getIdentifier(name, "drawable", current.packageName)
+    var id = current.resources.getIdentifier(name, "drawable", current.packageName)
+
+    if (name.endsWith("_")) {
+        val newId = current.resources.getIdentifier(name + language, "drawable", current.packageName)
+        if (newId != 0)
+            id = newId
+    }
+
     val background = ImageBitmap.imageResource(id)
 
     val creatura: ImageBitmap? = if(creatureName != null) {
@@ -76,7 +83,8 @@ fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: F
 
 @Composable
 fun GameScreen(handler: GameHandler,
-               onGameEnd: (String, String) -> Unit) {
+               onGameEnd: (String, String) -> Unit,
+               language: String = "en") {
     val textColor = Color(0xFFB66D00)
 
     var tools by remember { mutableStateOf(handler.tools) }
@@ -118,7 +126,7 @@ fun GameScreen(handler: GameHandler,
                 .fillMaxHeight()
         ) {
             Text(head, color = textColor)
-            SceneCanvas(name, creat, lb, rb, scale)
+            SceneCanvas(name, creat, lb, rb, scale, language)
             Text(desc, color = textColor)
 
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
