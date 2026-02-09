@@ -82,6 +82,28 @@
 		"description": "What do expect there so high above?",
 		"description_ru": "Что вы найдете, так высоко наверху?"
 	},
+	
+	"w_question": {
+		"header": "Ask about the questioning",
+		
+		"description": "I don't know what was it about. They just left me free..."
+	},
+	
+	"w_posit": {
+		"header": "Posit a hypothesis",
+		
+		"description": "What? No, I had a great relationship with my family!"
+	},
+	
+	"w_take": {
+		"header": "It shocks you, you drop it",
+		"description": "It rolled in the nearest drain, but you feel like you've gained something from that."
+	},
+	
+	"w_return": {
+		"header": "Return it",
+		"description": "You awkwardly try to fit it between the wires"
+	},
 
 	"rrtpr": {
 		"header": "R-R typewriter",
@@ -116,8 +138,7 @@
 		
 		"description": "Heal 5 hp",
 		"description_ru": "Излечиться на 5",
-		
-		"type": "simple",
+
 		"damage": 0.0,
 		"element": "water",
 		"heal": 5.0,
@@ -131,8 +152,7 @@
 		
 		"description": "Deal 2 damage",
 		"description_ru": "Удар на 2",
-		
-		"type": "simple",
+
 		"damage": 2.0,
 		"element": "water"
 	},
@@ -143,8 +163,7 @@
 		
 		"description": "Deal 5 damage",
 		"description_ru": "Удар на 5",
-		
-		"type": "simple",
+
 		"damage": 5.0,
 		"element": "water"
 	},
@@ -197,8 +216,7 @@
 		
 		"description": "Deal 10 damage. This is probably unsafe",
 		"description_ru": "Deal 10 damage. This is probably unsafe",
-		
-		"type": "simple",
+
 		"damage": 10.0,
 		"element": "fire"
 	},
@@ -208,8 +226,7 @@
 		
 		"description": "Deal 3 damage.",
 		"description_ru": "Deal 3 damage.",
-		
-		"type": "simple",
+
 		"damage": 3.0,
 		"element": "fire"
 	},
@@ -219,16 +236,11 @@
 		"header_ru": "Ничего",
 		
 		"description": "take nothing",
-		"description_ru": "Ничего не брать",
-		
-		"type": "simple",
-		"damage": 0.0,
-		"element": "earth"
+		"description_ru": "Ничего не брать"
 	},
 	"none": {
 		"header": "",
 		"description": "",
-		"type": "simple",
 		"damage": 0.0,
 		"element": "earth"
 	},
@@ -238,11 +250,7 @@
 		"header_ru": "Собрать вещи",
 		
 		"description": "You have to run",
-		"description_ru": "Вам нужно бежать",
-		
-		"type": "simple",
-		"damage": 5.0,
-		"element": "earth"
+		"description_ru": "Вам нужно бежать"
 	},
 
 	"onwards": {
@@ -250,18 +258,31 @@
 		"header_ru": "Вперед",
 		
 		"description": "You have places to be",
-		"description_ru": "У вас есть дела",
-		
-		"type": "simple"
+		"description_ru": "У вас есть дела"
 	},
+
+	"wild_delight": {
+		"header": "Onwards",
+		"header_ru": "Вперед",
+
+		"description": "You have places to be",
+		"description_ru": "У вас есть дела"
+	},
+
+	"sakura": {
+		"header": "Onwards",
+		"header_ru": "Вперед",
+
+		"description": "You have places to be",
+		"description_ru": "У вас есть дела"
+	},
+
 	"get_tutorial": {
 		"header": "But how?",
 		"header_ru": "Но как?",
 		
 		"description": "Show the tutorial",
-		"description_ru": "Показать введение",
-		
-		"type": "simple"
+		"description_ru": "Показать введение"
 	},
 
 	"engine" : {
@@ -312,8 +333,7 @@
 		
 		"description": "Deal 10 damage. Turns into a cloud",
 		"description_ru": "Удар на 10. Станет облаком",
-		
-		"type": "simple",
+
 		"turnsInto": "cloud",
 		"damage": 10.0,
 		"element": "fire"
@@ -342,8 +362,7 @@
 		
 		"description": "Deal 5 damage",
 		"description_ru": "Удар на 5",
-		
-		"type": "simple",
+
 		"damage": 5.0,
 		"element": "earth",
 
@@ -370,8 +389,7 @@
 		
 		"description": "Deal damage equal to your fire affiliation, decrease it by 1",
 		"description_ru": "Ударить на значение равное внутреннему огню, понизить его на 1",
-		
-		"type": "simple",
+
 		"damage": 5.0,
 		"element": "earth"
 	},

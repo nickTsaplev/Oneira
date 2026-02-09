@@ -18,11 +18,9 @@ import com.lesterade.oneira.GameMasterViewModel
 import com.lesterade.oneira.gameHandling.weapons.Instrument
 import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 import com.lesterade.oneira.R
-import com.lesterade.oneira.databinding.FragmentCardsDisplayBinding
 import com.lesterade.oneira.gameHandling.GameHandler
 import com.lesterade.oneira.gameHandling.biomes.SimpleBiome
 import com.lesterade.oneira.gameHandling.dispTool
-import com.lesterade.oneira.ui.EndingActivity
 import com.lesterade.oneira.ui.game.GameScreen
 import kotlin.math.ceil
 
@@ -43,39 +41,5 @@ fun CardsDisplayScreen(handler: GameHandler) {
                     it.transmutable && handler.master.scene is SimpleBiome
                 ), i, {}, scale)
         }
-    }
-}
-
-class CardsDisplayFragment : Fragment() {
-
-    private var _binding: FragmentCardsDisplayBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentCardsDisplayBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-        val viewModel: GameMasterViewModel by activityViewModels<GameMasterViewModel>()
-
-        binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        binding.composeView.setContent {
-            //CardsDisplayScreen(viewModel.master)
-        }
-
-
-        return root
-    }
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

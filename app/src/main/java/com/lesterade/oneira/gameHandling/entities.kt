@@ -6,18 +6,17 @@ import kotlinx.serialization.Serializable
 import kotlin.random.Random
 
 @Serializable
-open class Creature(val maxhp : Float,
-                    val element: Element,
-                    var name: String = "",
-                    var header: String,
-                    var hp : Float = maxhp,
+open class Creature(var name: String = "",
+                    var header: String = "",
+                    val maxhp: Float = 1f,
+                    val element: Element = Element.fire,
+                    var hp: Float = maxhp,
 
-                    var bleed : Float = 0f,
-                    var poison : Float = 0f,
+                    var bleed: Float = 0f,
+                    var poison: Float = 0f,
 
-                    var innerFire : Int = 3) {
-
-
+                    var innerFire: Int = 3
+                ) {
 
     val percent_hp
         get() = hp/maxhp
@@ -25,7 +24,16 @@ open class Creature(val maxhp : Float,
     val dead
         get() = (hp <= 0f)
 
-    constructor(other: Creature): this(other.maxhp, other.element, other.name, other.header, other.hp, other.bleed, other.poison, other.innerFire)
+    constructor(other: Creature): this(
+        other.name,
+        other.header,
+        other.maxhp,
+        other.element,
+        other.hp,
+        other.bleed,
+        other.poison,
+        other.innerFire
+    )
 
     fun hit(dmg: Float) {
         hp -= dmg
@@ -58,7 +66,7 @@ open class Actor(cr: Creature): Creature(cr) {
     constructor(maxhp : Float,
                 element: Element,
                 name: String = "",
-                header: String): this(Creature(maxhp, element, name, header))
+                header: String): this(Creature(name, header, maxhp, element))
 
     fun draw(): Instrument {
         if(deck.size == 0)
@@ -98,6 +106,14 @@ class Player(cr: Creature) : Actor(cr) {
     var inventory: MutableList<Instrument> = mutableListOf()
 
     var directions: List<TransmutationDirection> = listOf()
+
+    val affiliations: MutableMap<Element, Int> = mutableMapOf(
+        Element.water to 0,
+        Element.metal to 0,
+        Element.fire to 0,
+        Element.earth to 0,
+        Element.wood to 0,
+    )
 
     fun redraw() {
         while(hand.size < 3 && ((deck.size + discarded.size) > 0)) {

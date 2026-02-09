@@ -14,10 +14,14 @@ import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
+import kotlinx.serialization.modules.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import com.lesterade.oneira.R
+import com.lesterade.oneira.gameHandling.biomes.encounters.NothingOutcome
+import com.lesterade.oneira.gameHandling.biomes.encounters.Outcome
 import kotlinx.serialization.json.Json.Default.decodeFromJsonElement
+import kotlinx.serialization.modules.SerializersModule
 
 fun JsonArray.toStringList(): MutableList<String> {
     val ans = mutableListOf<String>()
@@ -31,7 +35,7 @@ fun JsonArray.toStringList(): MutableList<String> {
 abstract class BetterJsonFactory(val id: Int) {
     protected val json = Json { ignoreUnknownKeys = true }
 
-    var finished = false
+    // var finished = false
 
     var language = "en"
 

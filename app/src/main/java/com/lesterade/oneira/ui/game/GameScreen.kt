@@ -1,80 +1,33 @@
 package com.lesterade.oneira.ui.game
 
-import android.content.Intent
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.*
+import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
-import androidx.compose.ui.graphics.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.scale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.compose.ui.res.*
-import androidx.compose.ui.unit.*
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import com.lesterade.oneira.GameMasterViewModel
-import com.lesterade.oneira.R
-import com.lesterade.oneira.databinding.FragmentGameBinding
-import com.lesterade.oneira.ui.EndingActivity
+import androidx.compose.ui.res.imageResource
+import androidx.compose.ui.unit.dp
 import com.lesterade.oneira.gameHandling.GameHandler
-import com.lesterade.oneira.ui.EndingScreen
-import com.lesterade.oneira.ui.cardsDisplay.CardsDisplayScreen
-import com.lesterade.oneira.ui.notifications.MenuScreen
 import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 import com.lesterade.oneira.ui.toolDisplayLayout.TransmutableToolDisplay
-import kotlinx.serialization.Serializable
 import kotlin.math.ceil
-
-class GameFragment : Fragment() {
-    private var _binding: FragmentGameBinding? = null
-    private val binding get() = _binding!!
-
-    private var gameH: GameHandler? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentGameBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-
-
-        val viewModel: GameMasterViewModel by activityViewModels<GameMasterViewModel>()
-        val master = viewModel.master.value!!
-        gameH = GameHandler(master)
-
-        gameH?.update()
-        binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        binding.composeView.setContent { MainScreen(gameH!!) }
-
-        return root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-}
-
-fun scaleNearestBitmap() {
-
-}
 
 @Composable
 fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: Float, scale : Float? = null) {
@@ -110,8 +63,9 @@ fun SceneCanvas(name: String, creatureName: String?, leftBar: Float, rightBar: F
         drawRect(Color(0xFF246D49), Offset(size.width - 10f, size.height * (1f - rightBar)), Size(10f * scaleF, size.height * (rightBar),))
     }
 
-    Canvas(Modifier.aspectRatio(1.34f)
-                    .clipToBounds(), onDraw = {
+    Canvas(
+        Modifier.aspectRatio(1.34f)
+        .clipToBounds(), onDraw = {
 
         if (scale != null)
             scale(scaleX = scale, scaleY = scale, block = DrawScope::drawInterface)
@@ -125,7 +79,7 @@ fun GameScreen(handler: GameHandler,
                onGameEnd: (String, String) -> Unit) {
     val textColor = Color(0xFFB66D00)
 
-    var tools by remember {mutableStateOf(handler.tools)}
+    var tools by remember { mutableStateOf(handler.tools) }
 
     var msg by remember{ mutableStateOf("") }
 
@@ -190,51 +144,5 @@ fun GameScreen(handler: GameHandler,
             Text(msg, color = textColor)
         }
 
-    }
-}
-
-
-
-@Composable
-fun MainScreen(handler: GameHandler) {
-    @Serializable
-    class Game() {}
-
-    @Serializable
-    class Cards() {}
-
-    @Serializable
-    class Menu() {}
-
-    @Serializable
-    data class Ending(val imageName: String, val desc: String) {}
-
-    val buttonColors = ButtonColors(Color(0xFF704300), Color(0xFFBDBDBD), Color(0xFF363636), Color(0xFFBDBDBD))
-
-    val navController = rememberNavController()
-    Column(modifier = Modifier
-        .fillMaxSize()) {
-        Row(modifier = Modifier
-            .fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
-            Button({ navController.navigate(route = Game()) },  shape = RectangleShape, colors = buttonColors) { Text(text = stringResource(R.string.title_game)) }
-            Button({ navController.navigate(route = Cards()) }, shape = RectangleShape, colors = buttonColors) { Text(text = stringResource(R.string.title_cards)) }
-            Button({ navController.navigate(route = Menu()) },  shape = RectangleShape, colors = buttonColors) { Text(text = stringResource(R.string.title_menu)) }
-        }
-
-        NavHost(
-            navController,
-            startDestination = Game(),
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            composable<Game>() { GameScreen(handler, { s: String, s1: String -> }) }
-            composable<Cards>() { CardsDisplayScreen(handler) }
-            composable<Menu>() { MenuScreen(handler) { handler.startGame()
-                navController.navigate(route = Game())}}
-            composable<Ending> { backStackEntry ->
-                val ending: Ending = backStackEntry.toRoute()
-                EndingScreen(ending.imageName, ending.desc) { handler.startGame()
-                    navController.navigate(route = Game())}}
-        }
     }
 }

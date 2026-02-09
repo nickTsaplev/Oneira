@@ -1,10 +1,11 @@
 package com.lesterade.oneira.gameHandling
 
-import android.content.Context
+import com.lesterade.oneira.IFileHandler
 import com.lesterade.oneira.gameHandling.biomes.LocationFactory
 import com.lesterade.oneira.gameHandling.biomes.Biome
 import com.lesterade.oneira.gameHandling.biomes.EndingLoc
 import com.lesterade.oneira.gameHandling.biomes.SimpleBiome
+import com.lesterade.oneira.gameHandling.biomes.VaryingLoc
 import com.lesterade.oneira.gameHandling.msgFormatting.MsgFormatter
 import com.lesterade.oneira.gameHandling.msgFormatting.msgPatterns
 import com.lesterade.oneira.gameHandling.weapons.ToolFactory
@@ -24,7 +25,7 @@ import kotlinx.serialization.json.jsonPrimitive
 class GameMaster(private val patterns: msgPatterns) {
     var scene: Biome = SimpleBiome(Element.fire, "", 0, "", "")
 
-    var us = Player(Creature(0f, Element.fire, "", ""))
+    var us = Player(Creature("", "", 0f, Element.fire, ))
     var enemy = scene.getEnemy()
 
     var msg = ""
@@ -114,7 +115,7 @@ class GameMaster(private val patterns: msgPatterns) {
 
     fun activateTool(id: Int) {
         msg = ""
-        if(scene is SimpleBiome) {
+        if(scene is SimpleBiome || ((scene is VaryingLoc) && (!(scene as VaryingLoc).inEncounter))) {
             var toAdd = us.hand[id]
             us.hand.removeAt(id)
 
@@ -202,7 +203,7 @@ class GameHandler(val master : GameMaster) {
     }
 
     val creatureName
-        get() = if(master.scene is SimpleBiome)
+        get() = if(master.enemy.name != "?")
             master.enemy.name
         else
             null
@@ -251,26 +252,19 @@ class GameHandler(val master : GameMaster) {
     }
 }
 
-fun loadGame(context: Context, master: GameMaster) {
-    if(!context.fileList().contains("save.json"))
+fun loadGame(fileHandler: IFileHandler, handler: GameHandler) {
+    if(!fileHandler.saveExists())
         return
 
-    val stream = context.openFileInput("save.json")
+    val data = parseToJsonElement(fileHandler.readSaveText()).jsonObject
 
-    var text = String()
-    while(stream.available() != 0)
-        text += String(byteArrayOf(stream.read().toByte()))
-    val data = parseToJsonElement(text).jsonObject
-
-    master.load(data)
+    handler.master.load(data)
 }
 
-fun saveGame(context: Context, master: GameMaster) {
-    if(context.fileList().contains("save.json"))
-        context.deleteFile("save.json")
-    val stream = context.openFileOutput("save.json", 0)
+fun saveGame(fileHandler: IFileHandler, handler: GameHandler) {
+    if(fileHandler.saveExists())
+        fileHandler.deleteSaveFile()
 
-    val obj = master.save()
-    stream.write(obj.toString().toByteArray())
-    stream.close()
+    val obj = handler.master.save()
+    fileHandler.writeSave(obj.toString())
 }

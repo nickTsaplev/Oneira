@@ -65,7 +65,42 @@
 		"depth": 3,
 		"element": "earth",
 		"type": "simple",
+
+        "encounterProbability": 0.7,
+        "encounters": [
+          {
+            "enemyName": "teller",
+            "description": "pick a flower. call it.",
+            "outcome": [{"choice": "sakura", "type": "affiliation", "element": "fire"}, {"choice": "wild_delight", "type": "affiliation", "element": "water"}]
+          }
+        ],
 		"next": ["ministries"]
+  },
+
+  "test_fork": {
+    "header": "Text",
+
+    "desc": "Text",
+    "depth": 3,
+
+    "element": "metal",
+    "type": "forkElem",
+    "next": [
+      {
+        "name": "ask_docs",
+        "next": [
+          {"element": "fire", "next": "city_streets"},
+          {"element": "water", "next": "city_river"}
+        ]
+      },
+      {
+        "name": "slither",
+        "next": [
+          {"element": "fire", "next": "city_streets"},
+          {"element": "water", "next": "city_river"}
+        ]
+      }
+    ]
   },
   
   "ministries": {
@@ -115,7 +150,7 @@
 		"header_ru": "Набережная",
 		
 		"desc": "Shady individuals meet near the muddled waters",
-		"desc_ru": "Подозрительные люди собираются у мутной воды",
+		"desc_ru": "Незнакомые люди собираются у мутной воды",
 		
 		"enemies": ["devil", "control", "herald"],
 		"depth": 3,
@@ -135,7 +170,24 @@
     "depth": 3,
     "element": "earth",
     "next": ["streets_give"],
-    "type": "simple"
+    "type": "simple",
+
+    "encounterProbability": 0.4,
+    "encounters": [
+      {
+        "enemyName": "watcher",
+        "description": "Recently I was questioned by the police. It was weird, the officer looked just like my grandfather...",
+        "outcome": [{"choice": "w_question", "type": "affiliation", "element": "fire"}, {"choice": "w_posit", "type": "affiliation", "element": "water"}]
+      },
+      {
+		"enemyName": "antennas",
+		"description": "From a box on a wall, a tangle of antennas rises towards the indifferent sky. Suddenly, something falls with a loud cling and rolls to your feet.",
+		"outcome": [
+			{"choice": "w_take", "type": "give", "item": "spark"},
+			{"choice": "w_return", "type": "affiliation", "element": "earth"}
+		]
+	  }
+    ]
   },
 
   "streets_give": {
@@ -212,15 +264,15 @@
     "header": "The central garden",
     "header_ru": "Главсад",
 
-    "desc": "Attempt to collect yourself under the canopies",
-    "desc_ru": "Попробовать успокоиться под пологом фальшивого леса",
+    "desc": "Collect yourself under the canopies",
+    "desc_ru": "Успокоиться под пологом фальшивого леса",
 
     "element": "earth",
     "type": "simple",
 
     "depth": 4,
     "enemies": ["past", "epidemic", "rose", "thicket"],
-    "next": ["embassy"]
+    "next": ["forest"]
 
   },
 
