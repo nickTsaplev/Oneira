@@ -151,6 +151,5 @@ fun GameScreen(handler: GameHandler,
             }
             Text(msg, color = textColor)
         }
-
     }
 }
