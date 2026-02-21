@@ -31,13 +31,18 @@ fun EndingScreen(imageName: String, desc: String, onGameStart: () -> Unit) {
     val context = LocalContext.current
 
     val buttonColors = ButtonColors(Color(0xFF704300), Color(0xFFBDBDBD), Color(0xFF363636), Color(0xFFBDBDBD))
+    val textColor = Color(0xFFB66D00)
+
 
     val id = context.resources.getIdentifier(imageName, "drawable", context.packageName)
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Image(painter = painterResource(id = id),
-             imageName)
-        Text(text = desc)
-        Button(onGameStart, shape = RectangleShape, colors = buttonColors) {Text(text = stringResource(R.string.start_again) )}
+     Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
+        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+            Image(painter = painterResource(id = id),
+                imageName)
+            Text(text = desc, color = textColor)
+            Button(onGameStart, shape = RectangleShape, colors = buttonColors) {Text(text = stringResource(R.string.start_again) )}
+        }
     }
+
 }

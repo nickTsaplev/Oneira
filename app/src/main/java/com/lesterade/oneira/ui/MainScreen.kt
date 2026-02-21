@@ -67,11 +67,14 @@ fun MainScreen(files: IFileHandler?, handler: GameHandler, language: String = "e
             composable<Cards>() { CardsDisplayScreen(handler) }
             composable<Menu>() { MenuScreen(files, handler) { handler.startGame()
                 handler.update()
+                navController.popBackStack()
                 navController.navigate(route = Game())}
             }
             composable<Ending> { backStackEntry ->
                 val ending: Ending = backStackEntry.toRoute()
                 EndingScreen(ending.imageName, ending.desc) { handler.startGame()
+                    handler.update()
+                    navController.popBackStack()
                     navController.navigate(route = Game())}}
         }
     }
