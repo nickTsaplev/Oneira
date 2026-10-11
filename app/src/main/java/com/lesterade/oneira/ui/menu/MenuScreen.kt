@@ -12,8 +12,6 @@ import androidx.compose.ui.res.stringResource
 import com.lesterade.oneira.IFileHandler
 import com.lesterade.oneira.R
 import com.lesterade.oneira.gameHandling.GameHandler
-import com.lesterade.oneira.gameHandling.loadGame
-import com.lesterade.oneira.gameHandling.saveGame
 
 @Composable
 fun MenuScreen(files: IFileHandler?, handler: GameHandler, onGameRestart: () -> Unit) {
@@ -23,7 +21,7 @@ fun MenuScreen(files: IFileHandler?, handler: GameHandler, onGameRestart: () -> 
     Column() {
         if(files != null) {
             Button({
-                loadGame(files, handler)
+                handler.loadGame(files)
                 handler.update()
             }, shape = RectangleShape, colors = buttonColors) {
                 Text(
@@ -32,7 +30,7 @@ fun MenuScreen(files: IFileHandler?, handler: GameHandler, onGameRestart: () -> 
                     )
                 )
             }
-            Button({ saveGame(files, handler) }, shape = RectangleShape, colors = buttonColors) {
+            Button({ handler.saveGame(files) }, shape = RectangleShape, colors = buttonColors) {
                 Text(
                     text = stringResource(
                         R.string.save_game

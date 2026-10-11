@@ -1,0 +1,74 @@
+package com.lesterade.oneira.game.biomes
+
+import com.lesterade.oneira.game.Element
+import com.lesterade.oneira.game.Actor
+import com.lesterade.oneira.game.Creature
+import com.lesterade.oneira.game.Player
+import com.lesterade.oneira.game.data.LocationFactory
+import com.lesterade.oneira.game.weapons.Instrument
+import kotlinx.serialization.Serializable
+import kotlin.random.Random
+
+@Serializable
+enum class AddType {Hand, Inventory}
+
+@Serializable
+class Shop(override val element: Element,
+           override var name: String = "",
+           override var header: String,
+           override var desc: String,
+           val addType: AddType = AddType.Hand
+): Biome {
+    var next: MutableList<String> = mutableListOf()
+    var sold: MutableList<Instrument> = mutableListOf()
+    var currentlySold: MutableList<Instrument> = mutableListOf()
+
+    fun pickWares() {
+        val index = Random.nextInt(0, sold.size)
+
+        currentlySold.add(sold[index])
+
+
+        var index2 = Random.nextInt(0, sold.size)
+        while(index2 == index)
+            index2 = Random.nextInt(0, sold.size)
+
+        currentlySold.add(sold[index2])
+
+        var index3 = Random.nextInt(0, sold.size)
+        while(index3 == index || index3 == index2)
+            index3 = Random.nextInt(0, sold.size)
+
+        currentlySold.add(sold[index3])
+    }
+
+    override fun affect(a: Creature) {
+
+    }
+
+    override fun getEnemy(): Actor {
+        return Actor(1f, Element.fire, "?", "?")
+    }
+
+    override fun advance(): Biome {
+        val index = Random.nextInt(0, next.size)
+        return LocationFactory.getByName(next[index])
+    }
+
+    override fun activateTool(id: Int, us: Player, enemy: Actor): Boolean {
+        us.hp = us.maxhp // Shops restore hp
+        us.poison = 0f
+        us.bleed = 0f
+
+        val toAdd = currentlySold[id]
+        if(toAdd.name != "nothing")
+            when(addType) {
+                AddType.Hand -> us.discard(toAdd)
+                AddType.Inventory -> us.inventory.add(toAdd)
+            }
+
+        return true
+    }
+
+    override fun choices(us: Player): List<Instrument> = currentlySold
+}

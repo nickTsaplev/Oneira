@@ -19,7 +19,7 @@ import com.lesterade.oneira.gameHandling.weapons.Instrument
 import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 import com.lesterade.oneira.R
 import com.lesterade.oneira.gameHandling.GameHandler
-import com.lesterade.oneira.gameHandling.biomes.SimpleBiome
+import com.lesterade.oneira.game.biomes.SimpleBiome
 import com.lesterade.oneira.gameHandling.dispTool
 import com.lesterade.oneira.ui.game.GameScreen
 import kotlin.math.ceil
@@ -32,13 +32,13 @@ fun CardsDisplayScreen(handler: GameHandler) {
     val scale = if (scaleVal > 2f) ceil(scaleVal) else null
 
     Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-        handler.master.cards.forEachIndexed { i: Int, it: Instrument ->
+        handler.tools.forEachIndexed { i: Int, it: dispTool ->
             ToolDisplay(
                 dispTool(
                     it.imageId,
                     it.header,
                     it.description,
-                    it.transmutable && handler.master.scene is SimpleBiome
+                    it.transmutable
                 ), i, {}, scale)
         }
     }

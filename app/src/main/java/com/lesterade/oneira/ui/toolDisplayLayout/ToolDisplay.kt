@@ -26,7 +26,7 @@ import com.lesterade.oneira.gameHandling.dispTool
 @Composable
 fun ToolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit, scale: Float? = null) {
     val current = LocalContext.current
-    var id = current.resources.getIdentifier(disp.name, "drawable", current.packageName)
+    var id = current.resources.getIdentifier(disp.imageId, "drawable", current.packageName)
 
     if(id == 0)
         id = R.drawable.onwards
@@ -43,7 +43,7 @@ fun ToolDisplay(disp: dispTool, clickId: Int, onClk: (Int) -> Unit, scale: Float
             )
             Column {
                 Text(disp.header, color = Color(0xFFB66D00))
-                Text(disp.desc, color = Color(0xFFB66D00), fontSize = 14.sp)
+                Text(disp.description, color = Color(0xFFB66D00), fontSize = 14.sp)
             }
         }
     }}
