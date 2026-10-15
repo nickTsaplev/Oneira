@@ -98,5 +98,10 @@ object ActorFactory: BetterJsonFactory(R.raw.actors) {
 
         return ans
     }
+
+    fun reloadActor(act: Actor) {
+        val curObj = findObject(act.name) ?: return
+        act.header = curObj["header_$language"]?.jsonPrimitive?.contentOrNull ?: return
+    }
 }
 

@@ -2,10 +2,10 @@
 	"candle": {
 		"header": "A candle",
 		"header_ru": "Свеча",
-		
+
 		"description": "Attack equal to your inner fire,\nlower it by 1 if it's higher than 4",
 		"description_ru": "Удар равный внутреннему огню. Уменьшит его на 1, если тот выше 4",
-		
+
 		"type": "fiery",
 		"damage": 0.0,
 		"fire_effect": -1,
@@ -18,10 +18,10 @@
 	"paper": {
 		"header": "A paper trail",
 		"header_ru": "Бумажный след",
-		
+
 		"description": "Deal 2 damage. Increase your inner fire by 2",
 		"description_ru": "Ударить на 2. Поднять внутренний огонь на 2",
-		
+
 		"type": "fiery",
 		"damage": 2.0,
 		"fire_effect": 2,
@@ -35,7 +35,7 @@
 		"header_ru": "Яростный огнь",
 		"description": "Burn a random move in your hand,\nincrease your inner fire by 10",
 		"desciption_ru": "Сжечь случайную карту в руке. Поднять внутренний огонь на 10",
-		
+
 		"type": "handBurn",
 		"damage": 0.01,
 		"fire_effect": 10,
@@ -46,7 +46,7 @@
 	"slither": {
 		"header": "Slither away",
 		"header_ru": "Уползти за дверь",
-		
+
 		"description": "Yeah, I have to go.. What? Of course I will be here tomorrow!",
 		"description_ru": "Мне пора уже идти... Что? Конечно, я явлюсь сюда завтра!"
 	},
@@ -54,7 +54,7 @@
 	"ask_docs": {
 		"header": "Ask for everything you have to sign",
 		"header_ru": "Потребовать все, что вы подпишете",
-		
+
 		"description": "You ask. No! You >demand< that they give you every copy required by law!",
 		"description_ru": "Вы запросите. Нет, вы >требуете< копии всех документов, что просят вас подписать!"
 	},
@@ -62,7 +62,7 @@
 	"docks_small": {
 		"header": "Walk along the docks",
 		"header_ru": "Просетить порт",
-		
+
 		"description": "Maybe you can hide among the seemingly infinite shipments west?",
 		"description_ru": "Может быть вы сможете скрыться среди бесконечных поставок на запад?"
 	},
@@ -70,7 +70,7 @@
 	"embassy_small": {
 		"header": "Petition the grand embassy",
 		"header_ru": "Запросить Посольство",
-		
+
 		"description": "Beg the powers far east for shelter",
 		"description_ru": "Просить власти далекого востока о помощи"
 	},
@@ -78,28 +78,28 @@
 	"spires_small": {
 		"header": "Wander the sky-piers",
 		"header_ru": "Осмотреть небесные пристани",
-		
+
 		"description": "What do expect there so high above?",
 		"description_ru": "Что вы найдете, так высоко наверху?"
 	},
-	
+
 	"w_question": {
 		"header": "Ask about the questioning",
-		
+
 		"description": "I don't know what was it about. They just left me free..."
 	},
-	
+
 	"w_posit": {
 		"header": "Posit a hypothesis",
-		
+
 		"description": "What? No, I had a great relationship with my family!"
 	},
-	
+
 	"w_take": {
 		"header": "It shocks you, you drop it",
 		"description": "It rolled in the nearest drain, but you feel like you've gained something from that."
 	},
-	
+
 	"w_return": {
 		"header": "Return it",
 		"description": "You awkwardly try to fit it between the wires"
@@ -111,7 +111,7 @@
 
 		"description": "Deal 10 damage, you'll have to reload",
 		"description_ru": "Ударить на 10, орудие придется перезарядить",
-		
+
 		"type": "reloading",
 		"turnsInto": "rr_tape",
 		"damage": 10.0,
@@ -125,7 +125,7 @@
 
 		"description": "Reload your typewriter",
 		"description_ru": "Перезарядить пишмашинку",
-		
+
 		"type": "reloading",
 		"turnsInto": "rrtpr",
 		"damage": 0.0,
@@ -135,7 +135,7 @@
 	"cloud": {
 		"header": "A cloud",
 		"header_ru": "Облако",
-		
+
 		"description": "Heal 5 hp",
 		"description_ru": "Излечиться на 5",
 
@@ -149,7 +149,7 @@
 	"droplet": {
 		"header": "Rain droplet",
 		"header_ru": "Капля дождя",
-		
+
 		"description": "Deal 2 damage",
 		"description_ru": "Удар на 2",
 
@@ -160,7 +160,7 @@
 	"heavy_droplet": {
 		"header": "Heavy droplet",
 		"header_ru": "Тяжелая капля",
-		
+
 		"description": "Deal 5 damage",
 		"description_ru": "Удар на 5",
 
@@ -172,10 +172,10 @@
 	"rainfall" : {
 		"header": "Rainfall",
 		"header_ru": "Проливной дождь",
-		
+
 		"description": "Deal damage equal to eight times \nthe number of clouds in your deck",
 		"description_ru": "Ударить на значение равное восьмикратному количеству ваших облаков",
-		
+
 		"type": "boosted",
 		"by": ["cloud"],
 		"damage": 8.0,
@@ -187,10 +187,10 @@
 	"sap": {
 		"header": "Sap transfer",
 		"header_ru": "Передача смол",
-		
+
 		"description": "Take 5 hp from the enemy",
 		"description_ru": "Забрать 5 здоровья у врага",
-		
+
 		"type": "lifesteal",
 		"damage": 5.0,
 		"element": "wood"
@@ -199,21 +199,21 @@
 	"wishing_tree": {
 		"header": "Wishing tree",
 		"header_ru": "Желающее дерево",
-		
+
 		"description": "Deal 10 minus the inner fire amount of damage.",
 		"description_ru": "Ударить на 10 минус внутренний огонь",
-		
+
 		"type": "wooden",
 		"damage": 10.0,
 		"element": "wood"
 	},
 
-	
-	
+
+
 	"gunpowder": {
 		"header": "Gunpowder",
 		"header_ru": "Порох",
-		
+
 		"description": "Deal 10 damage. This is probably unsafe",
 		"description_ru": "Deal 10 damage. This is probably unsafe",
 
@@ -223,7 +223,7 @@
 	"spark": {
 		"header": "A spark",
 		"header_ru": "Искра",
-		
+
 		"description": "Deal 3 damage.",
 		"description_ru": "Deal 3 damage.",
 
@@ -234,7 +234,7 @@
 	"nothing": {
 		"header": "Nothing",
 		"header_ru": "Ничего",
-		
+
 		"description": "take nothing",
 		"description_ru": "Ничего не брать"
 	},
@@ -244,11 +244,11 @@
 		"damage": 0.0,
 		"element": "earth"
 	},
-	
+
 	"run": {
 		"header": "Pack your belongings",
 		"header_ru": "Собрать вещи",
-		
+
 		"description": "You have to run",
 		"description_ru": "Вам нужно бежать"
 	},
@@ -256,7 +256,7 @@
 	"onwards": {
 		"header": "Onwards",
 		"header_ru": "Вперед",
-		
+
 		"description": "You have places to be",
 		"description_ru": "У вас есть дела"
 	},
@@ -280,7 +280,7 @@
 	"get_tutorial": {
 		"header": "But how?",
 		"header_ru": "Но как?",
-		
+
 		"description": "Show the tutorial",
 		"description_ru": "Показать введение"
 	},
@@ -288,10 +288,10 @@
 	"engine" : {
 		"header": "A small engine",
 		"header_ru": "Малый мотор",
-		
+
 		"description": "Boosts your damage by 5 while in hand",
 		"description_ru": "Усиливает ваши удары на 5, пока находится в руке",
-		
+
 		"type": "boosting",
 		"damageBoost": 5.0,
 		"damage" : 5.0,
@@ -303,10 +303,10 @@
 	"optics" : {
 		"header": "Midnight optics",
 		"header_ru": "Полуночная линза",
-		
+
 		"description": "Deal 7 damage. \nChance to skip battle.",
 		"description_ru": "Удар на 7. Орудие новой демократии",
-		
+
 		"type": "peacemaking",
 		"peace_with": ["herald", "courier"],
 		"damage": 7.0,
@@ -318,10 +318,10 @@
 	"cypher" : {
 		"header": "Cypher-creating machine",
 		"header_ru": "Шифровальная машинка",
-		
+
 		"description": "Enemy loses 45% of their current hp",
 		"description_ru": "Враг теряет 45% здоровья",
-		
+
 		"type": "percent",
 		"damage": 0.45,
 		"element": "metal"
@@ -330,7 +330,7 @@
 	"smoke": {
 		"header": "Midday smoke",
 		"header_ru": "Полуденный дым",
-		
+
 		"description": "Deal 10 damage. Turns into a cloud",
 		"description_ru": "Удар на 10. Станет облаком",
 
@@ -342,10 +342,10 @@
 	"sunrise_smoke": {
 		"header": "Sunrise smoke",
 		"header_ru": "Восходный дым",
-		
+
 		"description": "Raise inner fire by 10, heal 5. Turns into a cloud",
 		"description_ru": "Усилит внутренний огонь на 10, излечит на 5, станет облаком",
-		
+
 		"type": "fiery",
 		"fire_effect": 10,
 		"turnsInto": "cloud",
@@ -359,7 +359,7 @@
 	"bridge": {
 		"header": "Steady bridge",
 		"header_ru": "Устойчивый мост",
-		
+
 		"description": "Deal 5 damage",
 		"description_ru": "Удар на 5",
 
@@ -371,10 +371,10 @@
 	"dusty_office": {
 		"header": "A dusty office",
 		"header_ru": "Пыльный кабинет",
-		
+
 		"description": "Redraw your hand. Heal 5 hp",
 		"description_ru": "Заменить карты в руке, излечить на 5",
-		
+
 		"type": "redraw",
 		"damage": 0.0,
 		"heal": 5.0,
@@ -386,7 +386,7 @@
 	"ling_spark": {
 		"header": "Lingering spark",
 		"header_ru": "Долгая искра",
-		
+
 		"description": "Deal damage equal to your fire affiliation, decrease it by 1",
 		"description_ru": "Ударить на значение равное внутреннему огню, понизить его на 1",
 
@@ -397,10 +397,10 @@
 	"lost_stars": {
 		"header": "The lost stars",
 		"header_ru": "Потерянные звезды",
-		
+
 		"description": "Deal 5 damage. Swap your and your enemy's hp",
 		"description_ru": "Удар на 5. Поменять местами здоровья врага и вас",
-		
+
 		"type": "flip",
 		"damage": 0.0,
 		"heal": -5.0,
@@ -410,10 +410,10 @@
 	"flip_hp": {
 		"header": "Aspartame",
 		"header_ru": "Аспартан",
-		
+
 		"description": "Swap your and your enemy's hp",
 		"description_ru": "Поменять местами здоровья врага и вас",
-		
+
 		"type": "flip",
 		"damage": 0.0,
 		"heal": 0.0,

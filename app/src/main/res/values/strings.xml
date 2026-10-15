@@ -12,10 +12,10 @@
     <string name="previous">Previous</string>
 
     <string name="start_run">Start</string>
-    <string name="save_game">Save game</string>
-    <string name="load_game">Load saved game</string>
+    <string name="save_game">Save | Сохранить</string>
+    <string name="load_game">Load | Загрузить</string>
     <string name="exit_game">Exit game</string>
-    <string name="new_game">New game</string>
+    <string name="new_game">New game | Заново</string>
     <string name="start_again">Start again?</string>
 
     <string name="and_name">and</string>

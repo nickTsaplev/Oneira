@@ -4,17 +4,22 @@ import com.lesterade.oneira.IFileHandler
 import com.lesterade.oneira.game.GameMaster
 import com.lesterade.oneira.game.TurnReport
 import com.lesterade.oneira.game.biomes.SimpleBiome
+import com.lesterade.oneira.game.data.ActorFactory
+import com.lesterade.oneira.game.data.LocationFactory
+import com.lesterade.oneira.game.data.ToolFactory
 import com.lesterade.oneira.gameHandling.msgFormatting.MsgFormatter
 import com.lesterade.oneira.gameHandling.msgFormatting.msgPatterns
+import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.Json.Default.parseToJsonElement
 import kotlinx.serialization.json.jsonObject
+import android.util.Log
 
 data class dispTool(var imageId: String = "none",
                     var header: String = "",
                     var description: String = "",
                     var transmutable: Boolean = false)
 
-class GameHandler(private val patterns: msgPatterns, private val master : GameMaster) {
+class GameHandler(private var patterns: msgPatterns, private val master : GameMaster) {
     var tools = buildList { master.display.forEach{add(dispTool(it.imageId, it.header, it.description, it.transmutable && master.scene is SimpleBiome))} }
     var inventory = listOf<dispTool>()
     var msg = ""
@@ -72,6 +77,16 @@ class GameHandler(private val patterns: msgPatterns, private val master : GameMa
     fun update() {
         tools = buildList { master.display.forEach{add(dispTool(it.imageId, it.header, it.description, it.transmutable && master.scene is SimpleBiome))} }
         inventory = buildList { master.us.inventory.forEach{add(dispTool(it.imageId, it.header, it.description, it.transmutable && master.scene is SimpleBiome))} }
+    }
+
+    fun changeLanguage(newLang: String) {
+        LocationFactory.language = newLang
+        ActorFactory.language = newLang
+        ToolFactory.language = newLang
+
+        patterns = LocationFactory.getMsgPatterns()
+        master.reload()
+        update()
     }
 
     fun activateTool(id: Int) {

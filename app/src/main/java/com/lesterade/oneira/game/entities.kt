@@ -91,6 +91,7 @@ open class Actor(cr: Creature): Creature(cr) {
     {
         loadCards(other.deck)
     }
+
 }
 
 @Serializable

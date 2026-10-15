@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
-    val language = "ru"
+
 
     private var gameH: GameHandler? = null
 
@@ -25,6 +25,8 @@ class MainActivity : AppCompatActivity() {
         val viewModel: GameMasterViewModel by viewModels()
 
         viewModel.master.value = GameMaster()
+
+        val language = "ru"
 
         ToolFactory.launch(applicationContext, language)
         ActorFactory.launch(applicationContext, language)
@@ -39,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val master = viewModel.master.value!!
-        gameH = GameHandler(msgPatterns(this), master)
+        gameH = GameHandler(msgPatterns.createFromContext(this), master)
 
         gameH?.update()
         binding.composeView.setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)

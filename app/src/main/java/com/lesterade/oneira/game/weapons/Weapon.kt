@@ -87,5 +87,10 @@ open class Weapon(private val damage: Float? = null,
 
         return ToolFactory.getByName(transmutesInto[(dir + 1) shr 1])
     }
+
+    override fun setDescription(header: String, description: String) {
+        this.header = header
+        this.description = description
+    }
 }
 

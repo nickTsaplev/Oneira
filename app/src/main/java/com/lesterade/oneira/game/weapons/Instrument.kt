@@ -19,4 +19,6 @@ interface Instrument {
 
     val transmutable: Boolean
         get() = false
+
+    fun setDescription(header: String, description: String)
 }

@@ -41,7 +41,13 @@ fun EndingScreen(imageName: String, desc: String, onGameStart: () -> Unit) {
             Image(painter = painterResource(id = id),
                 imageName)
             Text(text = desc, color = textColor)
-            Button(onGameStart, shape = RectangleShape, colors = buttonColors) {Text(text = stringResource(R.string.start_again) )}
+            Button(onGameStart, shape = RectangleShape, colors = buttonColors) {
+                Image(
+                    painter = painterResource(R.drawable.again),
+                    stringResource(R.string.start_again)
+                )
+            }
+
         }
     }
 

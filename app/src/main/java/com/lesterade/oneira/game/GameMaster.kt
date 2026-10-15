@@ -153,6 +153,29 @@ class GameMaster {
         us.inventory.removeAt(id)
     }
 
+    fun reload() {
+        us.inventory.forEach {
+            ToolFactory.reloadDescription(it)
+        }
+
+        us.hand.forEach {
+            ToolFactory.reloadDescription(it)
+        }
+
+        val prograss = (scene as? SimpleBiome)?.depth
+        scene = LocationFactory.getByName(scene.name)
+
+        prograss?.let {
+            (scene as SimpleBiome).depth = prograss
+        }
+
+        enemy.cards.forEach {
+            ToolFactory.reloadDescription(it)
+        }
+
+        ActorFactory.reloadActor(enemy)
+    }
+
     fun transmuteTool(id: Int, dir: Int): TurnReport? {
         (us.hand[id] as? Weapon)?.transmute(dir)?.let {
             us.hand[id] = it

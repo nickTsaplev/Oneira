@@ -28,4 +28,8 @@ class UnknownWeapon : Instrument {
         get() = Element.fire
 
     override val imageId = "unknown"
+
+    override fun setDescription(header: String, description: String) {
+        
+    }
 }

@@ -15,7 +15,6 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.lesterade.oneira.GameMasterViewModel
-import com.lesterade.oneira.gameHandling.weapons.Instrument
 import com.lesterade.oneira.ui.toolDisplayLayout.ToolDisplay
 import com.lesterade.oneira.R
 import com.lesterade.oneira.gameHandling.GameHandler

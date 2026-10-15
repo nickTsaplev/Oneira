@@ -15,6 +15,7 @@ import com.lesterade.oneira.game.biomes.encounters.Encounter
 import com.lesterade.oneira.game.biomes.encounters.HealOutcome
 import com.lesterade.oneira.game.biomes.encounters.NothingOutcome
 import com.lesterade.oneira.game.biomes.encounters.Outcome
+import com.lesterade.oneira.gameHandling.msgFormatting.msgPatterns
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.contentOrNull
@@ -46,6 +47,14 @@ object LocationFactory: BetterJsonFactory(R.raw.locations) {
         while(outcomes.size < 3)
             outcomes.add(NothingOutcome(ToolFactory.getByName("none")))
         ans.outcomes = outcomes
+
+        return ans
+    }
+
+    fun getMsgPatterns(): msgPatterns {
+        val curObj = findObject("patterns_${language}")!!
+
+        val ans = json.decodeFromJsonElement<msgPatterns>(curObj)
 
         return ans
     }

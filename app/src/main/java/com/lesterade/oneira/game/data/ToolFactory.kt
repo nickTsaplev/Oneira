@@ -77,6 +77,18 @@ object ToolFactory: BetterJsonFactory(R.raw.tools) {
         }
     }
 
+    fun headerColumn(): String {
+        if (language == "en")
+            return "header"
+        return "header_$language"
+    }
+
+    fun descriptionColumn(): String {
+        if (language == "en")
+            return "description"
+        return "description_$language"
+    }
+
     fun getByName(name: String): Instrument {
         val curObj = findObject(name) ?: return UnknownWeapon()
 
@@ -85,8 +97,8 @@ object ToolFactory: BetterJsonFactory(R.raw.tools) {
         val base = json.decodeFromJsonElement<Weapon>(curObj)
         base.name = name
 
-        curObj["header_$language"]?.jsonPrimitive?.contentOrNull?.let { base.header = it }
-        curObj["description_$language"]?.jsonPrimitive?.contentOrNull?.let {base.description = it}
+        curObj[headerColumn()]?.jsonPrimitive?.contentOrNull?.let { base.header = it }
+        curObj[descriptionColumn()]?.jsonPrimitive?.contentOrNull?.let {base.description = it}
 
         curObj["effects"]?.jsonArray?.also {
             applyEffects(base, it)
@@ -97,5 +109,17 @@ object ToolFactory: BetterJsonFactory(R.raw.tools) {
         }
 
         return base
+    }
+
+    fun reloadDescription(ins: Instrument) {
+        val curObj = findObject(ins.name) ?: return
+
+        val header = curObj[headerColumn()]?.jsonPrimitive?.content ?: return
+        val description = curObj[descriptionColumn()]?.jsonPrimitive?.content ?: return
+
+        ins.setDescription(
+            header,
+            description
+        )
     }
 }

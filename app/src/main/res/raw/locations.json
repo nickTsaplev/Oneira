@@ -2,6 +2,36 @@
   "pattern_en" : "(%d steps left)",
   "pattern_ru" : "(шагов осталось: %d)",
 
+  "patterns_ru": {
+    "self_name": "Вы",
+    "and_name": "и",
+    "hit_pattern": "бьете на %f",
+    "bleed_pattern": "истекаете на %f",
+    "suffer_pattern": "страдаете на %f",
+    "heal_pattern": "лечитесь на %f",
+    "hits_pattern": "бьет на %f",
+    "bleeds_pattern": "истекает на %f",
+    "suffers_pattern": "страдает на %f",
+    "heals_pattern": "лечится на %f",
+    "do_pattern": "ждете",
+    "does_pattern": "ждет"
+  },
+
+  "patterns_en": {
+    "self_name": "You",
+    "and_name": "and",
+    "hit_pattern": "hit for %f",
+    "bleed_pattern": "bleed for %f",
+    "suffer_pattern": "suffer for %f",
+    "heal_pattern": "heal for %f",
+    "hits_pattern": "hits for %f",
+    "bleeds_pattern": "bleeds for %f",
+    "suffers_pattern": "suffers for %f",
+    "heals_pattern": "heals for %f",
+    "do_pattern": "wait",
+    "does_pattern": "waits"
+  },
+
   "wares_1": ["rrtpr", "dusty_office", "smoke", "sunrise_smoke"],
 
   "mon_garden" : {
