@@ -21,6 +21,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
@@ -37,11 +38,13 @@ fun EndingScreen(imageName: String, desc: String, onGameStart: () -> Unit) {
     val id = context.resources.getIdentifier(imageName, "drawable", context.packageName)
 
      Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
-        Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(12.dp)) {
             Image(painter = painterResource(id = id),
                 imageName)
             Text(text = desc, color = textColor)
-            Button(onGameStart, shape = RectangleShape, colors = buttonColors) {
+            Button(onGameStart, shape = RectangleShape, colors = buttonColors, contentPadding = PaddingValues(4.dp)) {
                 Image(
                     painter = painterResource(R.drawable.again),
                     stringResource(R.string.start_again)

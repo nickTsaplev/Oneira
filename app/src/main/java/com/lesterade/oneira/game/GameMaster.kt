@@ -15,6 +15,7 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonPrimitive
 import kotlinx.serialization.json.decodeFromJsonElement
 import kotlinx.serialization.json.encodeToJsonElement
+import kotlinx.serialization.json.int
 import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonPrimitive
 
@@ -55,7 +56,8 @@ class GameMaster {
                 "deck" to deckSave,
                 "player" to Json.encodeToJsonElement(us as Creature),
                 "enemy" to Json.encodeToJsonElement(enemy as Creature),
-                "scene" to JsonPrimitive(scene.name)
+                "scene" to JsonPrimitive(scene.name),
+                "scene_progress" to Json.encodeToJsonElement((scene as? SimpleBiome)?.depth)
             )
         )
 
@@ -78,6 +80,9 @@ class GameMaster {
         us.loadCards(tmp)
 
         scene = LocationFactory.getByName(from["scene"]!!.jsonPrimitive.content)
+        if (scene is SimpleBiome)
+            (scene as SimpleBiome).depth = from["scene_progress"]!!.jsonPrimitive.int
+
         enemy = Actor(Json.decodeFromJsonElement<Creature>(from["enemy"]!!))
         enemy.takeCards(ActorFactory.getByName(enemy.name))
     }
