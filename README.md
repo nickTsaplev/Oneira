@@ -1,5 +1,5 @@
 # Oneira
-![First image - the main screen with cards and enemy](./ill_0.jpg) ![Second image - cards descriptions](./ill_1.jpg)
+![First image - the main screen with cards and enemy](./ill_0.jpg)
 
 A surrealist android rpg deckbuilding card game.
 
